@@ -1,0 +1,111 @@
+@font-face {
+    font-family: "ofont.ru_Mont";
+    src: url("../fonts/ofont.ru_Mont.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body {
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
+    background-color: #000000;
+    font-family: 'ofont.ru_Mont', 'Lucida Console';
+    font-size: 1em;
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    width: 100vw;
+    font-weight: 100;
+}
+
+#logo-load {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #logo-load img {
+        width: 100%
+    }
+
+    div[data-role=page] {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: 100%;
+        background-color: #000000;
+    }
+
+.header {
+    width: 100%;
+    height: 7%;
+    border-bottom: 1px solid #7d7d7d6e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    color: #ffffff;
+    font-size: 1.2em;
+}
+
+    .header i {
+        margin-right: 7px;
+        font-size: 0.85em;
+    }
+
+    .content {
+        width: 100%;
+        height: 83%;
+        border-bottom: 1px solid #7d7d7d6e;
+    }
+
+    .active {
+        color: #ffffff;
+    }
+
+    .footer {
+        width: 100%;
+        height: 9%;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        color: #7d7d7d6e;
+        font-size: 0.8em;
+    }
+
+        .footer a {
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+            color: #7d7d7d6e;
+            display: flex;
+            font-weight: inherit;
+        }
+            .footer a:visited,
+            .footer a:active,
+            .footer a:hover {
+                color: inherit;
+            }
+
+    .footer-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        letter-spacing: 0.05em;
+
+    }
+
+        .footer-item i {
+            font-size: 1.35em;
+            margin-bottom: 5px;
+        }
+
+
