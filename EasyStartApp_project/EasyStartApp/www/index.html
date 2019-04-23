@@ -5,7 +5,9 @@
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://localhost:53888  data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">-->
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="format-detection" content="telephone=no">
@@ -50,7 +52,7 @@
                     Инфо
                 </div>
             </a>
-            <a data-transition="none" href="#hostory">
+            <a data-transition="none" href="#history">
                 <div class="footer-item">
                     <i class="fal fa-history"></i>
                     История
@@ -83,7 +85,7 @@
                     Инфо
                 </div>
             </a>
-            <a data-transition="none" href="#hostory">
+            <a data-transition="none" href="#history">
                 <div class="footer-item">
                     <i class="fal fa-history"></i>
                     История
@@ -116,7 +118,7 @@
                     Инфо
                 </div>
             </a>
-            <a data-transition="none" href="#hostory">
+            <a data-transition="none" href="#history">
                 <div class="footer-item">
                     <i class="fal fa-history"></i>
                     История
@@ -125,7 +127,7 @@
         </div>
     </div>
 
-    <div data-role="page" id="hostory">
+    <div data-role="page" id="history">
         <div class="header">
             История заказов
         </div>
@@ -149,7 +151,7 @@
                     Инфо
                 </div>
             </a>
-            <a data-transition="none" href="#hostory">
+            <a data-transition="none" href="#history">
                 <div class="footer-item active">
                     <i class="fal fa-history"></i>
                     История
@@ -162,5 +164,7 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="scripts/logicData.js"></script>
+    <script type="text/javascript" src="scripts/logicRander.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
-    setTimeout(function () { $.mobile.changePage("#catalog", { transition: "none" }) }, 500);
     document.addEventListener('deviceready', onDeviceReady, false);
+    loadData();
 });
 
 function onDeviceReady() {
@@ -11,4 +11,13 @@ function onBackKeyDown() {
     if ($.mobile.activePage.is("#products")) {
         navigator.app.backHistory()
     }
+}
+
+function loadData() {
+    Promise.all([
+        getAllowedCityPromise(),
+        getCategoriesPromise()
+    ]).then(results => {
+        renderLoadRedy();
+    });
 }
