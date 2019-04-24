@@ -13,6 +13,11 @@ var Data = {
     Products: null
 }
 
+var ClientSetting = {
+    PhoneNumber: null,
+    CityId: null
+}
+
 function GetAPI(urlAPI, successFunc, errorFunc) {
     $.ajax({
         type: 'GET',
@@ -57,4 +62,14 @@ function getCategoriesPromise() {
 
 function getProducts(idCategory) {
 
+}
+
+
+function setPhoneNumber() {
+    let phoneNumber = $("#ferstStartSettingPhone input[type=text]").val();
+
+    window.localStorage.setItem("phoneNumber", phoneNumber);
+    ClientSetting.PhoneNumber = phoneNumber;
+
+    renderPageFerstStartSettingCity();
 }

@@ -43,8 +43,8 @@ body {
 
 div[data-role=page] {
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 0;
+    top: 0;
     height: 100%;
     width: 100%;
     background-color: #000000;
@@ -116,5 +116,71 @@ div[data-role=page] {
     }
 
 .active {
+    color: #ffffff;
+}
+
+.ferst-page-header {
+    width:100%;
+    height:10%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:row;
+    font-size: 2.2em;
+    color:#ffffff;
+}
+
+.ferst-page-content{
+    width: 100%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ferst-page-footer {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+    .ferst-page-footer button {
+        width: 85%;
+        height: 65%
+    }
+
+.background-color-button {
+    background-color: limegreen;
+}
+
+.color-button {
+    color:#000000;
+}
+
+.city-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.city-list-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    padding: 1%;
+}
+
+.active-city-item {
+    transition: 200ms ease-in;
+    transform: scale(1.5);
     color: #ffffff;
 }

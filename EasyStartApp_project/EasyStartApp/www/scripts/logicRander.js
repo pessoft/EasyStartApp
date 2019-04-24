@@ -1,5 +1,6 @@
 ﻿var Pages = {
-    FersStart: "#ferstStart",
+    FersStartSettingPhone: "#ferstStartSettingPhone",
+    FersStartSettingCity: "#ferstStartSettingCity",
     Catalog: "#catalog",
     Basket: "#basket",
     Info: "#info",
@@ -10,8 +11,7 @@ var Test = true;
 
 function renderLoadRedy() {
     if (isFerstStart()) {
-        renderPageFerstStart();
-        changePage(Pages.FersStart);
+        renderPageFerstStartSettingPhone();
     } else {
         renderPageCatalog();
         changePage(Pages.Catalog);
@@ -26,7 +26,7 @@ function isFerstStart() {
     let selectCity = window.localStorage.getItem("selectCity");
     let phoneNumber = window.localStorage.getItem("phoneNumber");
 
-    if (Test) {//Do to delete
+    if (Test) {//to do delete
         return false;
     }
 
@@ -37,8 +37,12 @@ function isFerstStart() {
     return false;
 }
 
-function renderPageFerstStart() {
+function renderPageFerstStartSettingPhone() {
+    changePage(Pages.FersStartSettingPhone);
+}
 
+function renderPageFerstStartSettingCity() {
+    //template = 
 }
 
 function renderPageCatalog() {
