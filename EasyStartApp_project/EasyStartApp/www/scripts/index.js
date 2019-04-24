@@ -18,10 +18,20 @@ function loadData() {
         getAllowedCityPromise(),
         getCategoriesPromise()
     ]).then(results => {
-        renderLoadRedy();
+        loadDataReady();
     });
 }
 
+
+function loadDataReady() {
+    setClientSettingData();
+    renderLoadRedy();
+}
+
+function setClientSettingData() {
+    ClientSetting.PhoneNumber = window.localStorage.getItem("phoneNumber");
+    ClientSetting.CityId = window.localStorage.getItem("cityId");
+}
 
 function setPhoneNumber() {
     let phoneNumber = $(`${Pages.FirstStartSettingPhone} input[type=text]`).val();
@@ -29,7 +39,7 @@ function setPhoneNumber() {
     window.localStorage.setItem("phoneNumber", phoneNumber);
     ClientSetting.PhoneNumber = phoneNumber;
 
-    renderPageFirstStartSettingCity();
+    render(Pages.FirstStartSettingCity);
     changePage(Pages.FirstStartSettingCity);
 }
 
@@ -39,6 +49,8 @@ function selectCity(e) {
 
     $($parent.find(".active-city-item")).removeClass("active active-city-item");
     $e.addClass("active active-city-item");
+
+    $(`${Pages.FirstStartSettingCity} button`).removeAttr("disabled");
 }
 
 function setSelectCity() {
@@ -47,6 +59,17 @@ function setSelectCity() {
     window.localStorage.setItem("cityId", cityId);
     ClientSetting.CityId = cityId;
 
-    renderPageCatalog();
+    render(Pages.Catalog );
     changePage(Pages.Catalog);
+}
+
+function inputEnterPhoneNumber() {
+    let $inputPhoneNumber = $(`#client-phone`);
+    let symbolCount = 16;//+7(999)999-99-99 - 16 symbols
+    let $button = $(`${Pages.FirstStartSettingPhone} button`);
+    let val = $inputPhoneNumber.val().replace(/_/g, "");
+
+    if (val.length < symbolCount) {
+        $button.attr("disabled", "disabled");
+    }
 }

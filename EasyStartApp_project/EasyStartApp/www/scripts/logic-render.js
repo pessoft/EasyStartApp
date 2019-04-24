@@ -2,18 +2,45 @@
     FirstStartSettingPhone: "#firstStartSettingPhone",
     FirstStartSettingCity: "#firstStartSettingCity",
     Catalog: "#catalog",
+    Product: "#product",
     Basket: "#basket",
     Info: "#info",
-    Hostory: "#history",
+    History: "#history",
 }
 
 function renderLoadRedy() {
     if (isFirstStart()) {
-        renderPageFirstStartSettingPhone();
+        render(Pages.FirstStartSettingPhone);
         changePage(Pages.FirstStartSettingPhone);
     } else {
-        renderPageCatalog();
+        render(Pages.Catalog);
         changePage(Pages.Catalog);
+    }
+}
+
+function render(pageId) {
+    switch (pageId){
+        case Pages.FirstStartSettingPhone:
+            renderPageFirstStartSettingPhone();
+            break;
+        case Pages.FirstStartSettingCity:
+            renderPageFirstStartSettingCity();
+            break;
+        case Pages.Catalog:
+            renderPageCatalog();
+            break;
+        case Pages.Product:
+            renderPageProduct();
+            break;
+        case Pages.Basket:
+            renderPageBasket();
+            break;
+        case Pages.Info:
+            renderPageInfo();
+            break;
+        case Pages.History:
+            renderPageHistory();
+            break;
     }
 }
 
@@ -65,9 +92,6 @@ function renderPageBasket() {
 
 }
 
-function renderPageBasket() {
-
-}
 
 function renderPageInfo() {
 

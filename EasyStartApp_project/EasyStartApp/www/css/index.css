@@ -162,7 +162,8 @@ div[data-role=page] {
         height: 56%
     }
 
-#ferstStartSettingCity button {
+#firstStartSettingCity button,
+#firstStartSettingPhone button {
     text-shadow: none;
     font-weight: normal;
     font-size: 1.3em;
@@ -170,29 +171,56 @@ div[data-role=page] {
     border: none;
 }
 
-    #ferstStartSettingCity button:focus {
+    #firstStartSettingCity button:focus,
+    #firstStartSettingPhone button:focus {
         box-shadow: none;
     }
 
-#ferstStartSettingCity .background-color-button {
+#firstStartSettingCity .background-color-button,
+#firstStartSettingPhone .background-color-button {
     background-color: limegreen;
 }
 
-#ferstStartSettingCity .color-button {
+#firstStartSettingCity .color-button,
+#firstStartSettingPhone .color-button {
     color: #ffffff;
 }
 
-.city-list {
-    width: 100%;
-    max-height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-self: center;
-    align-items: center;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
+#firstStartSettingPhone .ui-input-text {
+    width: 65%;
+    background: none;
+    border: none;
+    box-shadow:none;
 }
+
+#firstStartSettingPhone input[type=text] {
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #777777;
+    background: none;
+    text-shadow: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+    #firstStartSettingPhone input[type=text]:focus {
+        box-shadow:none;
+    }
+
+    .city-list {
+        width: 100%;
+        max-height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-self: center;
+        align-items: center;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
 
 .city-list-item {
     width: 100%;

@@ -14,6 +14,14 @@ function bindEventsFirstStartSettingPhone() {
 
     $button.unbind("click", setPhoneNumber);
     $button.bind("click", setPhoneNumber);
+
+    let $inputPhoneNumber = $(`#client-phone`);
+
+    $inputPhoneNumber.mask("+7(999)999-99-99", {
+        completed: function () { $button.removeAttr("disabled"); }
+    });
+    $inputPhoneNumber.keydown(inputEnterPhoneNumber);
+
 }
 
 function bindEventsFirstStartSettingCity() {

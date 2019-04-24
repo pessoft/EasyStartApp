@@ -29,17 +29,18 @@
 
     <div data-role="page" class="page-color page-background-color" id="firstStartSettingPhone">
         <div class="first-page-header">
+            <i class="fal fa-mobile-alt"></i>
             Ваш номер телефона
         </div>
         <div class="first-page-content">
-            <input type="text" id="client-phone" />
+            <input type="text" id="client-phone" placeholder="+7(999)999-99-99"/>
         </div>
         <div class="first-page-footer">
-            <button class="background-color-button color-button">Далее</button>
+            <button class="background-color-button color-button" disabled>Далее</button>
         </div>
     </div>
 
-    <div data-role="page" class="page-color page-background-color" class="page-color page-background-color" id="firstStartSettingCity">
+    <div data-role="page" class="page-color page-background-color" id="firstStartSettingCity">
         <div class="first-page-header header-color">
             <i class="fal fa-map-marker-check"></i>
             Выберите город
@@ -49,7 +50,7 @@
             </div>
         </div>
         <div class="first-page-footer">
-            <button class="background-color-button color-button">Готово</button>
+            <button class="background-color-button color-button" disabled>Готово</button>
         </div>
     </div>
 
@@ -189,6 +190,7 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/maskedinput.min.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
     <script type="text/javascript" src="scripts/bin-events.js"></script>
     <script type="text/javascript" src="scripts/logic-data.js"></script>
