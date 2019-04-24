@@ -1,23 +1,23 @@
 ﻿function bindEvents(pageId) {
     switch (pageId) {
-        case Pages.FerstStartSettingPhone:
-            bindEventsFerstStartSettingPhone();
+        case Pages.FirstStartSettingPhone:
+            bindEventsFirstStartSettingPhone();
             break;
-        case Pages.FerstStartSettingCity:
-            bindEventsFerstStartSettingCity();
+        case Pages.FirstStartSettingCity:
+            bindEventsFirstStartSettingCity();
             break;
     }
 }
 
-function bindEventsFerstStartSettingPhone() {
-    let $button = $(`${Pages.FerstStartSettingPhone} button`);
+function bindEventsFirstStartSettingPhone() {
+    let $button = $(`${Pages.FirstStartSettingPhone} button`);
 
     $button.unbind("click", setPhoneNumber);
     $button.bind("click", setPhoneNumber);
 }
 
-function bindEventsFerstStartSettingCity() {
-    let $parent = $(Pages.FerstStartSettingCity);
+function bindEventsFirstStartSettingCity() {
+    let $parent = $(Pages.FirstStartSettingCity);
 
     let $cityItems = $parent.find(".city-list-item");
     let clickCityItem = function () {

@@ -122,7 +122,7 @@ div[data-role=page] {
     color: #ffffff;
 }
 
-.ferst-page-header {
+.first-page-header {
     width: 100%;
     height: 10%;
     display: flex;
@@ -133,12 +133,12 @@ div[data-role=page] {
     border-bottom: 1px solid #1f1e1e;
 }
 
-    .ferst-page-header i {
+    .first-page-header i {
         margin-right: 10px;
         font-size: 0.8em;
     }
 
-.ferst-page-content {
+.first-page-content {
     width: 100%;
     height: 75%;
     display: flex;
@@ -148,7 +148,7 @@ div[data-role=page] {
     border-bottom: 1px solid #1f1e1e;
 }
 
-.ferst-page-footer {
+.first-page-footer {
     width: 100%;
     height: 15%;
     display: flex;
@@ -157,7 +157,7 @@ div[data-role=page] {
     flex-direction: row;
 }
 
-    .ferst-page-footer button {
+    .first-page-footer button {
         width: 85%;
         height: 56%
     }

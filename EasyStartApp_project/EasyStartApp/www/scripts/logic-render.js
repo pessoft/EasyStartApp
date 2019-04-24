@@ -1,18 +1,16 @@
 ﻿var Pages = {
-    FerstStartSettingPhone: "#ferstStartSettingPhone",
-    FerstStartSettingCity: "#ferstStartSettingCity",
+    FirstStartSettingPhone: "#firstStartSettingPhone",
+    FirstStartSettingCity: "#firstStartSettingCity",
     Catalog: "#catalog",
     Basket: "#basket",
     Info: "#info",
     Hostory: "#history",
 }
 
-var Test = true;
-
 function renderLoadRedy() {
-    if (isFerstStart()) {
-        renderPageFerstStartSettingPhone();
-        changePage(Pages.FerstStartSettingPhone);
+    if (isFirstStart()) {
+        renderPageFirstStartSettingPhone();
+        changePage(Pages.FirstStartSettingPhone);
     } else {
         renderPageCatalog();
         changePage(Pages.Catalog);
@@ -23,13 +21,9 @@ function changePage(pageId) {
     $.mobile.changePage(pageId, { transition: "none" });
 }
 
-function isFerstStart() {
+function isFirstStart() {
     let cityId = window.localStorage.getItem("cityId");
     let phoneNumber = window.localStorage.getItem("phoneNumber");
-
-    //if (Test) {//to do delete
-    //    return false;
-    //}
 
     if (!cityId || !phoneNumber) {
         return true;
@@ -38,11 +32,11 @@ function isFerstStart() {
     return false;
 }
 
-function renderPageFerstStartSettingPhone() {
-    bindEvents(Pages.FerstStartSettingPhone);
+function renderPageFirstStartSettingPhone() {
+    bindEvents(Pages.FirstStartSettingPhone);
 }
 
-function renderPageFerstStartSettingCity() {
+function renderPageFirstStartSettingCity() {
     let template = "";
 
     for (let cityId in Data.AllowedCity) {
@@ -51,9 +45,9 @@ function renderPageFerstStartSettingCity() {
 
     let $template = $(template);
     $template.bind("click", function () { selectCity(this) });
-    $(`${Pages.FerstStartSettingCity} .city-list`).html($template);
+    $(`${Pages.FirstStartSettingCity} .city-list`).html($template);
 
-    bindEvents(Pages.FerstStartSettingCity);
+    bindEvents(Pages.FirstStartSettingCity);
 }
 
 function renderPageCatalog() {

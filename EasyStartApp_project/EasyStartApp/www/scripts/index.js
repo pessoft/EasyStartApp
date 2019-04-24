@@ -24,13 +24,13 @@ function loadData() {
 
 
 function setPhoneNumber() {
-    let phoneNumber = $("#ferstStartSettingPhone input[type=text]").val();
+    let phoneNumber = $(`${Pages.FirstStartSettingPhone} input[type=text]`).val();
 
     window.localStorage.setItem("phoneNumber", phoneNumber);
     ClientSetting.PhoneNumber = phoneNumber;
 
-    renderPageFerstStartSettingCity();
-    changePage(Pages.FerstStartSettingCity);
+    renderPageFirstStartSettingCity();
+    changePage(Pages.FirstStartSettingCity);
 }
 
 function selectCity(e) {
@@ -42,7 +42,7 @@ function selectCity(e) {
 }
 
 function setSelectCity() {
-    let cityId = $(`${Pages.FerstStartSettingCity} .active-city-item`).attr("city-id");
+    let cityId = $(`${Pages.FirstStartSettingCity} .active-city-item`).attr("city-id");
 
     window.localStorage.setItem("cityId", cityId);
     ClientSetting.CityId = cityId;
