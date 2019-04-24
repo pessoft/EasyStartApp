@@ -73,3 +73,11 @@ function inputEnterPhoneNumber() {
         $button.attr("disabled", "disabled");
     }
 }
+
+function processingImagePath(data) {
+    for (let item of data) {
+        item.Image = item.Image.replace("..", ServiceURL);
+    }
+
+    return data;
+}

@@ -51,7 +51,7 @@ function getAllowedCityPromise() {
 function getCategoriesPromise() {
     return new Promise(function (resolve, reject) {
         let successFunc = function (data) {
-            Data.Categories = data;
+            Data.Categories = processingImagePath(data);
 
             resolve();
         }
