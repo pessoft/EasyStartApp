@@ -20,7 +20,7 @@ var ClientSetting = {
 
 function GetAPI(urlAPI, successFunc, errorFunc) {
     $.ajax({
-        type: 'GET',
+        type: "GET",
         url: urlAPI,
         success: function (data) {
             if (successFunc) {
@@ -62,14 +62,4 @@ function getCategoriesPromise() {
 
 function getProducts(idCategory) {
 
-}
-
-
-function setPhoneNumber() {
-    let phoneNumber = $("#ferstStartSettingPhone input[type=text]").val();
-
-    window.localStorage.setItem("phoneNumber", phoneNumber);
-    ClientSetting.PhoneNumber = phoneNumber;
-
-    renderPageFerstStartSettingCity();
 }

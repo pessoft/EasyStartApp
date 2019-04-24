@@ -16,38 +16,36 @@
     <link rel="stylesheet" type="text/css" data-transition="none" href="css/index.css">
     <title>EasyStartApp</title>
 </head>
-<body>
+<body class="body-color body-background-color">
     <link data-transition="none" href="css/fontawesome/css/all.css" rel="stylesheet">
     <script src="scripts/jquery-1.8.0.min.js"></script>
     <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" data-transition="none" href="css/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" type="text/css" data-transition="none" href="css/index.css">
 
-    <div data-role="page" id="logo-load">
+    <div data-role="page" class="page-color page-background-color" id="logo-load">
         <img src="images/test-logo.jpg" alt="Alternate Text" />
     </div>
 
-    <div data-role="page" id="ferstStartSettingPhone">
+    <div data-role="page" class="page-color page-background-color" id="ferstStartSettingPhone">
         <div class="ferst-page-header">
             Ваш номер телефона
         </div>
         <div class="ferst-page-content">
-            <input type="text" id="client-phone"/>
+            <input type="text" id="client-phone" />
         </div>
         <div class="ferst-page-footer">
             <button class="background-color-button color-button">Далее</button>
         </div>
     </div>
 
-    <div data-role="page" id="ferstStartSettingCity">
-        <div class="ferst-page-header">
+    <div data-role="page" class="page-color page-background-color" class="page-color page-background-color" id="ferstStartSettingCity">
+        <div class="ferst-page-header header-color">
+            <i class="fal fa-map-marker-check"></i>
             Выберите город
         </div>
         <div class="ferst-page-content">
-            <div class="city-list">
-                <div class="city-list-item" city-id="1">Москва</div>
-                <div class="city-list-item" city-id="2">Питер</div>
-                <div class="city-list-item" city-id="3">Нижний</div>
+            <div class="city-list color-dark">
             </div>
         </div>
         <div class="ferst-page-footer">
@@ -55,13 +53,13 @@
         </div>
     </div>
 
-    <div data-role="page" id="catalog">
-        <div class="header">
+    <div data-role="page" class="page-color page-background-color" id="catalog">
+        <div class="header header-color">
             <i class="fal fa-map-marker-alt"></i>
-            Кострома
+            <span>Кострома</span>
         </div>
         <div class="content"></div>
-        <div class="footer">
+        <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item active">
                     <i class="fal fa-store"></i>
@@ -89,12 +87,12 @@
         </div>
     </div>
 
-    <div data-role="page" id="basket">
-        <div class="header">
+    <div data-role="page" class="page-color page-background-color" id="basket">
+        <div class="header header-color">
             Корзина
         </div>
         <div class="content"></div>
-        <div class="footer">
+        <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
                     <i class="fal fa-store"></i>
@@ -122,12 +120,12 @@
         </div>
     </div>
 
-    <div data-role="page" id="info">
-        <div class="header">
+    <div data-role="page" class="page-color page-background-color" id="info">
+        <div class="header header-color">
             Информация
         </div>
         <div class="content"></div>
-        <div class="footer">
+        <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
                     <i class="fal fa-store"></i>
@@ -155,12 +153,12 @@
         </div>
     </div>
 
-    <div data-role="page" id="history">
-        <div class="header">
+    <div data-role="page" class="page-color page-background-color" id="history">
+        <div class="header header-color">
             История заказов
         </div>
         <div class="content"></div>
-        <div class="footer">
+        <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
                     <i class="fal fa-store"></i>
@@ -192,7 +190,8 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
-    <script type="text/javascript" src="scripts/logicData.js"></script>
-    <script type="text/javascript" src="scripts/logicRander.js"></script>
+    <script type="text/javascript" src="scripts/bin-events.js"></script>
+    <script type="text/javascript" src="scripts/logic-data.js"></script>
+    <script type="text/javascript" src="scripts/logic-render.js"></script>
 </body>
 </html>
