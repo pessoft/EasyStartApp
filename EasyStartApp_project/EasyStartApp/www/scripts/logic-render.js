@@ -79,9 +79,30 @@ function renderPageFirstStartSettingCity() {
 
 function renderPageCatalog() {
     let $page = $(`${Pages.Catalog}`);
-    let cityName = Data.AllowedCity[ClientSetting.CityId];
 
+    let cityName = Data.AllowedCity[ClientSetting.CityId];
     $page.find(".header span").html(cityName);
+
+    let getTemplateCategory = function (data) {
+        return `
+            <div class="category" category-id="${data.Id}">
+                <div class="category-image">
+                    <img src="${data.Image}" />
+                </div>
+                <div class="category-content">
+                    <div class="category-header">${data.Name}</div>
+                </div>
+            </div>
+        `;
+    }
+    let tempateHtmlCategories = "";
+
+    for (let category of Data.Categories) {
+        tempateHtmlCategories += getTemplateCategory(category);
+    }
+
+    $page.find(".categories").html(tempateHtmlCategories);
+
 }
 
 function renderPageProduct() {
