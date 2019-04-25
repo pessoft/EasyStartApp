@@ -20,6 +20,11 @@ var ClientSetting = {
     CurrentCategory: null
 }
 
+var Basket = {
+    SumCount: 0,
+    Products: {}//productId:count
+}
+
 function GetAPI(urlAPI, args, successFunc, errorFunc) {
     $.ajax({
         type: "GET",

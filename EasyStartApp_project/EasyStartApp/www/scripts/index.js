@@ -118,6 +118,13 @@ function getDataProductyById(productId) {
 }
 
 function showProductFullInfo(e) {
+    let $parent = getParentProduct(e);
+
+    let productId = $parent.attr("product-id");
+    renderProductFullInfo(productId);
+}
+
+function getParentProduct(e) {
     let $parent = $(e).parents(".product");
 
     if ($parent.length == 0) {
@@ -126,10 +133,51 @@ function showProductFullInfo(e) {
         }
     }
 
-    let productId = $parent.attr("product-id");
-    renderProductFullInfo(productId);
+    return $parent;
 }
 
 function closeProductFullInfo() {
     $(`${Pages.Product} .product-full-info`).remove();
+}
+
+function showCounterAddToBasket(event, e) {
+    event.stopPropagation();
+
+    let $parent = getParentProduct(e);
+    let productId = $parent.attr("product-id");
+
+    Basket.Products[productId] = 1;
+    $parent.find(".priduct-add-basket-btn").addClass("hide");
+    $parent.find(".priduct-add-basket-count").removeClass("hide");
+
+    $parent.find(".basket-counter-value").html(Basket.Products[productId]);
+}
+
+function minusProductFromBasket(event, e) {
+    event.stopPropagation();
+
+    let $parent = getParentProduct(e);
+    let productId = $parent.attr("product-id");
+
+    --Basket.Products[productId];
+
+    if (Basket.Products[productId] == 0) {
+        $parent.find(".priduct-add-basket-btn").removeClass("hide");
+        $parent.find(".priduct-add-basket-count").addClass("hide");
+    } else {
+        $parent.find(".basket-counter-value").html(Basket.Products[productId]);
+    }
+}
+
+function plusProductFromBasket(event, e) {
+    event.stopPropagation();
+
+    let $parent = getParentProduct(e);
+    let productId = $parent.attr("product-id");
+
+    if (Basket.Products[productId] != 999) {
+        ++Basket.Products[productId];
+    }
+
+    $parent.find(".basket-counter-value").html(Basket.Products[productId]);
 }

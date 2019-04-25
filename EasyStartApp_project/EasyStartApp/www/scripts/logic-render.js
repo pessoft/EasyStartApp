@@ -133,7 +133,19 @@ function renderPageProduct() {
                                     <i class="fal fa-shopping-basket"></i>
                                 </button>
                             </div>
-                            <div class="priduct-add-basket-count hide"></div>
+                            <div class="priduct-add-basket-count hide">
+                                <div class="add-basket-counter">
+                                    <div class="basket-counter-button basket-minus">
+                                        <i class="fal fa-minus"></i>
+                                    </div>
+                                    <div class="basket-counter-value">
+                                          0
+                                    </div>
+                                    <div class="basket-counter-button basket-plus">
+                                        <i class="fal fa-plus"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,6 +160,9 @@ function renderPageProduct() {
 
     let $tempateHtmlProducts = $(tempateHtmlProducts);
     $tempateHtmlProducts.bind("click", function () { showProductFullInfo(this) });
+    $tempateHtmlProducts.find(".priduct-add-basket-btn button").bind("click", function () { showCounterAddToBasket(event, this) });
+    $tempateHtmlProducts.find(".basket-minus").bind("click", function () { minusProductFromBasket(event, this) });
+    $tempateHtmlProducts.find(".basket-plus").bind("click", function () { plusProductFromBasket(event, this) });
 
     $page.find(".products").html($tempateHtmlProducts);
 }
