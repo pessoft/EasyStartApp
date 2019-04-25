@@ -3,25 +3,27 @@
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
     GetCategories: ServiceURL + "/api/adminapp/getcategories",
-    GetProducts: ServiceURL + "",
+    GetProducts: ServiceURL + "/api/adminapp/getproducts",
 };
 
 var Data = {
     AllowedCity: null,
     SelectCity: null,
     Categories: null,
-    Products: null
+    Products: {}
 }
 
 var ClientSetting = {
     PhoneNumber: null,
-    CityId: null
+    CityId: null,
+    CurrentCategory: null
 }
 
-function GetAPI(urlAPI, successFunc, errorFunc) {
+function GetAPI(urlAPI, args, successFunc, errorFunc) {
     $.ajax({
         type: "GET",
         url: urlAPI,
+        data: args,
         success: function (data) {
             if (successFunc) {
                 successFunc(data);
@@ -43,7 +45,7 @@ function getAllowedCityPromise() {
             resolve();
         }
 
-        GetAPI(API.GetAllowedCity, successFunc, reject);
+        GetAPI(API.GetAllowedCity, null, successFunc, reject);
     });
 }
 
@@ -56,10 +58,25 @@ function getCategoriesPromise() {
             resolve();
         }
 
-        GetAPI(API.GetCategories, successFunc, reject);
+        GetAPI(API.GetCategories, null, successFunc, reject);
     });
 }
 
-function getProducts(idCategory) {
+function getProducts(categoryId) {
+    let successFunc = function (data) {
+        Data.Products[categoryId] = processingImagePath(data);
 
+        renderPageProduct();
+    }
+
+    let renderPageProduct = function () {
+        render(Pages.Product);
+        changePage(Pages.Product);
+    }
+
+    if (Data.Products[categoryId]) {
+        renderPageProduct();
+    } else {
+        GetAPI(API.GetProducts, { categoryId: categoryId }, successFunc);
+    }
 }

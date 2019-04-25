@@ -40,3 +40,4 @@ function bindEventsFirstStartSettingCity() {
     $button.unbind("click", setSelectCity);
     $button.bind("click", setSelectCity);
 }
+

@@ -81,3 +81,25 @@ function processingImagePath(data) {
 
     return data;
 }
+
+function selectCategory(e) {
+    let $e = $(e);
+
+    let categoryId = $e.attr("category-id");
+    ClientSetting.CurrentCategory = categoryId;
+
+    getProducts(categoryId);
+}
+
+function getDataCategoryById(categoryId) {
+    let data;
+
+    for (let category of Data.Categories) {
+        if (category.Id == categoryId) {
+            data = category;
+            break;
+        }
+    }
+
+    return data;
+}

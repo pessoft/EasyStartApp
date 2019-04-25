@@ -101,12 +101,41 @@ function renderPageCatalog() {
         tempateHtmlCategories += getTemplateCategory(category);
     }
 
-    $page.find(".categories").html(tempateHtmlCategories);
+    let $tempateHtmlCategories = $(tempateHtmlCategories);
+    $tempateHtmlCategories.bind("click", function () { selectCategory(this) });
+
+    $page.find(".categories").html($tempateHtmlCategories);
 
 }
 
 function renderPageProduct() {
+    let $page = $(`${Pages.Product}`);
+    let category = getDataCategoryById(ClientSetting.CurrentCategory);
 
+    $page.find(".header span").html(category.Name);
+
+    let getTemplateProduct = function (data) {
+        return `
+            <div class="category" category-id="${data.Id}">
+                <div class="category-image">
+                    <img src="${data.Image}" />
+                </div>
+                <div class="category-content">
+                    <div class="category-header">${data.Name}</div>
+                </div>
+            </div>
+        `;
+    }
+    let tempateHtmlProducts = "";
+    let products = Data.Products[ClientSetting.CurrentCategory];
+    for (let product of products) {
+        tempateHtmlProducts += getTemplateProduct(product);
+    }
+
+    //let $tempateHtmlCategories = $(tempateHtmlCategories);
+    //$tempateHtmlCategories.bind("click", function () { selectCategory(this) });
+
+    $page.find(".categories").html(tempateHtmlProducts);
 }
 
 function renderPageBasket() {
