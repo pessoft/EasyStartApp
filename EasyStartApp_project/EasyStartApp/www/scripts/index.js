@@ -103,3 +103,33 @@ function getDataCategoryById(categoryId) {
 
     return data;
 }
+
+function getDataProductyById(productId) {
+    let data;
+
+    for (let product of Data.Products[ClientSetting.CurrentCategory]) {
+        if (product.Id == productId) {
+            data = product;
+            break;
+        }
+    }
+
+    return data;
+}
+
+function showProductFullInfo(e) {
+    let $parent = $(e).parents(".product");
+
+    if ($parent.length == 0) {
+        if ($(e).hasClass("product")) {
+            $parent = $(e);
+        }
+    }
+
+    let productId = $parent.attr("product-id");
+    renderProductFullInfo(productId);
+}
+
+function closeProductFullInfo() {
+    $(`${Pages.Product} .product-full-info`).remove();
+}

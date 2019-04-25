@@ -116,12 +116,26 @@ function renderPageProduct() {
 
     let getTemplateProduct = function (data) {
         return `
-            <div class="category" category-id="${data.Id}">
-                <div class="category-image">
+            <div class="product" product-id="${data.Id}">
+                <div class="product-image">
                     <img src="${data.Image}" />
                 </div>
-                <div class="category-content">
-                    <div class="category-header">${data.Name}</div>
+                <div class="product-content">
+                    <div class="priduct-header">${data.Name}</div>
+                    <div class="priduct-addition-info color-dark">${data.AdditionInfo}</div>
+                    <div class="priduct-buy">
+                        <div class="priduct-price">
+                            ${data.Price} руб.
+                        </div>
+                        <div class="priduct-add-basket">
+                            <div class="priduct-add-basket-btn">
+                                <button class="background-color-button color-button">
+                                    <i class="fal fa-shopping-basket"></i>
+                                </button>
+                            </div>
+                            <div class="priduct-add-basket-count hide"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -132,10 +146,10 @@ function renderPageProduct() {
         tempateHtmlProducts += getTemplateProduct(product);
     }
 
-    //let $tempateHtmlCategories = $(tempateHtmlCategories);
-    //$tempateHtmlCategories.bind("click", function () { selectCategory(this) });
+    let $tempateHtmlProducts = $(tempateHtmlProducts);
+    $tempateHtmlProducts.bind("click", function () { showProductFullInfo(this) });
 
-    $page.find(".categories").html(tempateHtmlProducts);
+    $page.find(".products").html($tempateHtmlProducts);
 }
 
 function renderPageBasket() {
@@ -149,4 +163,41 @@ function renderPageInfo() {
 
 function renderPageHistory() {
 
+}
+
+function renderProductFullInfo(productId) {
+    let product = getDataProductyById(productId);
+    let template = `
+        <div class="product-full-info">
+            <div class="product-full-info-container">
+                <div class="product-full-info-content page-background-color">
+                    <div class="product-full-info-image">
+                        <div class="full-info-close">
+                            <i class="fal fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="product-full-info-text">
+                        <div class="product-full-info-header">
+                            ${product.Name}
+                        </div>
+                        <div class="product-full-info-adition color-dark">
+                            ${product.AdditionInfo}
+                        </div>
+                        <div class="product-full-info-price">
+                            ${product.Price} руб.
+                        </div>
+                        <div class="product-full-info-description color-dark">
+                            ${product.Description}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    let $template = $(template);
+    $template.find(".product-full-info-image").css("background-image", `url(${product.Image})`);
+    $template.find(".full-info-close").bind("click", closeProductFullInfo);
+
+    $(`${Pages.Product}`).append($template);
 }
