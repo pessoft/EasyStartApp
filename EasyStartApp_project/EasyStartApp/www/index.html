@@ -73,6 +73,7 @@
             <a data-transition="none" href="#basket">
                 <div class="footer-item">
                     <i class="fal fa-shopping-basket"></i>
+                    <div class="basket-count-info hide"></div>
                     Корзина
                 </div>
             </a>
@@ -109,6 +110,7 @@
             <a data-transition="none" href="#basket">
                 <div class="footer-item">
                     <i class="fal fa-shopping-basket"></i>
+                    <div class="basket-count-info hide"></div>
                     Корзина
                 </div>
             </a>
@@ -131,7 +133,10 @@
         <div class="header header-color">
             Корзина
         </div>
-        <div class="content"></div>
+        <div class="content">
+            <div class="products">
+            </div>
+        </div>
         <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
@@ -142,6 +147,7 @@
             <a data-transition="none" href="#basket">
                 <div class="footer-item active">
                     <i class="fal fa-shopping-basket"></i>
+                    <div class="basket-count-info hide"></div>
                     Корзина
                 </div>
             </a>
@@ -175,6 +181,7 @@
             <a data-transition="none" href="#basket">
                 <div class="footer-item">
                     <i class="fal fa-shopping-basket"></i>
+                    <div class="basket-count-info hide"></div>
                     Корзина
                 </div>
             </a>
@@ -208,6 +215,7 @@
             <a data-transition="none" href="#basket">
                 <div class="footer-item">
                     <i class="fal fa-shopping-basket"></i>
+                    <div class="basket-count-info hide"></div>
                     Корзина
                 </div>
             </a>
@@ -225,6 +233,102 @@
             </a>
         </div>
     </div>
+
+    <template id="basket-product">
+        <div class="product-basket" product-id="">
+            <div class="basket-product-main-info">
+                <div class="basket-product-image">
+                    <img src=""  />
+                </div>
+                <div class="basket-product-content">
+                    <div class="basket-product-header"></div>
+                    <div class="basket-product-addition-info color-dark"></div>
+                </div>
+            </div>
+            <div class="basket-product-price">
+                <div class="basket-product-multi-price">
+                    <div class="basket-product-sum-price"></div>
+                    <div class="basket-product-detail-price color-dark"></div>
+                </div>
+
+                <div class="product-remove-basket">
+                    <div class="product-remove-basket-btn">
+                        <button class='background-color-remove-product-button color-button'>
+                            <i class="fal fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="add-basket-counter">
+                    <div class="basket-counter-button basket-minus">
+                        <i class='fal fa-minus'></i>
+                    </div>
+                    <div class="basket-counter-value"></div>
+                    <div class="basket-counter-button basket-plus">
+                        <i class='fal fa-plus'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="item-product">
+        <div class="product" product-id="">
+            <div class="product-image">
+                <img src="" />
+            </div>
+            <div class="product-content">
+                <div class="product-header"></div>
+                <div class="product-addition-info color-dark"></div>
+                <div class="product-buy">
+                    <div class="product-price">
+                    </div>
+                    <div class="product-add-basket">
+                        <div class="product-add-basket-btn">
+                            <button class="background-color-button color-button">
+                                <i class="fal fa-shopping-basket"></i>
+                            </button>
+                        </div>
+                        <div class="product-add-basket-count hide">
+                            <div class="add-basket-counter">
+                                <div class="basket-counter-button basket-minus">
+                                    <i class="fal fa-minus"></i>
+                                </div>
+                                <div class="basket-counter-value"></div>
+                                <div class="basket-counter-button basket-plus">
+                                    <i class="fal fa-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="product-full-info">
+        <div class="product-full-info">
+            <div class="product-full-info-container">
+                <div class="product-full-info-content page-background-color">
+                    <div class="product-full-info-image">
+                        <div class="full-info-close">
+                            <i class="fal fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="product-full-info-text">
+                        <div class="product-full-info-header">
+                        </div>
+                        <div class="product-full-info-adition color-dark">
+                        </div>
+                        <div class="product-full-info-price">
+                        </div>
+                        <div class="product-full-info-description color-dark">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>

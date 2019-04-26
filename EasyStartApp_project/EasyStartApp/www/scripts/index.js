@@ -103,9 +103,18 @@ function getDataCategoryById(categoryId) {
     return data;
 }
 
-function getDataProductyById(productId) {
+function getDataProductyById(productId, categoryId) {
     var data;
-    var products = Data.Products[ClientSetting.CurrentCategory]
+    var products = [];
+
+    if (categoryId) {
+        products = Data.Products[ClientSetting.CurrentCategory];
+    } else {
+        for (var id in Data.Products) {
+            products = products.concat(Data.Products[id]);
+        }
+    }
+
     for (var i = 0; i < products.length; ++i) {
         if (products[i].Id == productId) {
             data = products[i];
@@ -124,10 +133,10 @@ function showProductFullInfo(e) {
 }
 
 function getParentProduct(e) {
-    var $parent = $(e).parents(".product");
+    var $parent = $(e).parents("[product-id]");
 
     if ($parent.length == 0) {
-        if ($(e).hasClass("product")) {
+        if ($(e).attr("product-id") !== undefined) {
             $parent = $(e);
         }
     }
@@ -136,7 +145,8 @@ function getParentProduct(e) {
 }
 
 function closeProductFullInfo() {
-    $(Pages.Product + " .product-full-info").remove();
+    var currentPage = $.mobile.activePage.attr("id");
+    $("#" + currentPage + " .product-full-info").remove();
 }
 
 function showCounterAddToBasket(event, e) {
@@ -145,12 +155,22 @@ function showCounterAddToBasket(event, e) {
     var $parent = getParentProduct(e);
     var productId = $parent.attr("product-id");
 
-    Basket.Products[productId] = 1;
-    $parent.find(".priduct-add-basket-btn").addClass("hide");
-    $parent.find(".priduct-add-basket-count").removeClass("hide");
+    toggleCounterAddToBasket(productId, $parent);
+    render(Pages.Basket);
+}
+
+function toggleCounterAddToBasket(productId, $parent) {
+    if (!Basket.Products[productId]) {
+        Basket.Products[productId] = 1;
+    }
+
+    $parent.find(".product-add-basket-btn").addClass("hide");
+    $parent.find(".product-add-basket-count").removeClass("hide");
 
     $parent.find(".basket-counter-value").html(Basket.Products[productId]);
+    toggleCountProductsInBasket();
 }
+
 
 function minusProductFromBasket(event, e) {
     event.stopPropagation();
@@ -160,12 +180,11 @@ function minusProductFromBasket(event, e) {
 
     --Basket.Products[productId];
 
-    if (Basket.Products[productId] == 0) {
-        $parent.find(".priduct-add-basket-btn").removeClass("hide");
-        $parent.find(".priduct-add-basket-count").addClass("hide");
-    } else {
-        $parent.find(".basket-counter-value").html(Basket.Products[productId]);
-    }
+    updateBasketPage(productId);
+    updateBasketCountValue($parent, Basket.Products[productId])
+    toggleCountProductsInBasket();
+    updateBasketProductPrice(productId);
+
 }
 
 function plusProductFromBasket(event, e) {
@@ -178,5 +197,73 @@ function plusProductFromBasket(event, e) {
         ++Basket.Products[productId];
     }
 
-    $parent.find(".basket-counter-value").html(Basket.Products[productId]);
+    updateBasketPage(productId);
+    updateBasketCountValue($parent, Basket.Products[productId])
+    toggleCountProductsInBasket();
+    updateBasketProductPrice(productId);
+}
+
+function updateBasketCountValue($container, value) {
+    if (value == 0) {
+        $container.find(".product-add-basket-btn").removeClass("hide");
+        $container.find(".product-add-basket-count").addClass("hide");
+    } else {
+        $container.find(".basket-counter-value").html(value);
+    }
+}
+
+function toggleCountProductsInBasket() {
+    var $basketCountInfo = $(".basket-count-info");
+    var countItems = 0;;
+
+    for (var id in Basket.Products) {
+        countItems += Basket.Products[id];
+    }
+
+    if (countItems == 0) {
+        $basketCountInfo.addClass("hide");
+        $basketCountInfo.empty();
+    } else {
+        var countItemsStr = countItems + " шт";
+
+        $basketCountInfo.removeClass("hide");
+        $basketCountInfo.html(countItemsStr)
+    }
+}
+
+function updateBasketPage(productId) {
+    var $page = $(Pages.Basket);
+    var $product = $($page.find("[product-id=" + productId + "]"));
+    var poructCountBasket = Basket.Products[productId];
+
+    updateBasketCountValue($product, poructCountBasket);
+
+    if (poructCountBasket == 0) {
+        $product.remove();
+        delete (Basket.Products[productId]);
+    }
+}
+
+function updateBasketProductPrice(productId) {
+    var $page = $(Pages.Basket);
+    var $product = $($page.find("[product-id=" + productId + "]"));
+    var poructCountBasket = Basket.Products[productId];
+    var productData = getDataProductyById(productId);
+    var strSum = (poructCountBasket * productData.Price).toString() + " руб.";
+    var strDetail = poructCountBasket + " х " + productData.Price + " руб.";
+
+    $product.find(".basket-product-sum-price").html(strSum);
+    $product.find(".basket-product-detail-price").html(strDetail);
+}
+
+function removeProductFromBasket(event, e) {
+    event.stopPropagation();
+
+    var $parent = $(e).parents(".product-basket");
+    var productId = $parent.attr("product-id");
+
+    delete (Basket.Products[productId]);
+    $parent.remove();
+
+    toggleCountProductsInBasket();
 }

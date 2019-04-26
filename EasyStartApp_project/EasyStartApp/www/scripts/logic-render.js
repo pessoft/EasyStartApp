@@ -67,7 +67,7 @@ function renderPageFirstStartSettingCity() {
     var template = "";
 
     for (var cityId in Data.AllowedCity) {
-        template += "<div class=\"city-list-item\" city-id=\"" + cityId + "\">" + Data.AllowedCity[cityId] + "</div>";
+        template += "<div class='city-list-item' city-id='" + cityId + "'>" + Data.AllowedCity[cityId] + "</div>";
     }
 
     var $template = $(template);
@@ -86,7 +86,7 @@ function renderPageCatalog() {
     $page.find(".header span").html(cityName);
 
     var getTemplateCategory = function getTemplateCategory(data) {
-        return "\n            <div class=\"category\" category-id=\"" + data.Id + "\">\n                <div class=\"category-image\">\n                    <img src=\"" + data.Image + "\" />\n                </div>\n                <div class=\"category-content\">\n                    <div class=\"category-header\">" + data.Name + "</div>\n                </div>\n            </div>\n        ";
+        return "\n            <div class='category' category-id='" + data.Id + "'>\n                <div class='category-image'>\n                    <img src='" + data.Image + "' />\n                </div>\n                <div class='category-content'>\n                    <div class='category-header'>" + data.Name + "</div>\n                </div>\n            </div>\n        ";
     };
     var tempateHtmlCategories = "";
 
@@ -109,32 +109,116 @@ function renderPageProduct() {
     $page.find(".header span").html(category.Name);
 
     var getTemplateProduct = function getTemplateProduct(data) {
-        return "\n            <div class=\"product\" product-id=\"" + data.Id + "\">\n                <div class=\"product-image\">\n                    <img src=\"" + data.Image + "\" />\n                </div>\n                <div class=\"product-content\">\n                    <div class=\"priduct-header\">" + data.Name + "</div>\n                    <div class=\"priduct-addition-info color-dark\">" + data.AdditionInfo + "</div>\n                    <div class=\"priduct-buy\">\n                        <div class=\"priduct-price\">\n                            " + data.Price + " руб.\n                        </div>\n                        <div class=\"priduct-add-basket\">\n                            <div class=\"priduct-add-basket-btn\">\n                                <button class=\"background-color-button color-button\">\n                                    <i class=\"fal fa-shopping-basket\"></i>\n                                </button>\n                            </div>\n                            <div class=\"priduct-add-basket-count hide\">\n                                <div class=\"add-basket-counter\">\n                                    <div class=\"basket-counter-button basket-minus\">\n                                        <i class=\"fal fa-minus\"></i>\n                                    </div>\n                                    <div class=\"basket-counter-value\">\n                                          0\n                                    </div>\n                                    <div class=\"basket-counter-button basket-plus\">\n                                        <i class=\"fal fa-plus\"></i>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        ";
+        var $templateProduct = $($("#item-product").html());
+
+        $templateProduct.attr("product-id", data.Id);
+        $templateProduct.find("img").attr("src", data.Image);
+        $templateProduct.find(".product-header").html(data.Name);
+        $templateProduct.find(".product-addition-info").html(data.AdditionInfo);
+        $templateProduct.find(".product-price").html(data.Price + " руб.");
+
+        return $templateProduct;
     };
-    var tempateHtmlProducts = "";
+
+    var tempateHtmlProducts = [];
     var products = Data.Products[ClientSetting.CurrentCategory];
     for (var i = 0; i < products.length; ++i) {
-        tempateHtmlProducts += getTemplateProduct(products[i]);
+        var productItem = getTemplateProduct(products[i]);
+
+        productItem.bind("click", function () {
+            showProductFullInfo(this);
+        });
+        productItem.find(".product-add-basket-btn button").bind("click", function () {
+            showCounterAddToBasket(event, this);
+        });
+        productItem.find(".basket-minus").bind("click", function () {
+            minusProductFromBasket(event, this);
+        });
+        productItem.find(".basket-plus").bind("click", function () {
+            plusProductFromBasket(event, this);
+        });
+
+        tempateHtmlProducts.push(productItem);
     }
 
-    var $tempateHtmlProducts = $(tempateHtmlProducts);
-    $tempateHtmlProducts.bind("click", function () {
-        showProductFullInfo(this);
-    });
-    $tempateHtmlProducts.find(".priduct-add-basket-btn button").bind("click", function () {
-        showCounterAddToBasket(event, this);
-    });
-    $tempateHtmlProducts.find(".basket-minus").bind("click", function () {
-        minusProductFromBasket(event, this);
-    });
-    $tempateHtmlProducts.find(".basket-plus").bind("click", function () {
-        plusProductFromBasket(event, this);
-    });
+    var $products = $page.find(".products");
 
-    $page.find(".products").html($tempateHtmlProducts);
+    $products.empty();
+    $products.append(tempateHtmlProducts);
+
+    if (!jQuery.isEmptyObject(Basket.Products)) {
+        for (var id in Basket.Products) {
+            if (Basket.Products[id]) {
+                $product = $products.find("[product-id=" + id + "]")
+                toggleCounterAddToBasket(id, $product);
+            }
+        }
+    }
 }
 
-function renderPageBasket() { }
+function renderPageBasket() {
+    var $page = $(Pages.Basket);
+
+    var getTemplateProduct = function getTemplateProduct(data) {
+        var $templateBasketProduct = $($("#basket-product").html());
+
+        $templateBasketProduct.attr("product-id", data.Id);
+        $templateBasketProduct.find("img").attr("src", data.Image);
+        $templateBasketProduct.find(".basket-product-header").html(data.Name);
+        $templateBasketProduct.find(".basket-product-addition-info").html(data.Description);
+
+        var poructCountBasket = Basket.Products[data.Id];
+        var strSum = (poructCountBasket * data.Price).toString() + " руб.";
+        var strDetail = poructCountBasket + " х " + data.Price + " руб.";
+
+        $templateBasketProduct.find(".basket-product-sum-price").html(strSum);
+        $templateBasketProduct.find(".basket-product-detail-price").html(strDetail);
+
+        return $templateBasketProduct;
+    };
+    var tempateHtmlProducts = [];
+    var products = [];
+
+    for (var id in Basket.Products) {
+        products.push(getDataProductyById(id))
+    }
+
+    for (var i = 0; i < products.length; ++i) {
+        var tmp = getTemplateProduct(products[i]);
+
+        tmp.bind("click", function () {
+            showProductFullInfo(this);
+        });
+        tmp.find(".product-add-basket-btn button").bind("click", function () {
+            showCounterAddToBasket(event, this);
+        });
+        tmp.find(".basket-minus").bind("click", function () {
+            minusProductFromBasket(event, this);
+        });
+        tmp.find(".basket-plus").bind("click", function () {
+            plusProductFromBasket(event, this);
+        });
+        tmp.find(".product-remove-basket").bind("click", function () {
+            removeProductFromBasket(event, this);
+        });
+
+        tempateHtmlProducts.push(tmp);
+    }
+
+
+    var $products = $page.find(".products");
+    $products.empty();
+    $products.append(tempateHtmlProducts)
+
+    if (!jQuery.isEmptyObject(Basket.Products)) {
+        for (var id in Basket.Products) {
+            if (Basket.Products[id]) {
+                $product = $products.find("[product-id=" + id + "]")
+                toggleCounterAddToBasket(id, $product);
+            }
+        }
+    }
+}
 
 function renderPageInfo() { }
 
@@ -142,11 +226,16 @@ function renderPageHistory() { }
 
 function renderProductFullInfo(productId) {
     var product = getDataProductyById(productId);
-    var template = "\n        <div class=\"product-full-info\">\n            <div class=\"product-full-info-container\">\n                <div class=\"product-full-info-content page-background-color\">\n                    <div class=\"product-full-info-image\">\n                        <div class=\"full-info-close\">\n                            <i class=\"fal fa-times-circle\"></i>\n                        </div>\n                    </div>\n                    <div class=\"product-full-info-text\">\n                        <div class=\"product-full-info-header\">\n                            " + product.Name + "\n                        </div>\n                        <div class=\"product-full-info-adition color-dark\">\n                            " + product.AdditionInfo + "\n                        </div>\n                        <div class=\"product-full-info-price\">\n                            " + product.Price + " руб.\n                        </div>\n                        <div class=\"product-full-info-description color-dark\">\n                            " + product.Description + "\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    ";
+    var $template = $($("#product-full-info").html());
 
-    var $template = $(template);
+    $template.find(".product-full-info-header").html(product.Name);
+    $template.find(".product-full-info-adition ").html(product.AdditionInfo);
+    $template.find(".product-full-info-price ").html(product.Price + " руб.");
+    $template.find(".product-full-info-description ").html(product.Description);
+
     $template.find(".product-full-info-image").css("background-image", "url(" + product.Image + ")");
     $template.find(".full-info-close").bind("click", closeProductFullInfo);
 
-    $("" + Pages.Product).append($template);
+    var currentPage = $.mobile.activePage.attr("id");
+    $("#" + currentPage).append($template);
 }
