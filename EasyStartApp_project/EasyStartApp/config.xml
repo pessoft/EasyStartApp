@@ -107,4 +107,5 @@
   <preference name="android-maxSdkVersion" value="26" />
   <preference name="android-minSdkVersion" value="15" />
   <preference name="android-targetSdkVersion" value="19" />
+  <access origin="https://easystart.conveyor.cloud" />
 </widget>

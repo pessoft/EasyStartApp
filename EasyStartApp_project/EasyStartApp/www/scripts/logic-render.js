@@ -5,8 +5,8 @@
     Product: "#product",
     Basket: "#basket",
     Info: "#info",
-    History: "#history",
-}
+    History: "#history"
+};
 
 function renderLoadRedy() {
     if (isFirstStart()) {
@@ -19,7 +19,7 @@ function renderLoadRedy() {
 }
 
 function render(pageId) {
-    switch (pageId){
+    switch (pageId) {
         case Pages.FirstStartSettingPhone:
             renderPageFirstStartSettingPhone();
             break;
@@ -49,8 +49,8 @@ function changePage(pageId) {
 }
 
 function isFirstStart() {
-    let cityId = window.localStorage.getItem("cityId");
-    let phoneNumber = window.localStorage.getItem("phoneNumber");
+    var cityId = window.localStorage.getItem("cityId");
+    var phoneNumber = window.localStorage.getItem("phoneNumber");
 
     if (!cityId || !phoneNumber) {
         return true;
@@ -64,155 +64,89 @@ function renderPageFirstStartSettingPhone() {
 }
 
 function renderPageFirstStartSettingCity() {
-    let template = "";
+    var template = "";
 
-    for (let cityId in Data.AllowedCity) {
-        template += `<div class="city-list-item" city-id="${cityId}">${Data.AllowedCity[cityId]}</div>`;
+    for (var cityId in Data.AllowedCity) {
+        template += "<div class=\"city-list-item\" city-id=\"" + cityId + "\">" + Data.AllowedCity[cityId] + "</div>";
     }
 
-    let $template = $(template);
-    $template.bind("click", function () { selectCity(this) });
-    $(`${Pages.FirstStartSettingCity} .city-list`).html($template);
+    var $template = $(template);
+    $template.bind("click", function () {
+        selectCity(this);
+    });
+    $(Pages.FirstStartSettingCity + " .city-list").html($template);
 
     bindEvents(Pages.FirstStartSettingCity);
 }
 
 function renderPageCatalog() {
-    let $page = $(`${Pages.Catalog}`);
+    var $page = $("" + Pages.Catalog);
 
-    let cityName = Data.AllowedCity[ClientSetting.CityId];
+    var cityName = Data.AllowedCity[ClientSetting.CityId];
     $page.find(".header span").html(cityName);
 
-    let getTemplateCategory = function (data) {
-        return `
-            <div class="category" category-id="${data.Id}">
-                <div class="category-image">
-                    <img src="${data.Image}" />
-                </div>
-                <div class="category-content">
-                    <div class="category-header">${data.Name}</div>
-                </div>
-            </div>
-        `;
-    }
-    let tempateHtmlCategories = "";
+    var getTemplateCategory = function getTemplateCategory(data) {
+        return "\n            <div class=\"category\" category-id=\"" + data.Id + "\">\n                <div class=\"category-image\">\n                    <img src=\"" + data.Image + "\" />\n                </div>\n                <div class=\"category-content\">\n                    <div class=\"category-header\">" + data.Name + "</div>\n                </div>\n            </div>\n        ";
+    };
+    var tempateHtmlCategories = "";
 
-    for (let category of Data.Categories) {
-        tempateHtmlCategories += getTemplateCategory(category);
+    for (var i = 0; i < Data.Categories.length; ++i) {
+        tempateHtmlCategories += getTemplateCategory(Data.Categories[i]);
     }
 
-    let $tempateHtmlCategories = $(tempateHtmlCategories);
-    $tempateHtmlCategories.bind("click", function () { selectCategory(this) });
+    var $tempateHtmlCategories = $(tempateHtmlCategories);
+    $tempateHtmlCategories.bind("click", function () {
+        selectCategory(this);
+    });
 
     $page.find(".categories").html($tempateHtmlCategories);
-
 }
 
 function renderPageProduct() {
-    let $page = $(`${Pages.Product}`);
-    let category = getDataCategoryById(ClientSetting.CurrentCategory);
+    var $page = $("" + Pages.Product);
+    var category = getDataCategoryById(ClientSetting.CurrentCategory);
 
     $page.find(".header span").html(category.Name);
 
-    let getTemplateProduct = function (data) {
-        return `
-            <div class="product" product-id="${data.Id}">
-                <div class="product-image">
-                    <img src="${data.Image}" />
-                </div>
-                <div class="product-content">
-                    <div class="priduct-header">${data.Name}</div>
-                    <div class="priduct-addition-info color-dark">${data.AdditionInfo}</div>
-                    <div class="priduct-buy">
-                        <div class="priduct-price">
-                            ${data.Price} руб.
-                        </div>
-                        <div class="priduct-add-basket">
-                            <div class="priduct-add-basket-btn">
-                                <button class="background-color-button color-button">
-                                    <i class="fal fa-shopping-basket"></i>
-                                </button>
-                            </div>
-                            <div class="priduct-add-basket-count hide">
-                                <div class="add-basket-counter">
-                                    <div class="basket-counter-button basket-minus">
-                                        <i class="fal fa-minus"></i>
-                                    </div>
-                                    <div class="basket-counter-value">
-                                          0
-                                    </div>
-                                    <div class="basket-counter-button basket-plus">
-                                        <i class="fal fa-plus"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    let tempateHtmlProducts = "";
-    let products = Data.Products[ClientSetting.CurrentCategory];
-    for (let product of products) {
-        tempateHtmlProducts += getTemplateProduct(product);
+    var getTemplateProduct = function getTemplateProduct(data) {
+        return "\n            <div class=\"product\" product-id=\"" + data.Id + "\">\n                <div class=\"product-image\">\n                    <img src=\"" + data.Image + "\" />\n                </div>\n                <div class=\"product-content\">\n                    <div class=\"priduct-header\">" + data.Name + "</div>\n                    <div class=\"priduct-addition-info color-dark\">" + data.AdditionInfo + "</div>\n                    <div class=\"priduct-buy\">\n                        <div class=\"priduct-price\">\n                            " + data.Price + " руб.\n                        </div>\n                        <div class=\"priduct-add-basket\">\n                            <div class=\"priduct-add-basket-btn\">\n                                <button class=\"background-color-button color-button\">\n                                    <i class=\"fal fa-shopping-basket\"></i>\n                                </button>\n                            </div>\n                            <div class=\"priduct-add-basket-count hide\">\n                                <div class=\"add-basket-counter\">\n                                    <div class=\"basket-counter-button basket-minus\">\n                                        <i class=\"fal fa-minus\"></i>\n                                    </div>\n                                    <div class=\"basket-counter-value\">\n                                          0\n                                    </div>\n                                    <div class=\"basket-counter-button basket-plus\">\n                                        <i class=\"fal fa-plus\"></i>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        ";
+    };
+    var tempateHtmlProducts = "";
+    var products = Data.Products[ClientSetting.CurrentCategory];
+    for (var i = 0; i < products.length; ++i) {
+        tempateHtmlProducts += getTemplateProduct(products[i]);
     }
 
-    let $tempateHtmlProducts = $(tempateHtmlProducts);
-    $tempateHtmlProducts.bind("click", function () { showProductFullInfo(this) });
-    $tempateHtmlProducts.find(".priduct-add-basket-btn button").bind("click", function () { showCounterAddToBasket(event, this) });
-    $tempateHtmlProducts.find(".basket-minus").bind("click", function () { minusProductFromBasket(event, this) });
-    $tempateHtmlProducts.find(".basket-plus").bind("click", function () { plusProductFromBasket(event, this) });
+    var $tempateHtmlProducts = $(tempateHtmlProducts);
+    $tempateHtmlProducts.bind("click", function () {
+        showProductFullInfo(this);
+    });
+    $tempateHtmlProducts.find(".priduct-add-basket-btn button").bind("click", function () {
+        showCounterAddToBasket(event, this);
+    });
+    $tempateHtmlProducts.find(".basket-minus").bind("click", function () {
+        minusProductFromBasket(event, this);
+    });
+    $tempateHtmlProducts.find(".basket-plus").bind("click", function () {
+        plusProductFromBasket(event, this);
+    });
 
     $page.find(".products").html($tempateHtmlProducts);
 }
 
-function renderPageBasket() {
+function renderPageBasket() { }
 
-}
+function renderPageInfo() { }
 
-
-function renderPageInfo() {
-
-}
-
-function renderPageHistory() {
-
-}
+function renderPageHistory() { }
 
 function renderProductFullInfo(productId) {
-    let product = getDataProductyById(productId);
-    let template = `
-        <div class="product-full-info">
-            <div class="product-full-info-container">
-                <div class="product-full-info-content page-background-color">
-                    <div class="product-full-info-image">
-                        <div class="full-info-close">
-                            <i class="fal fa-times-circle"></i>
-                        </div>
-                    </div>
-                    <div class="product-full-info-text">
-                        <div class="product-full-info-header">
-                            ${product.Name}
-                        </div>
-                        <div class="product-full-info-adition color-dark">
-                            ${product.AdditionInfo}
-                        </div>
-                        <div class="product-full-info-price">
-                            ${product.Price} руб.
-                        </div>
-                        <div class="product-full-info-description color-dark">
-                            ${product.Description}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+    var product = getDataProductyById(productId);
+    var template = "\n        <div class=\"product-full-info\">\n            <div class=\"product-full-info-container\">\n                <div class=\"product-full-info-content page-background-color\">\n                    <div class=\"product-full-info-image\">\n                        <div class=\"full-info-close\">\n                            <i class=\"fal fa-times-circle\"></i>\n                        </div>\n                    </div>\n                    <div class=\"product-full-info-text\">\n                        <div class=\"product-full-info-header\">\n                            " + product.Name + "\n                        </div>\n                        <div class=\"product-full-info-adition color-dark\">\n                            " + product.AdditionInfo + "\n                        </div>\n                        <div class=\"product-full-info-price\">\n                            " + product.Price + " руб.\n                        </div>\n                        <div class=\"product-full-info-description color-dark\">\n                            " + product.Description + "\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    ";
 
-    let $template = $(template);
-    $template.find(".product-full-info-image").css("background-image", `url(${product.Image})`);
+    var $template = $(template);
+    $template.find(".product-full-info-image").css("background-image", "url(" + product.Image + ")");
     $template.find(".full-info-close").bind("click", closeProductFullInfo);
 
-    $(`${Pages.Product}`).append($template);
+    $("" + Pages.Product).append($template);
 }

@@ -9,7 +9,7 @@ function onDeviceReady() {
 
 function onBackKeyDown() {
     if ($.mobile.activePage.is("#products")) {
-        navigator.app.backHistory()
+        navigator.app.backHistory();
     }
 }
 
@@ -17,11 +17,10 @@ function loadData() {
     Promise.all([
         getAllowedCityPromise(),
         getCategoriesPromise()
-    ]).then(results => {
+    ]).then(function (results) {
         loadDataReady();
     });
 }
-
 
 function loadDataReady() {
     setClientSettingData();
@@ -34,7 +33,7 @@ function setClientSettingData() {
 }
 
 function setPhoneNumber() {
-    let phoneNumber = $(`${Pages.FirstStartSettingPhone} input[type=text]`).val();
+    var phoneNumber = $(Pages.FirstStartSettingPhone + " input[type=text]").val();
 
     window.localStorage.setItem("phoneNumber", phoneNumber);
     ClientSetting.PhoneNumber = phoneNumber;
@@ -44,30 +43,30 @@ function setPhoneNumber() {
 }
 
 function selectCity(e) {
-    let $e = $(e);
-    let $parent = $e.parents(".city-list");
+    var $e = $(e);
+    var $parent = $e.parents(".city-list");
 
     $($parent.find(".active-city-item")).removeClass("active active-city-item");
     $e.addClass("active active-city-item");
 
-    $(`${Pages.FirstStartSettingCity} button`).removeAttr("disabled");
+    $(Pages.FirstStartSettingCity + " button").removeAttr("disabled");
 }
 
 function setSelectCity() {
-    let cityId = $(`${Pages.FirstStartSettingCity} .active-city-item`).attr("city-id");
+    var cityId = $(Pages.FirstStartSettingCity + " .active-city-item").attr("city-id");
 
     window.localStorage.setItem("cityId", cityId);
     ClientSetting.CityId = cityId;
 
-    render(Pages.Catalog );
+    render(Pages.Catalog);
     changePage(Pages.Catalog);
 }
 
 function inputEnterPhoneNumber() {
-    let $inputPhoneNumber = $(`#client-phone`);
-    let symbolCount = 16;//+7(999)999-99-99 - 16 symbols
-    let $button = $(`${Pages.FirstStartSettingPhone} button`);
-    let val = $inputPhoneNumber.val().replace(/_/g, "");
+    var $inputPhoneNumber = $("#client-phone");
+    var symbolCount = 16; //+7(999)999-99-99 - 16 symbols
+    var $button = $(Pages.FirstStartSettingPhone + " button");
+    var val = $inputPhoneNumber.val().replace(/_/g, "");
 
     if (val.length < symbolCount) {
         $button.attr("disabled", "disabled");
@@ -75,28 +74,28 @@ function inputEnterPhoneNumber() {
 }
 
 function processingImagePath(data) {
-    for (let item of data) {
-        item.Image = item.Image.replace("..", ServiceURL);
+    for (var i = 0; i < data.length; ++i) {
+        data[i].Image = data[i].Image.replace("..", ServiceURL);
     }
 
     return data;
 }
 
 function selectCategory(e) {
-    let $e = $(e);
+    var $e = $(e);
 
-    let categoryId = $e.attr("category-id");
+    var categoryId = $e.attr("category-id");
     ClientSetting.CurrentCategory = categoryId;
 
     getProducts(categoryId);
 }
 
 function getDataCategoryById(categoryId) {
-    let data;
+    var data;
 
-    for (let category of Data.Categories) {
-        if (category.Id == categoryId) {
-            data = category;
+    for (var i = 0; i < Data.Categories.length; ++i) {
+        if (Data.Categories[i].Id == categoryId) {
+            data = Data.Categories[i];
             break;
         }
     }
@@ -105,11 +104,11 @@ function getDataCategoryById(categoryId) {
 }
 
 function getDataProductyById(productId) {
-    let data;
-
-    for (let product of Data.Products[ClientSetting.CurrentCategory]) {
-        if (product.Id == productId) {
-            data = product;
+    var data;
+    var products = Data.Products[ClientSetting.CurrentCategory]
+    for (var i = 0; i < products.length; ++i) {
+        if (products[i].Id == productId) {
+            data = products[i];
             break;
         }
     }
@@ -118,14 +117,14 @@ function getDataProductyById(productId) {
 }
 
 function showProductFullInfo(e) {
-    let $parent = getParentProduct(e);
+    var $parent = getParentProduct(e);
 
-    let productId = $parent.attr("product-id");
+    var productId = $parent.attr("product-id");
     renderProductFullInfo(productId);
 }
 
 function getParentProduct(e) {
-    let $parent = $(e).parents(".product");
+    var $parent = $(e).parents(".product");
 
     if ($parent.length == 0) {
         if ($(e).hasClass("product")) {
@@ -137,14 +136,14 @@ function getParentProduct(e) {
 }
 
 function closeProductFullInfo() {
-    $(`${Pages.Product} .product-full-info`).remove();
+    $(Pages.Product + " .product-full-info").remove();
 }
 
 function showCounterAddToBasket(event, e) {
     event.stopPropagation();
 
-    let $parent = getParentProduct(e);
-    let productId = $parent.attr("product-id");
+    var $parent = getParentProduct(e);
+    var productId = $parent.attr("product-id");
 
     Basket.Products[productId] = 1;
     $parent.find(".priduct-add-basket-btn").addClass("hide");
@@ -156,8 +155,8 @@ function showCounterAddToBasket(event, e) {
 function minusProductFromBasket(event, e) {
     event.stopPropagation();
 
-    let $parent = getParentProduct(e);
-    let productId = $parent.attr("product-id");
+    var $parent = getParentProduct(e);
+    var productId = $parent.attr("product-id");
 
     --Basket.Products[productId];
 
@@ -172,8 +171,8 @@ function minusProductFromBasket(event, e) {
 function plusProductFromBasket(event, e) {
     event.stopPropagation();
 
-    let $parent = getParentProduct(e);
-    let productId = $parent.attr("product-id");
+    var $parent = getParentProduct(e);
+    var productId = $parent.attr("product-id");
 
     if (Basket.Products[productId] != 999) {
         ++Basket.Products[productId];

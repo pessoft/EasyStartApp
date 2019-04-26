@@ -10,34 +10,34 @@
 }
 
 function bindEventsFirstStartSettingPhone() {
-    let $button = $(`${Pages.FirstStartSettingPhone} button`);
+    var $button = $(Pages.FirstStartSettingPhone + " button");
 
     $button.unbind("click", setPhoneNumber);
     $button.bind("click", setPhoneNumber);
 
-    let $inputPhoneNumber = $(`#client-phone`);
+    var $inputPhoneNumber = $("#client-phone");
 
     $inputPhoneNumber.mask("+7(999)999-99-99", {
-        completed: function () { $button.removeAttr("disabled"); }
+        completed: function completed() {
+            $button.removeAttr("disabled");
+        }
     });
     $inputPhoneNumber.keydown(inputEnterPhoneNumber);
-
 }
 
 function bindEventsFirstStartSettingCity() {
-    let $parent = $(Pages.FirstStartSettingCity);
+    var $parent = $(Pages.FirstStartSettingCity);
 
-    let $cityItems = $parent.find(".city-list-item");
-    let clickCityItem = function () {
+    var $cityItems = $parent.find(".city-list-item");
+    var clickCityItem = function clickCityItem() {
         selectCity(this);
-    }
+    };
 
     $cityItems.unbind("click", clickCityItem);
     $cityItems.bind("click", clickCityItem);
 
-    let $button = $parent.find("button");
+    var $button = $parent.find("button");
 
     $button.unbind("click", setSelectCity);
     $button.bind("click", setSelectCity);
 }
-
