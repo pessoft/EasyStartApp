@@ -2,7 +2,7 @@
     font-family: "SFNSDisplay-Ultralight";
     src: url("../fonts/SFUIDisplay-Light.ttf") format("truetype");
     font-style: normal;
- }
+}
 
 body {
     -webkit-touch-callout: none;
@@ -58,7 +58,7 @@ div[data-role=page] {
 .header {
     width: 100%;
     height: 8%;
-    border-bottom: 1px solid #403c3c;
+    border-bottom: 1px solid #272727;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +78,7 @@ div[data-role=page] {
 .content {
     width: 100%;
     height: 81%;
-    border-bottom: 1px solid #1f1e1e;
+    border-bottom: 1px solid #272727;
     position: relative;
 }
 
@@ -194,12 +194,12 @@ div[data-role=page] {
     background-color: #000000;
 }
 
-    #firstStartSettingCity .color-button,
-    #firstStartSettingPhone .color-button,
-    #product .color-button,
-    #basket .color-button {
-        color: #ffffff;
-    }
+#firstStartSettingCity .color-button,
+#firstStartSettingPhone .color-button,
+#product .color-button,
+#basket .color-button {
+    color: #ffffff;
+}
 
 #firstStartSettingPhone .ui-input-text {
     width: 65%;
@@ -262,12 +262,12 @@ div[data-role=page] {
 }
 
 #basket .products {
-    height: 70%;
+    height: 75%;
 }
 
 .basket-finished {
     width: 100%;
-    height: 30%;
+    height: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -278,6 +278,19 @@ div[data-role=page] {
 .basket-finished-item {
     width: 100%;
     height: 60%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+}
+
+    .basket-finished-item div {
+        margin-bottom: 0.5%;
+        font-size: 0.8em;
+    }
+
+div.sum-all {
+    font-size: 1.25em;
 }
 
 .category,
@@ -363,18 +376,18 @@ div[data-role=page] {
     border-bottom: none;
 }
 
-    .category-image,
-    .product-image,
-    .basket-product-image {
-        width: 30vw;
-        height: calc(30vw * 0.9195);
-        display: flex;
-        align-self: flex-start;
-    }
+.category-image,
+.product-image,
+.basket-product-image {
+    width: 30vw;
+    height: calc(30vw * 0.9195);
+    display: flex;
+    align-self: flex-start;
+}
 
     .category-image img,
     .product-image img,
-    .basket-product-image img{
+    .basket-product-image img {
         width: 100%;
         border-radius: 4px;
     }
@@ -452,12 +465,12 @@ div[data-role=page] {
     justify-content: flex-start;
 }
 
-    .product-header,
-    .basket-product-header {
-        width: 100%;
-        height: auto;
-        min-height: 20px;
-    }
+.product-header,
+.basket-product-header {
+    width: 100%;
+    height: auto;
+    min-height: 20px;
+}
 
 .product-full-info {
     width: 100%;
@@ -595,7 +608,7 @@ div[data-role=page] {
 }
 
 .basket-product-price {
-    border-bottom: 1px solid #403c3c;
+    border-bottom: 1px solid #272727;
     padding-bottom: 1%;
 }
 
@@ -611,4 +624,74 @@ div[data-role=page] {
 
 .basket-product-detail-price {
     font-size: 0.8em;
+}
+
+.empty-basket {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 999999;
+    font-size: 1.2em;
+}
+
+    .empty-basket i {
+        margin-bottom: 15px;
+        font-size: 900%;
+    }
+
+.info-items {
+    width: 100%;
+    height: 100%;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+
+.info-item {
+    width: 100%;
+    min-height: 20%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.info-item-img {
+    width: 30vw;
+    height: calc(30vw * 0.9195);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 250%;
+}
+
+.info-item-container {
+    width: 65%;
+    min-height: 27vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid #403c3c;
+}
+
+.info-item-header {
+    width: 100%;
+    margin-bottom: 2%;
+    font-size: 1.2em;
+}
+
+.info-item-content {
+    width: 95%;
+    padding-left: 5%;
+    font-size: 0.9em;
+}
+
+.color-light-dark {
+    color: #a9a9a9;
 }

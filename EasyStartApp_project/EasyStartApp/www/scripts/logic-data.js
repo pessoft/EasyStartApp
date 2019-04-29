@@ -1,10 +1,11 @@
-﻿//var ServiceURL = "http://localhost:53888";
-var ServiceURL = "https://easystart.conveyor.cloud";
+﻿var ServiceURL = "http://localhost:53888";
+//var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
     GetCategories: ServiceURL + "/api/adminapp/getcategories",
-    GetProducts: ServiceURL + "/api/adminapp/getproducts"
+    GetProducts: ServiceURL + "/api/adminapp/getproducts",
+    GetDeliverySetting: ServiceURL + "/api/adminapp/getdeliverysetting"
 };
 
 var Data = {
@@ -13,6 +14,8 @@ var Data = {
     Categories: null,
     Products: {}
 };
+
+var DeliverySetting = {};
 
 var ClientSetting = {
     PhoneNumber: null,
@@ -25,7 +28,17 @@ var Basket = {
     Products: {} //productId:count
 };
 
-function GetAPI(urlAPI, args, successFunc, errorFunc) {
+var DaysShort = {
+    1: "Пн",
+    2: "Вт",
+    3: "Ср",
+    4: "Чт",
+    5: "Пт",
+    6: "Сб",
+    7: "Вс",
+}
+
+function getAPI(urlAPI, args, successFunc, errorFunc) {
     $.ajax({
         type: "GET",
         url: urlAPI,
@@ -51,7 +64,7 @@ function getAllowedCityPromise() {
             resolve();
         };
 
-        GetAPI(API.GetAllowedCity, null, successFunc, reject);
+        getAPI(API.GetAllowedCity, null, successFunc, reject);
     });
 }
 
@@ -63,8 +76,17 @@ function getCategoriesPromise() {
             resolve();
         };
 
-        GetAPI(API.GetCategories, null, successFunc, reject);
+        getAPI(API.GetCategories, null, successFunc, reject);
     });
+}
+
+function getDeliverySetting(cityId) {
+    var successFunc = function successFunc(data) {
+        DeliverySetting = data;
+
+    };
+
+    getAPI(API.GetDeliverySetting, { cityId: cityId }, successFunc, null);
 }
 
 function getProducts(categoryId) {
@@ -82,6 +104,6 @@ function getProducts(categoryId) {
     if (Data.Products[categoryId]) {
         renderPageProduct();
     } else {
-        GetAPI(API.GetProducts, { categoryId: categoryId }, successFunc);
+        getAPI(API.GetProducts, { categoryId: categoryId }, successFunc);
     }
 }

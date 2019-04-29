@@ -45,6 +45,9 @@ function render(pageId) {
 }
 
 function changePage(pageId) {
+    if (Pages.Catalog == pageId) {
+        loadDeliverySetting();
+    }
     $.mobile.changePage(pageId, { transition: "none" });
 }
 

@@ -188,7 +188,7 @@ function minusProductFromBasket(event, e) {
     if (Basket.Products[productId] == 0) {
         delete (Basket.Products[productId]);
     }
-    
+
 }
 
 function plusProductFromBasket(event, e) {
@@ -227,12 +227,38 @@ function toggleCountProductsInBasket() {
     if (countItems == 0) {
         $basketCountInfo.addClass("hide");
         $basketCountInfo.empty();
+        $(".empty-basket").removeClass("hide");
     } else {
+        $(".empty-basket").addClass("hide");
         var countItemsStr = countItems + " шт";
 
         $basketCountInfo.removeClass("hide");
         $basketCountInfo.html(countItemsStr)
+
+        stringsPrice = getStringsPrice();
+        $(".sum-order").html(stringsPrice.SumOrder);
+        $(".sum-delivery").html(stringsPrice.SumDelivery);
+        $(".sum-all").html(stringsPrice.AllSum);
     }
+}
+
+function getStringsPrice() {
+    var sumOrder = 0;
+
+
+    for (var id in Basket.Products) {
+        var product = getDataProductyById(id);
+        sumOrder += product.Price * Basket.Products[id];
+    }
+
+    var sumDelivery = sumOrder >= DeliverySetting.FreePriceDelivery ? 0 : DeliverySetting.PriceDelivery;
+    var stringsPrice = {
+        SumOrder: "Заказ: "  + sumOrder.toString() + " руб.",
+        SumDelivery: "Доставка: " + (sumDelivery == 0? "бесплатно" : sumDelivery + " руб."),
+        AllSum: "К оплате: " + (sumOrder + sumDelivery) + " руб."
+    };
+
+    return stringsPrice;
 }
 
 function updateBasketPage(productId) {
@@ -269,4 +295,44 @@ function removeProductFromBasket(event, e) {
     $parent.remove();
 
     toggleCountProductsInBasket();
+}
+
+function loadDeliverySetting() {
+    if ($.isEmptyObject(DeliverySetting)) {
+        getDeliverySetting(ClientSetting.CityId);
+    }
+}
+
+function getWorkTime() {
+    var workDays = {};
+    var freeDays= [];
+
+    for (var dayId in DeliverySetting.TimeDelivery) {
+        var timePeriod = DeliverySetting.TimeDelivery[dayId];
+
+        if (timePeriod == null ||
+            timePeriod.length != 2) {
+            freeDays.push(DaysShort[dayId]);
+        } else {
+            var periodStr = timePeriod.join(" - ");
+
+            if (!workDays[periodStr]) {
+                workDays[periodStr] = [];
+            }
+
+            workDays[periodStr].push(DaysShort[dayId]);
+        }
+    }
+
+    var workDaysStr = [];
+
+    for (var period in workDays) {
+        var str = workDays[period].join() + ": " + period;
+        workDaysStr.push(str);
+    }
+
+    return {
+        workDaysStr: workDaysStr,
+        freeDays: freeDays.join() + ": " + "выходной"
+    };
 }
