@@ -185,6 +185,10 @@ function minusProductFromBasket(event, e) {
     toggleCountProductsInBasket();
     updateBasketProductPrice(productId);
 
+    if (Basket.Products[productId] == 0) {
+        delete (Basket.Products[productId]);
+    }
+    
 }
 
 function plusProductFromBasket(event, e) {
@@ -240,7 +244,6 @@ function updateBasketPage(productId) {
 
     if (poructCountBasket == 0) {
         $product.remove();
-        delete (Basket.Products[productId]);
     }
 }
 
