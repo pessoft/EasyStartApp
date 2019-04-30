@@ -5,9 +5,7 @@
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://localhost:53888 https://easystart.conveyor.cloud data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-    <!--<meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">-->
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="format-detection" content="telephone=no">
@@ -376,13 +374,29 @@
                     </div>
                     <div class="collect-item-conten">
                         <input type="text" value="" placeholder="Ваше имя" />
-                        <div class="collect-item-phone color-light-dark"></div>
-                        <div class="collect-item-change-phone color-light-dark">
-                            Сменить номер
+                        <div class="collect-item-phone color-light-dark">
+                            +7(999)999-99-99
+                            <div class="collect-item-change-phone color-dark">
+                                Сменить номер
+                            </div>
                         </div>
                     </div>
                 </div>
-
+                <div class="order-collect-item">
+                    <div class="collect-item-header">
+                        Способ получения
+                    </div>
+                    <div class="collect-item-conten">
+                        <div class="collect-item-radio" id="collect-take-yourself">
+                            <input type="radio" name="delivery-type" id="take-yourself-radio">
+                            <label for="take-yourself-radio" class="color-dark">Самовывоз</label>
+                        </div>
+                        <div class="collect-item-radio" id="collect-delivery">
+                            <input type="radio" name="delivery-type" id="collect-delivery">
+                            <label for="collect-delivery" class="color-dark">Доставка курьером</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer color-dark">

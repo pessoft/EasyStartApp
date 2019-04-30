@@ -51,7 +51,8 @@ div[data-role=page] {
     background-color: #000000;
 }
 
-.color-dark {
+.color-dark,
+#checkout .color-dark {
     color: #777777;
 }
 
@@ -201,14 +202,20 @@ div[data-role=page] {
     color: #ffffff;
 }
 
-#firstStartSettingPhone .ui-input-text {
+#firstStartSettingPhone .ui-input-text,
+#checkout .ui-input-text {
     width: 65%;
     background: none;
     border: none;
     box-shadow: none;
 }
 
-#firstStartSettingPhone input[type=text] {
+#checkout .ui-input-text {
+    width: 100%;
+}
+
+#firstStartSettingPhone input[type=text],
+#checkout input[type=text] {
     width: 100%;
     box-shadow: none;
     border: none;
@@ -221,13 +228,31 @@ div[data-role=page] {
     font-size: 1.4em;
 }
 
-    #firstStartSettingPhone input[type=text]:focus {
+    #firstStartSettingPhone input[type=text]:focus,
+    #checkout input[type=text]:focus {
         box-shadow: none;
     }
 
+#checkout input[type=text] {
+    padding-left: 7%;
+    padding-right: 10%;
+    border: 1px solid #272727;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    font-size: 1em;
+    text-align: left;
+}
+
+#checkout .ui-radio {
+    border: none;
+    border-radius: 0;
+    background: none;
+}
+
 .city-list {
     width: 100%;
-    max-height: 100%;
+    max-height: 70%;
     display: flex;
     justify-content: flex-start;
     align-self: center;
@@ -244,12 +269,13 @@ div[data-role=page] {
     align-items: center;
     font-size: 1.3em;
     position: relative;
-    padding: 1.2%;
+    padding: 3.5%;
 }
 
 .active-city-item {
     transition: 200ms ease-in;
     transform: scale(1.2);
+    border: 1px solid #272727;
 }
 
 
@@ -278,9 +304,9 @@ div[data-role=page] {
 .basket-finished-item {
     width: 100%;
     height: 60%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -309,10 +335,10 @@ div.sum-all {
     border-bottom: 1px solid #232020;
 }*/
 
-    .product {
-        height: auto;
-        min-height: 20%;
-    }
+.product {
+    height: auto;
+    min-height: 20%;
+}
 
 .product-basket {
     width: 95%;
@@ -652,8 +678,8 @@ div.sum-all {
 .info-items {
     width: 100%;
     height: 100%;
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .info-item {
@@ -703,8 +729,8 @@ div.sum-all {
 
 .order-collect-info {
     width: 100%;
-    height:100%;
-    overflow-x:hidden;
+    height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -715,15 +741,53 @@ div.sum-all {
     justify-content: flex-start;
     align-items: center;
     border-bottom: 1px solid #232020;
+    flex-direction: column;
+    margin-top: 3%;
 }
 
 .collect-item-header {
-    width:100%;
+    width: 95%;
+    padding-left: 5%;
     height: auto;
     margin-bottom: 2%;
 }
 
 .collect-item-conten {
-    width:98%;
-    margin-left: 2%;
+    width: 100%;
+    margin-bottom: 2%;
+    font-size: 0.9em;
+}
+
+.collect-item-phone {
+    padding-left: 7%;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.collect-item-change-phone {
+    padding-left: 10%;
+}
+
+#checkout label {
+    background: none;
+    border: none;
+    text-shadow: none;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.ui-btn.ui-checkbox-off:after,
+.ui-btn.ui-checkbox-on:after,
+.ui-btn.ui-radio-off:after,
+.ui-btn.ui-radio-on:after {
+    display: none;
+}
+
+.collect-item-radio {
+    width: 95%;
+    padding-left: 5%;
 }
