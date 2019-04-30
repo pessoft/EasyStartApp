@@ -700,3 +700,30 @@ div.sum-all {
 .color-light-dark {
     color: #a9a9a9;
 }
+
+.order-collect-info {
+    width: 100%;
+    height:100%;
+    overflow-x:hidden;
+    overflow-y: auto;
+}
+
+.order-collect-item {
+    width: 100%;
+    min-height: 20%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #232020;
+}
+
+.collect-item-header {
+    width:100%;
+    height: auto;
+    margin-bottom: 2%;
+}
+
+.collect-item-conten {
+    width:98%;
+    margin-left: 2%;
+}
