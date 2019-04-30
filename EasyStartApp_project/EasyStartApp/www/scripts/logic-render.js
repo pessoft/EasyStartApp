@@ -18,7 +18,7 @@ function renderLoadRedy() {
     }
 }
 
-function render(pageId) {
+function render(pageId, data) {
     switch (pageId) {
         case Pages.FirstStartSettingPhone:
             renderPageFirstStartSettingPhone();
@@ -36,7 +36,7 @@ function render(pageId) {
             renderPageBasket();
             break;
         case Pages.Info:
-            renderPageInfo();
+            renderPageInfo(data);
             break;
         case Pages.History:
             renderPageHistory();
@@ -45,22 +45,9 @@ function render(pageId) {
 }
 
 function changePage(pageId) {
-    if (Pages.Catalog == pageId) {
-        loadDeliverySetting();
-    }
     $.mobile.changePage(pageId, { transition: "none" });
 }
 
-function isFirstStart() {
-    var cityId = window.localStorage.getItem("cityId");
-    var phoneNumber = window.localStorage.getItem("phoneNumber");
-
-    if (!cityId || !phoneNumber) {
-        return true;
-    }
-
-    return false;
-}
 
 function renderPageFirstStartSettingPhone() {
     bindEvents(Pages.FirstStartSettingPhone);
@@ -223,7 +210,17 @@ function renderPageBasket() {
     }
 }
 
-function renderPageInfo() { }
+function renderPageInfo(data) {
+    $("#info-address .info-item-content").html(data.Address);
+    $("#info-phone .info-item-content").html(data.Phones);
+    $("#info-work-time .info-item-content").html(data.WorkTime);
+    $("#info-price-delivery .info-item-content").html(data.PriceDelivery);
+    $("#info-buy .info-item-content").html(data.TypesBuy);
+    $("#info-email .info-item-content").html(data.Email);
+    $("#info-vk .info-item-content").html(data.Vkontakte);
+    $("#info-instagram .info-item-content").html(data.Instagram);
+    $("#info-facebook .info-item-content").html(data.Facebook);
+}
 
 function renderPageHistory() { }
 

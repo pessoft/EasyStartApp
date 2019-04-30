@@ -1,11 +1,12 @@
-﻿var ServiceURL = "http://localhost:53888";
-//var ServiceURL = "https://easystart.conveyor.cloud";
+﻿//var ServiceURL = "http://localhost:53888";
+var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
     GetCategories: ServiceURL + "/api/adminapp/getcategories",
     GetProducts: ServiceURL + "/api/adminapp/getproducts",
-    GetDeliverySetting: ServiceURL + "/api/adminapp/getdeliverysetting"
+    GetDeliverySetting: ServiceURL + "/api/adminapp/getdeliverysetting",
+    GetSetting: ServiceURL + "/api/adminapp/getsetting"
 };
 
 var Data = {
@@ -16,6 +17,7 @@ var Data = {
 };
 
 var DeliverySetting = {};
+var SettingBranch = {};
 
 var ClientSetting = {
     PhoneNumber: null,
@@ -81,12 +83,15 @@ function getCategoriesPromise() {
 }
 
 function getDeliverySetting(cityId) {
-    var successFunc = function successFunc(data) {
-        DeliverySetting = data;
+    return new Promise(function (resolve, reject) {
+        var successFunc = function successFunc(data) {
+            DeliverySetting = data;
 
-    };
+            resolve();
+        };
 
-    getAPI(API.GetDeliverySetting, { cityId: cityId }, successFunc, null);
+        getAPI(API.GetDeliverySetting, { cityId: cityId }, successFunc, reject);
+    });
 }
 
 function getProducts(categoryId) {
@@ -106,4 +111,16 @@ function getProducts(categoryId) {
     } else {
         getAPI(API.GetProducts, { categoryId: categoryId }, successFunc);
     }
+}
+
+function getSetting(cityId) {
+    return new Promise(function (resolve, reject) {
+        var successFunc = function successFunc(data) {
+            SettingBranch = data;
+
+            resolve();
+        };
+
+        getAPI(API.GetSetting, { cityId: cityId }, successFunc, reject);
+    });
 }

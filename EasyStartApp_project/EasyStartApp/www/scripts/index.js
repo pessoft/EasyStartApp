@@ -14,16 +14,20 @@ function onBackKeyDown() {
 }
 
 function loadData() {
+    setClientSettingData();
     Promise.all([
         getAllowedCityPromise(),
         getCategoriesPromise()
     ]).then(function (results) {
         loadDataReady();
-    });
+        });
+
+    if (!isFirstStart()) {
+        loadSettings();
+    }
 }
 
 function loadDataReady() {
-    setClientSettingData();
     renderLoadRedy();
 }
 
@@ -57,6 +61,8 @@ function setSelectCity() {
 
     window.localStorage.setItem("cityId", cityId);
     ClientSetting.CityId = cityId;
+
+    loadSettings();
 
     render(Pages.Catalog);
     changePage(Pages.Catalog);
@@ -297,10 +303,20 @@ function removeProductFromBasket(event, e) {
     toggleCountProductsInBasket();
 }
 
-function loadDeliverySetting() {
-    if ($.isEmptyObject(DeliverySetting)) {
-        getDeliverySetting(ClientSetting.CityId);
-    }
+//function loadDeliverySetting() {
+//    if ($.isEmptyObject(DeliverySetting)) {
+//        getDeliverySetting(ClientSetting.CityId);
+//    }
+//}
+
+function loadSettings() {
+    Promise.all([
+        getDeliverySetting(ClientSetting.CityId),
+        getSetting(ClientSetting.CityId),
+    ]).then(function (results) {
+        var dataInfo = getDataInfo();
+        render(Pages.Info, dataInfo);
+    });
 }
 
 function getWorkTime() {
@@ -331,8 +347,71 @@ function getWorkTime() {
         workDaysStr.push(str);
     }
 
-    return {
-        workDaysStr: workDaysStr,
-        freeDays: freeDays.join() + ": " + "выходной"
+    var freeDays = freeDays.join() + ": " + "выходной";
+    var resultStr = workDaysStr.join("<br>") +
+        (freeDays ? "<br>" + freeDays: "");
+
+    return resultStr;
+}
+
+function isFirstStart() {
+    var cityId = window.localStorage.getItem("cityId");
+    var phoneNumber = window.localStorage.getItem("phoneNumber");
+
+    if (!cityId || !phoneNumber) {
+        return true;
+    }
+
+    return false;
+}
+
+function getFullAddressStr() {
+    var str =
+        "г." +
+        SettingBranch.City +
+        ", ул." +
+        SettingBranch.Street +
+        ", д." +
+        SettingBranch.HomeNumber;
+
+    return str;
+}
+
+function getPhonesStr() {
+    var str = SettingBranch.PhoneNumber +
+        (SettingBranch.PhoneNumberAdditional ?
+            "<br>" + SettingBranch.PhoneNumberAdditional :
+            "");
+
+    return str;
+}
+
+function getPriceDeliveryStr() {
+    var str = "Бесплатная доставка при заказе от " +
+        DeliverySetting.FreePriceDelivery + " руб.<br>" + 
+        "Стоимость доставки: " + DeliverySetting.PriceDelivery + " руб."
+
+    return str;
+}
+
+function getTypesBuy() {
+    var str = (DeliverySetting.PayCard ? "Банковской картой<br>" : "") +
+        "Наличиными";
+    return str;
+}
+
+function getDataInfo() {
+    var info = {
+        Address: getFullAddressStr(),
+        Phones: getPhonesStr(),
+        WorkTime: getWorkTime(),
+        PriceDelivery: getPriceDeliveryStr(),
+        TypesBuy: getTypesBuy(),
+        Vkontakte: SettingBranch.Vkontakte,
+        Instagram: SettingBranch.Instagram,
+        Facebook: SettingBranch.Facebook,
+        Email: SettingBranch.Email
     };
+
+    return info;
 }
