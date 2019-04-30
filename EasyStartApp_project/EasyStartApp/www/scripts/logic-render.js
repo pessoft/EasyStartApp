@@ -5,7 +5,8 @@
     Product: "#product",
     Basket: "#basket",
     Info: "#info",
-    History: "#history"
+    History: "#history",
+    Checkout: "#checkout"
 };
 
 function renderLoadRedy() {
@@ -199,6 +200,8 @@ function renderPageBasket() {
     var $products = $page.find(".products");
     $products.empty();
     $products.append(tempateHtmlProducts)
+
+    bindCheckout();
 
     if (!jQuery.isEmptyObject(Basket.Products)) {
         for (var id in Basket.Products) {

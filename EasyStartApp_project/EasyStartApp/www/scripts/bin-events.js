@@ -41,3 +41,11 @@ function bindEventsFirstStartSettingCity() {
     $button.unbind("click", setSelectCity);
     $button.bind("click", setSelectCity);
 }
+
+function bindCheckout() {
+    var $parent = $(Pages.Basket);
+    var $button = $parent.find(".basket-finished button");
+
+    $button.unbind("click", goCheckoutPage);
+    $button.bind("click", goCheckoutPage);
+}

@@ -143,7 +143,7 @@
             <div class="basket-finished">
                 <div class="basket-finished-item">
                     <div class="sum-order color-dark"></div>
-                    <div class="sum-delivery color-dark""></div>
+                    <div class="sum-delivery color-dark" "></div>
                     <div class="sum-all"></div>
                 </div>
                 <button class="background-color-button color-button">
@@ -364,11 +364,45 @@
         </div>
     </div>
 
+    <div data-role="page" class="page-color page-background-color" id="checkout">
+        <div class="header header-color">
+           Оформление заказа
+        </div>
+        <div class="content"></div>
+        <div class="footer color-dark">
+            <a data-transition="none" href="#catalog">
+                <div class="footer-item">
+                    <i class="fal fa-store"></i>
+                    Каталог
+                </div>
+            </a>
+            <a data-transition="none" href="#basket">
+                <div class="footer-item">
+                    <i class="fal fa-shopping-basket"></i>
+                    <div class="basket-count-info hide"></div>
+                    Корзина
+                </div>
+            </a>
+            <a data-transition="none" href="#info">
+                <div class="footer-item">
+                    <i class="fal fa-info"></i>
+                    Инфо
+                </div>
+            </a>
+            <a data-transition="none" href="#history">
+                <div class="footer-item active">
+                    <i class="fal fa-history"></i>
+                    История
+                </div>
+            </a>
+        </div>
+    </div>
+
     <template id="basket-product">
         <div class="product-basket" product-id="">
             <div class="basket-product-main-info">
                 <div class="basket-product-image">
-                    <img src=""  />
+                    <img src="" />
                 </div>
                 <div class="basket-product-content">
                     <div class="basket-product-header"></div>

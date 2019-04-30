@@ -415,3 +415,8 @@ function getDataInfo() {
 
     return info;
 }
+
+function goCheckoutPage() {
+    render(Pages.Checkout);
+    changePage(Pages.Checkout);
+}
