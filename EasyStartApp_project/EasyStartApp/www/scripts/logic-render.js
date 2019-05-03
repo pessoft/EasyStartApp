@@ -42,6 +42,9 @@ function render(pageId, data) {
         case Pages.History:
             renderPageHistory();
             break;
+        case Pages.Checkout:
+            renderPageCheckout();
+            break;
     }
 }
 
@@ -241,4 +244,8 @@ function renderProductFullInfo(productId) {
 
     var currentPage = $.mobile.activePage.attr("id");
     $("#" + currentPage).append($template);
+}
+
+function renderPageCheckout() {
+    bindCheckoutCashBackSwith();
 }

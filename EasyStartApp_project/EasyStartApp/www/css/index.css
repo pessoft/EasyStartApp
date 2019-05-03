@@ -791,3 +791,63 @@ div.sum-all {
     width: 95%;
     padding-left: 5%;
 }
+
+#checkout .ui-radio input {
+    position: absolute;
+    left: .766em;
+    top: 55%;
+    width: 18px;
+    height: 18px;
+    margin: -11px 0 0 0;
+    outline: 0 !important;
+    z-index: 1;
+}
+
+.delivery-cash-back {
+    width: 100%;
+    min-height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.delivery-cash-back-switch {
+    width: 80%;
+    min-height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 3px;
+}
+
+    .delivery-cash-back-switch div {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        padding: 2%;
+        font-size: 0.8em;
+    }
+
+        .delivery-cash-back-switch div:first-child {
+            border: 1px solid;
+            border-bottom-left-radius: 3px;
+            border-top-left-radius: 3px;
+            border-color: #272727;
+        }
+
+        .delivery-cash-back-switch div:last-child {
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+            border: 1px solid;
+            border-color: #272727;
+        }
+
+#checkout .delivery-cash-back-switch-active {
+    background-color: #272727;
+    color: #ffffff;
+}

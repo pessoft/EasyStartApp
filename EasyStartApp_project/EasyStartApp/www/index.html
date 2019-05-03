@@ -364,7 +364,7 @@
 
     <div data-role="page" class="page-color page-background-color" id="checkout">
         <div class="header header-color">
-           Оформление заказа
+            Оформление заказа
         </div>
         <div class="content">
             <div class="order-collect-info">
@@ -388,12 +388,34 @@
                     </div>
                     <div class="collect-item-conten">
                         <div class="collect-item-radio" id="collect-take-yourself">
-                            <input type="radio" name="delivery-type" id="take-yourself-radio">
+                            <input type="radio" name="delivery-type" id="take-yourself-radio" checked>
                             <label for="take-yourself-radio" class="color-dark">Самовывоз</label>
                         </div>
                         <div class="collect-item-radio" id="collect-delivery">
-                            <input type="radio" name="delivery-type" id="collect-delivery">
-                            <label for="collect-delivery" class="color-dark">Доставка курьером</label>
+                            <input type="radio" name="delivery-type" id="collect-delivery-radio">
+                            <label for="collect-delivery-radio" class="color-dark">Доставка курьером</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-collect-item">
+                    <div class="collect-item-header">
+                        Способ оплаты
+                    </div>
+                    <div class="collect-item-conten">
+                        <div class="collect-item-radio" id="collect-buy-cash">
+                            <input type="radio" name="delivery-buy-type" id="collect-buy-cash-radio" checked>
+                            <label for="collect-buy-cash-radio" class="color-dark">Оплата наличными при получении</label>
+                        </div>
+                        <div class="collect-item-radio" id="collect-buy-card">
+                            <input type="radio" name="delivery-buy-type" id="collect-buy-card-radio">
+                            <label for="collect-buy-card-radio" class="color-dark">Оплата картой при получении</label>
+                        </div>
+                        <div class="delivery-cash-back">
+                            <div class="delivery-cash-back-switch">
+                                <div is-cash-back="true" class="color-dark">Нужна сдача</div>
+                                <div is-cash-back="false" class="color-dark delivery-cash-back-switch-active">Не нужна сдача</div>
+                            </div>
+                            <input type="text" class="hide" id="delivery-cash-back" placeholder="Нужна сдача с..." />
                         </div>
                     </div>
                 </div>

@@ -420,3 +420,18 @@ function goCheckoutPage() {
     render(Pages.Checkout);
     changePage(Pages.Checkout);
 }
+
+function swithCheckoutCashBack(e) {
+    var $e = $(e);
+    var isCashBack = $e.attr("is-cash-back") == "true";
+
+    $(".delivery-cash-back-switch div").removeClass("delivery-cash-back-switch-active");
+    $e.addClass("delivery-cash-back-switch-active");
+
+    if (isCashBack) {
+        $("#delivery-cash-back").removeClass("hide");
+    } else {
+        $("#delivery-cash-back").addClass("hide");
+    }
+
+}

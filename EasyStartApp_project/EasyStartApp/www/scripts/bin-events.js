@@ -49,3 +49,14 @@ function bindCheckout() {
     $button.unbind("click", goCheckoutPage);
     $button.bind("click", goCheckoutPage);
 }
+
+function bindCheckoutCashBackSwith() {
+    var $parent = $(Pages.Checkout);
+    var $switch = $parent.find("[is-cash-back]");
+    var func = function () {
+        swithCheckoutCashBack(this);
+    }
+
+    $switch.unbind("click", func);
+    $switch.bind("click", func);
+}
