@@ -399,6 +399,23 @@
                 </div>
                 <div class="order-collect-item">
                     <div class="collect-item-header">
+                        Адрес доставки
+                    </div>
+                    <div class="collect-item-conten">
+                        <input type="text" value="" placeholder="Улица *" />
+                        <div class="collect-item-address-row">
+                            <input type="text" value="" placeholder="Дом, корпус *" />
+                            <input type="text" value="" placeholder="Подъезд" />
+                        </div>
+                        <div class="collect-item-address-row">
+                            <input type="text" value="" placeholder="Квартира (офис)" />
+                            <input type="text" value="" placeholder="Этаж" />
+                        </div>
+                        <input type="text" value="" placeholder="Код домофона" />
+                    </div>
+                </div>
+                <div class="order-collect-item">
+                    <div class="collect-item-header">
                         Способ оплаты
                     </div>
                     <div class="collect-item-conten">
@@ -415,7 +432,7 @@
                                 <div is-cash-back="true" class="color-dark">Нужна сдача</div>
                                 <div is-cash-back="false" class="color-dark delivery-cash-back-switch-active">Не нужна сдача</div>
                             </div>
-                            <input type="text" class="hide" id="delivery-cash-back" placeholder="Нужна сдача с..." />
+                            <input type="number" min="0" class="hide" id="delivery-cash-back" placeholder="Нужна сдача с..." />
                         </div>
                     </div>
                 </div>

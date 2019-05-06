@@ -60,3 +60,13 @@ function bindCheckoutCashBackSwith() {
     $switch.unbind("click", func);
     $switch.bind("click", func);
 }
+
+function bindCheckoutBuyType() {
+
+    var func = function () {
+        changeCheckoutBuyType(this);
+    }
+
+    $("[name=delivery-buy-type]").unbind("click", func);
+    $("[name=delivery-buy-type]").click("click", func);
+}

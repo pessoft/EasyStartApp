@@ -215,7 +215,8 @@ div[data-role=page] {
 }
 
 #firstStartSettingPhone input[type=text],
-#checkout input[type=text] {
+#checkout input[type=text],
+#checkout input[type=number] {
     width: 100%;
     box-shadow: none;
     border: none;
@@ -229,17 +230,20 @@ div[data-role=page] {
 }
 
     #firstStartSettingPhone input[type=text]:focus,
-    #checkout input[type=text]:focus {
+    #checkout input[type=text]:focus,
+    #checkout input[type=number]:focus {
         box-shadow: none;
     }
 
-#checkout input[type=text] {
+#checkout input[type=text],
+#checkout input[type=number] {
     padding-left: 7%;
     padding-right: 10%;
-    border: 1px solid #272727;
+    /*border: 1px solid #272727;*/
+    border:none;
     border-radius: 0;
-    border-left: none;
-    border-right: none;
+    /*border-left: none;
+    border-right: none;*/
     font-size: 1em;
     text-align: left;
 }
@@ -850,4 +854,14 @@ div.sum-all {
 #checkout .delivery-cash-back-switch-active {
     background-color: #272727;
     color: #ffffff;
+}
+
+.collect-item-address-row {
+    width: 96%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 3.5%;
+}
 }

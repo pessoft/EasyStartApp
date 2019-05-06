@@ -20,7 +20,7 @@ function loadData() {
         getCategoriesPromise()
     ]).then(function (results) {
         loadDataReady();
-        });
+    });
 
     if (!isFirstStart()) {
         loadSettings();
@@ -259,8 +259,8 @@ function getStringsPrice() {
 
     var sumDelivery = sumOrder >= DeliverySetting.FreePriceDelivery ? 0 : DeliverySetting.PriceDelivery;
     var stringsPrice = {
-        SumOrder: "Заказ: "  + sumOrder.toString() + " руб.",
-        SumDelivery: "Доставка: " + (sumDelivery == 0? "бесплатно" : sumDelivery + " руб."),
+        SumOrder: "Заказ: " + sumOrder.toString() + " руб.",
+        SumDelivery: "Доставка: " + (sumDelivery == 0 ? "бесплатно" : sumDelivery + " руб."),
         AllSum: "К оплате: " + (sumOrder + sumDelivery) + " руб."
     };
 
@@ -321,7 +321,7 @@ function loadSettings() {
 
 function getWorkTime() {
     var workDays = {};
-    var freeDays= [];
+    var freeDays = [];
 
     for (var dayId in DeliverySetting.TimeDelivery) {
         var timePeriod = DeliverySetting.TimeDelivery[dayId];
@@ -349,7 +349,7 @@ function getWorkTime() {
 
     var freeDays = freeDays.join() + ": " + "выходной";
     var resultStr = workDaysStr.join("<br>") +
-        (freeDays ? "<br>" + freeDays: "");
+        (freeDays ? "<br>" + freeDays : "");
 
     return resultStr;
 }
@@ -388,7 +388,7 @@ function getPhonesStr() {
 
 function getPriceDeliveryStr() {
     var str = "Бесплатная доставка при заказе от " +
-        DeliverySetting.FreePriceDelivery + " руб.<br>" + 
+        DeliverySetting.FreePriceDelivery + " руб.<br>" +
         "Стоимость доставки: " + DeliverySetting.PriceDelivery + " руб."
 
     return str;
@@ -434,4 +434,14 @@ function swithCheckoutCashBack(e) {
         $("#delivery-cash-back").addClass("hide");
     }
 
+}
+
+function changeCheckoutBuyType(e) {
+    var $e = $(e);
+    if ($e.attr("id") == "collect-buy-cash-radio" &&
+        $e.is(":checked")) {
+        $(".delivery-cash-back").removeClass("hide");
+    } else {
+        $(".delivery-cash-back").addClass("hide");
+    }
 }
