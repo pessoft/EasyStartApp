@@ -6,7 +6,8 @@
     Basket: "#basket",
     Info: "#info",
     History: "#history",
-    Checkout: "#checkout"
+    Checkout: "#checkout",
+    CheckoutResult: "#checkout-result",
 };
 
 function renderLoadRedy() {
@@ -45,6 +46,9 @@ function render(pageId, data) {
         case Pages.Checkout:
             renderPageCheckout();
             break;
+        case Pages.CheckoutResult:
+            renderPageCheckoutResult(data);
+            break;
     }
 }
 
@@ -52,10 +56,6 @@ function changePage(pageId) {
     $.mobile.changePage(pageId, { transition: "none" });
 }
 
-
-function renderPageFirstStartSettingPhone() {
-    bindEvents(Pages.FirstStartSettingPhone);
-}
 
 function renderPageFirstStartSettingCity() {
     var template = "";
@@ -251,4 +251,55 @@ function renderPageCheckout() {
     bindCheckoutBuyType();
     bindCheckoutDeliveryType();
     bindCheckoutFinished();
+
+    var $phoneNumber = $("#collect-item-phone-number");
+    $phoneNumber.mask("+7(999)999-99-99");
+    $phoneNumber.val(ClientSetting.PhoneNumber)
+
+    $("#collect-item-sum-price .result-price-item-value").html(getPriceValid(Basket.OrderPrice) + " руб.");
+
+    var $disount = $("#collect-item-discount-price");
+    $disount.find(".result-price-item-value").html(Basket.Discount + "%");
+
+    if (Basket.Discount == 0) {
+        $disount.addClass("hide");
+    } else {
+        $disount.removeClass("hide");
+    }
+
+    var $delivery = $("#collect-item-delivery-price");
+    $delivery.find(".result-price-item-value").html(getPriceValid(Basket.DeliveryPrice) + " руб.");
+
+    if (Basket.DeliveryPrice == 0) {
+        $delivery.addClass("hide");
+    } else {
+        $delivery.removeClass("hide");
+    }
+
+    var orderPrice = (Basket.OrderPrice - (Basket.OrderPrice * Basket.Discount / 100));
+    var allPrice = getPriceValid(orderPrice + Basket.DeliveryPrice);
+
+    $("#collect-item-result-sum-price .result-price-item-value").html(allPrice + " руб.");
+}
+
+function renderPageCheckoutResult(data) {
+    var msg = "";
+
+    if (data.Success) {
+        msg = "Заказ №" + data.Data + " оформлен";
+
+        $(".checkout-result-failure").addClass("hide");
+        $(".checkout-result-success").removeClass("hide");
+
+        $(".checkout-result-success").find("span").html(msg);
+    } else {
+        msg = "В ходе оформления заказа что то пошло не так";
+
+        $(".checkout-result-success").addClass("hide");
+        $(".checkout-result-failure").removeClass("hide");
+
+        $(".checkout-result-failure").find("span").html(msg);
+    }
+
+    binCheckoutResultOk();
 }

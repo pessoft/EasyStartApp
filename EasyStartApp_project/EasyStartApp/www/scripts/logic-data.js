@@ -1,12 +1,13 @@
-﻿//var ServiceURL = "http://localhost:53888";
-var ServiceURL = "https://easystart.conveyor.cloud";
+﻿var ServiceURL = "http://localhost:53888";
+//var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
     GetCategories: ServiceURL + "/api/adminapp/getcategories",
     GetProducts: ServiceURL + "/api/adminapp/getproducts",
     GetDeliverySetting: ServiceURL + "/api/adminapp/getdeliverysetting",
-    GetSetting: ServiceURL + "/api/adminapp/getsetting"
+    GetSetting: ServiceURL + "/api/adminapp/getsetting",
+    SendOrder: ServiceURL + "/api/adminapp/sendorder"
 };
 
 var Data = {
@@ -26,7 +27,9 @@ var ClientSetting = {
 };
 
 var Basket = {
-    SumCount: 0,
+    OrderPrice: 0,
+    DeliveryPrice: 0,
+    Discount: 10,
     Products: {} //productId:count
 };
 
@@ -40,11 +43,41 @@ var DaysShort = {
     7: "Вс",
 }
 
+var DeliveryType = {
+    TakeYourSelf: 1,
+    Delivery: 2
+}
+
+var BuyType = {
+    Cash: 1,
+    Card: 2
+}
+
 function getAPI(urlAPI, args, successFunc, errorFunc) {
     $.ajax({
         type: "GET",
         url: urlAPI,
         data: args,
+        contentType: 'application/json',
+        success: function success(data) {
+            if (successFunc) {
+                successFunc(data);
+            }
+        },
+        error: function error(err) {
+            if (errorFunc) {
+                errorFunc(err);
+            }
+        }
+    });
+}
+
+function postAPI(urlAPI, args, successFunc, errorFunc) {
+    $.ajax({
+        type: "POST",
+        url: urlAPI,
+        data: JSON.stringify(args),
+        contentType: 'application/json',
         success: function success(data) {
             if (successFunc) {
                 successFunc(data);
@@ -123,4 +156,13 @@ function getSetting(cityId) {
 
         getAPI(API.GetSetting, { cityId: cityId }, successFunc, reject);
     });
+}
+
+function sendOrder(data) {
+    var successFunc = function successFunc(data) {
+        render(Pages.CheckoutResult, data);
+        changePage(Pages.CheckoutResult);
+    };
+
+    postAPI(API.SendOrder, data, successFunc);
 }

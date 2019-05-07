@@ -142,7 +142,8 @@
             <div class="basket-finished">
                 <div class="basket-finished-item">
                     <div class="sum-order color-dark"></div>
-                    <div class="sum-delivery color-dark" "></div>
+                    <div class="sum-delivery color-dark"></div>
+                    <div class="sum-discount color-dark hide"></div>
                     <div class="sum-all"></div>
                 </div>
                 <button class="background-color-button color-button">
@@ -379,12 +380,7 @@
                     </div>
                     <div class="collect-item-conten">
                         <input type="text" id="collect-item-name" value="" placeholder="Ваше имя" />
-                        <div class="collect-item-phone color-light-dark">
-                            <span id="collect-item-phone-number">+7(999)999-99-99</span>
-                            <div class="collect-item-change-phone color-dark">
-                                Сменить номер
-                            </div>
-                        </div>
+                        <input type="text" id="collect-item-phone-number" value="" placeholder="Номер телефона" />
                     </div>
                 </div>
                 <div class="order-collect-item">
@@ -393,11 +389,11 @@
                     </div>
                     <div class="collect-item-conten">
                         <div class="collect-item-radio" id="collect-take-yourself">
-                            <input type="radio" name="delivery-type" id="take-yourself-radio" checked>
-                            <label for="take-yourself-radio" class="color-dark">Самовывоз</label>
+                            <input type="radio" name="delivery-type" delivery-type="TakeYourSelf" id="take-yourself-radio" checked>
+                            <label for="take-yourself-radio" delivery-type="Delivery" class="color-dark">Самовывоз</label>
                         </div>
                         <div class="collect-item-radio" id="collect-delivery">
-                            <input type="radio" name="delivery-type" id="collect-delivery-radio">
+                            <input type="radio" name="delivery-type" delivery-type="Delivery" id="collect-delivery-radio">
                             <label for="collect-delivery-radio" class="color-dark">Доставка курьером</label>
                         </div>
                     </div>
@@ -425,11 +421,11 @@
                     </div>
                     <div class="collect-item-conten">
                         <div class="collect-item-radio" id="collect-buy-cash">
-                            <input type="radio" name="delivery-buy-type" id="collect-buy-cash-radio" checked>
+                            <input type="radio" name="delivery-buy-type" buy-type="Cash" id="collect-buy-cash-radio" checked>
                             <label for="collect-buy-cash-radio" class="color-dark">Оплата наличными при получении</label>
                         </div>
                         <div class="collect-item-radio" id="collect-buy-card">
-                            <input type="radio" name="delivery-buy-type" id="collect-buy-card-radio">
+                            <input type="radio" name="delivery-buy-type" buy-type="Card" id="collect-buy-card-radio">
                             <label for="collect-buy-card-radio" class="color-dark">Оплата картой при получении</label>
                         </div>
                         <div class="delivery-cash-back">
@@ -446,7 +442,7 @@
                         Коментарий к заказу
                     </div>
                     <div class="collect-item-conten">
-                        <textarea id="collect-item-comment" placeholder="Коментарий"></textarea>
+                        <textarea class="page-color" id="collect-item-comment" placeholder="Коментарий"></textarea>
                     </div>
                 </div>
 
@@ -454,6 +450,10 @@
                     <div class="collect-item-result-price color-dark">
                         <div class="result-price-item" id="collect-item-sum-price">
                             <div class="result-price-item-name">Сумму заказа</div>
+                            <div class="result-price-item-value"></div>
+                        </div>
+                        <div class="result-price-item hide" id="collect-item-delivery-price">
+                            <div class="result-price-item-name">Доставка</div>
                             <div class="result-price-item-value"></div>
                         </div>
                         <div class="result-price-item hide" id="collect-item-discount-price">
@@ -499,6 +499,22 @@
                     История
                 </div>
             </a>
+        </div>
+    </div>
+
+    <div data-role="page" class="page-color page-background-color" id="checkout-result">
+        <div class="checkout-result-content">
+            <div class="checkout-result-success hide">
+                <i class="fal fa-badge-check"></i>
+                <span></span>
+            </div>
+            <div class="checkout-result-failure hide">
+                <i class="fal fa-frown"></i>
+                <span></span>
+            </div>
+        </div>
+        <div class="checkout-result-footer">
+            <button class="background-color-button color-button">ОК</button>
         </div>
     </div>
 

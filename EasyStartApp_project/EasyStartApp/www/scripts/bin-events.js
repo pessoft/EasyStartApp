@@ -84,10 +84,23 @@ function bindCheckoutDeliveryType() {
 function bindCheckoutFinished() {
     var func = function () {
         if (checkoutValid()) {
-
+            var data = getDataOrderCheckout();
+            sendOrder(data);
         }
     };
 
     $(".order-collect-finished button").unbind("click", func);
     $(".order-collect-finished button").bind("click", func);
+}
+
+function binCheckoutResultOk() {
+    var $button = $(Pages.CheckoutResult + " .checkout-result-footer button");
+    var func = function () {
+        emptyOrderDetails();
+        render(Pages.Catalog);
+        changePage(Pages.Catalog);
+    }
+
+    $button.unbind("click", func);
+    $button.bind("click", func);
 }

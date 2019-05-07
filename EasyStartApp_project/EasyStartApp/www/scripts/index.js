@@ -222,6 +222,11 @@ function updateBasketCountValue($container, value) {
     }
 }
 
+function clearBasketCountValue() {
+    $(".product-add-basket-btn").removeClass("hide");
+    $(".product-add-basket-count").addClass("hide");
+}
+
 function toggleCountProductsInBasket() {
     var $basketCountInfo = $(".basket-count-info");
     var countItems = 0;;
@@ -244,7 +249,14 @@ function toggleCountProductsInBasket() {
         stringsPrice = getStringsPrice();
         $(".sum-order").html(stringsPrice.SumOrder);
         $(".sum-delivery").html(stringsPrice.SumDelivery);
+        $(".sum-discount").html(stringsPrice.Discount);
         $(".sum-all").html(stringsPrice.AllSum);
+
+        if (Basket.Discount == 0) {
+            $(".sum-discount").addClass("hide");
+        } else {
+            $(".sum-discount").removeClass("hide");
+        }
     }
 }
 
@@ -258,13 +270,30 @@ function getStringsPrice() {
     }
 
     var sumDelivery = sumOrder >= DeliverySetting.FreePriceDelivery ? 0 : DeliverySetting.PriceDelivery;
+    var orderPrice = (sumOrder - (sumOrder * Basket.Discount / 100));
+    var allPrice = getPriceValid(orderPrice + Basket.DeliveryPrice);
     var stringsPrice = {
-        SumOrder: "Заказ: " + sumOrder.toString() + " руб.",
-        SumDelivery: "Доставка: " + (sumDelivery == 0 ? "бесплатно" : sumDelivery + " руб."),
-        AllSum: "К оплате: " + (sumOrder + sumDelivery) + " руб."
+        Discount: "Скидка: " + Basket.Discount + "%",
+        SumOrder: "Заказ: " + getPriceValid(sumOrder) + " руб.",
+        SumDelivery: "Доставка: " + (sumDelivery == 0 ? "бесплатно" : getPriceValid(sumDelivery) + " руб."),
+        AllSum: "К оплате: " + getPriceValid(orderPrice + sumDelivery) + " руб."
     };
 
     return stringsPrice;
+}
+
+function calcOrderPrice() {
+    var sumOrder = 0;
+
+    for (var id in Basket.Products) {
+        var product = getDataProductyById(id);
+        sumOrder += product.Price * Basket.Products[id];
+    }
+
+    var sumDelivery = sumOrder >= DeliverySetting.FreePriceDelivery ? 0 : DeliverySetting.PriceDelivery;
+
+    Basket.OrderPrice = sumOrder;
+    Basket.DeliveryPrice = sumDelivery;
 }
 
 function updateBasketPage(productId) {
@@ -417,6 +446,7 @@ function getDataInfo() {
 }
 
 function goCheckoutPage() {
+    calcOrderPrice();
     render(Pages.Checkout);
     changePage(Pages.Checkout);
 }
@@ -464,9 +494,9 @@ function showErrorMessage(messages) {
 
     $("#error-messages .messages-list").html(msgStr);
 
-    $("#error-messages").show('slow');
+    $("#error-messages").show("slow");
     setTimeout(function () {
-        $("#error-messages").hide('slow');
+        $("#error-messages").hide("slow");
         $("#error-messages .messages-list").empty()
     }, 5000);
 }
@@ -480,6 +510,43 @@ function checkoutValid() {
         messages.push("Укажите ваше имя");
     }
 
+    var symbolCount = 16; //+7(999)999-99-99 - 16 symbols
+    var $inputPhoneNumber = $("#collect-item-phone-number");
+    var val = $inputPhoneNumber.val().replace(/_/g, "");
+
+    if (val.length < symbolCount) {
+        messages.push("Укажите номер телефона");
+    }
+
+    if ($("#collect-delivery-radio").is(":checked")) {
+        var streetValid = $("#collect-item-street").val().length != 0;
+        var homeNumberValid = $("#collect-item-home-number").val().length != 0;
+        var entranceNumberValid = $("#collect-item-entrance-number").val().length != 0;
+        var apartamentNumberValid = $("#collect-item-apartament").val().length != 0;
+
+        if (!streetValid) {
+            messages.push("Укажите улицу");
+        }
+        if (!homeNumberValid) {
+            messages.push("Укажите номер дома");
+        }
+        if (!entranceNumberValid) {
+            messages.push("Укажите номер подъезда");
+        }
+        if (!apartamentNumberValid) {
+            messages.push("Укажите номер квартиры (офиса)");
+        }
+    }
+
+    if ($("#collect-buy-cash-radio").is(":checked") &&
+        $("[is-cash-back=true]").hasClass("delivery-cash-back-switch-active")) {
+        var cashBackValid = $("#delivery-cash-back").val().length != 0;
+
+        if (!cashBackValid) {
+            messages.push("Укажите с какой суммы нужна сдача");
+        }
+    }
+
     if (messages.length == 0) {
         return true;
     } else {
@@ -487,4 +554,69 @@ function checkoutValid() {
 
         return false;
     }
+}
+
+function isInteger(num) {
+    return (num ^ 0) === num;
+}
+
+function getPriceValid(num) {
+    if (!isInteger(num)) {
+        num = num.toFixed(2);
+    }
+
+    return num;
+}
+
+function getDataOrderCheckout() {
+    var name = $("#collect-item-name").val();
+    var phoneNumber = $("#collect-item-phone-number").val();
+
+    var deliveryTypeName = $("[name=delivery-type]:checked").attr("delivery-type");
+    var deliverType = DeliveryType[deliveryTypeName];
+
+    var street = $("#collect-item-street").val();
+    var home = $("#collect-item-home-number").val();
+    var entrance = $("#collect-item-entrance-number").val();
+    var apartament = $("#collect-item-apartament").val();
+    var level = $("#collect-item-level").val();
+    var intercomCode = $("#collect-item-intercom-code").val();
+    intercomCode = intercomCode.trim() || apartament;
+
+    var buyTypeName = $("[name=delivery-buy-type]:checked").attr("buy-type");
+    var buyType = BuyType[buyTypeName];
+
+    var comment = $("#collect-item-comment").val()
+    var cashBack = $("#delivery-cash-back").val();
+    var needCashBack = $(".delivery-cash-back-switch .delivery-cash-back-switch-active").attr("is-cash-back") == "true";
+
+    return {
+        Name: name,
+        PhoneNumber: phoneNumber,
+        DeliveryType: deliverType,
+        Street: street,
+        HomeNumber: home,
+        EntranceNumber: entrance,
+        ApartamentNumber: apartament,
+        Level: level,
+        IntercomCode: intercomCode,
+        BuyType: buyType,
+        Comment: comment,
+        ProductCountJSON: JSON.stringify(Basket.Products),
+        Discount: Basket.Discount,
+        CashBack: cashBack,
+        NeedCashBack: needCashBack,
+        BranchId: SettingBranch.BranchId,
+        CityId: ClientSetting.CityId
+    }
+}
+
+function emptyOrderDetails() {
+    Basket.OrderPrice = 0;
+    Basket.DeliveryPrice = 0;
+    Basket.Discount = 10;
+    Basket.Products = {};
+
+    toggleCountProductsInBasket();
+    clearBasketCountValue();
 }
