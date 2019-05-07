@@ -67,6 +67,27 @@ function bindCheckoutBuyType() {
         changeCheckoutBuyType(this);
     }
 
-    $("[name=delivery-buy-type]").unbind("click", func);
-    $("[name=delivery-buy-type]").click("click", func);
+    $("[name=delivery-buy-type]").unbind("change", func);
+    $("[name=delivery-buy-type]").bind("change", func);
+}
+
+function bindCheckoutDeliveryType() {
+
+    var func = function () {
+        changeCheckoutDeliveryType(this);
+    }
+
+    $("[name=delivery-type]").unbind("change", func);
+    $("[name=delivery-type]").bind("change", func);
+}
+
+function bindCheckoutFinished() {
+    var func = function () {
+        if (checkoutValid()) {
+
+        }
+    };
+
+    $(".order-collect-finished button").unbind("click", func);
+    $(".order-collect-finished button").bind("click", func);
 }

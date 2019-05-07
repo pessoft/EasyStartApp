@@ -249,4 +249,6 @@ function renderProductFullInfo(productId) {
 function renderPageCheckout() {
     bindCheckoutCashBackSwith();
     bindCheckoutBuyType();
+    bindCheckoutDeliveryType();
+    bindCheckoutFinished();
 }

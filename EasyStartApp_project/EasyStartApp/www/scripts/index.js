@@ -445,3 +445,46 @@ function changeCheckoutBuyType(e) {
         $(".delivery-cash-back").addClass("hide");
     }
 }
+
+function changeCheckoutDeliveryType(e) {
+    var $e = $(e);
+    if ($e.attr("id") == "collect-delivery-radio" &&
+        $e.is(":checked")) {
+        $("#address-order-delivery").removeClass("hide");
+    } else {
+        $("#address-order-delivery").addClass("hide");
+    }
+}
+
+function showErrorMessage(messages) {
+    var msgStr = "";
+    for (var id in messages) {
+        msgStr += "<span>" + messages[id] + "</span>";
+    }
+
+    $("#error-messages .messages-list").html(msgStr);
+
+    $("#error-messages").show('slow');
+    setTimeout(function () {
+        $("#error-messages").hide('slow');
+        $("#error-messages .messages-list").empty()
+    }, 5000);
+}
+
+function checkoutValid() {
+    var messages = [];
+
+    var nameValid = $("#collect-item-name").val().length != 0;
+
+    if (!nameValid) {
+        messages.push("Укажите ваше имя");
+    }
+
+    if (messages.length == 0) {
+        return true;
+    } else {
+        showErrorMessage(messages);
+
+        return false;
+    }
+}

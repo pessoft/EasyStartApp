@@ -168,7 +168,8 @@ div[data-role=page] {
 #firstStartSettingCity button,
 #firstStartSettingPhone button,
 #product button,
-#basket button {
+#basket button,
+#checkout button {
     text-shadow: none;
     font-weight: normal;
     font-size: 1.3em;
@@ -179,7 +180,8 @@ div[data-role=page] {
     #firstStartSettingCity button:focus,
     #firstStartSettingPhone button:focus,
     #product button:focus,
-    #basket button:focus {
+    #basket button:focus,
+    #checkout button:focus {
         box-shadow: none;
         outline: none;
     }
@@ -187,7 +189,8 @@ div[data-role=page] {
 #firstStartSettingCity .background-color-button,
 #firstStartSettingPhone .background-color-button,
 #product .background-color-button,
-#basket .background-color-button {
+#basket .background-color-button,
+#checkout .background-color-button {
     background-color: limegreen;
 }
 
@@ -198,7 +201,8 @@ div[data-role=page] {
 #firstStartSettingCity .color-button,
 #firstStartSettingPhone .color-button,
 #product .color-button,
-#basket .color-button {
+#basket .color-button,
+#checkout .color-button {
     color: #ffffff;
 }
 
@@ -447,11 +451,12 @@ div.sum-all {
     text-align: center;
 }
 
-#basket .basket-finished button {
+#basket .basket-finished button,
+#checkout .order-collect-item button {
     width: 85%;
     height: 25%;
-    min-height: 20px;
-    max-height: 50px;
+    min-height: 40px;
+    max-height: 55px;
     font-size: 5vw;
     padding: 0;
     margin: 0;
@@ -864,4 +869,73 @@ div.sum-all {
     flex-direction: row;
     padding-left: 3.5%;
 }
+
+#checkout .order-collect-item textarea {
+    overflow-y: auto;
+    width: 93%;
+    height: 18vh !important;
+    padding-left: 7%;
+    resize: none;
+    text-shadow: none;
+}
+
+.collect-item-result-price {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid #272727;
+    font-size: 0.8em;
+    padding-bottom: 3%;
+    margin-bottom: 1%;
+}
+
+.order-collect-finished {
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding: 2% 0;
+}
+
+.result-price-item {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1% 0;
+}
+
+#error-messages {
+    width: 94%;
+    min-height: 7%;
+    padding: 3%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    z-index: 99;
+}
+
+    #error-messages i {
+        margin-right: 5%;
+        font-size: 2.5em;
+    }
+
+.messages-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.messages-list span {
+    padding: 1%;
 }
