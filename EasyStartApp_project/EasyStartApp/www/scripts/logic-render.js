@@ -246,7 +246,24 @@ function renderProductFullInfo(productId) {
     $("#" + currentPage).append($template);
 }
 
+function clearPgeCheckout() {
+    var $page = $(Pages.Checkout);
+
+    $page.find(".order-collect-info").scrollTop(0);
+    $page.find("input[type=text]").val("");
+    $page.find("textarea").val("");
+    $page.find("#take-yourself-radio").attr("checked", "checked");
+    $page.find("#collect-delivery-radio").removeAttr("checked");
+    $page.find("#collect-buy-cash-radio").attr("checked", "checked");
+    $page.find("#collect-buy-card-radio").removeAttr("checked");
+    $page.find("[is-cash-back=true]").removeClass("delivery-cash-back-switch-active");
+    $page.find("[is-cash-back=false]").addClass("delivery-cash-back-switch-active");
+    $page.find("#delivery-cash-back").addClass("hide");
+}
+
 function renderPageCheckout() {
+    clearPgeCheckout();
+
     bindCheckoutCashBackSwith();
     bindCheckoutBuyType();
     bindCheckoutDeliveryType();
