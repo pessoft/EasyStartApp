@@ -104,3 +104,14 @@ function binCheckoutResultOk() {
     $button.unbind("click", func);
     $button.bind("click", func);
 }
+
+function bindCatalotChangeCityAndPhone() {
+    var $header = $(Pages.Catalog + " .header");
+    var func = function () {
+        render(Pages.FirstStartSettingPhone);
+        changePage(Pages.FirstStartSettingPhone);
+    }
+
+    $header.unbind("click", func);
+    $header.bind("click", func);
+}

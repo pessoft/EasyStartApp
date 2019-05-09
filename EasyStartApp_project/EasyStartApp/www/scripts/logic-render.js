@@ -56,6 +56,16 @@ function changePage(pageId) {
     $.mobile.changePage(pageId, { transition: "none" });
 }
 
+function renderPageFirstStartSettingPhone() {
+    var phoneNumber = window.localStorage.getItem("phoneNumber");
+
+    if (phoneNumber) {
+        $(Pages.FirstStartSettingPhone + " input[type=text]").val(phoneNumber);
+        $(Pages.FirstStartSettingPhone + " button").removeAttr("disabled");
+    }
+
+    bindEventsFirstStartSettingPhone();
+}
 
 function renderPageFirstStartSettingCity() {
     var template = "";
@@ -94,6 +104,7 @@ function renderPageCatalog() {
     });
 
     $page.find(".categories").html($tempateHtmlCategories);
+    bindCatalotChangeCityAndPhone();
 }
 
 function renderPageProduct() {
