@@ -12,7 +12,7 @@
 function bindEventsFirstStartSettingPhone() {
     var $button = $(Pages.FirstStartSettingPhone + " button");
 
-    $button.unbind("click", setPhoneNumber);
+    $button.unbind("click");
     $button.bind("click", setPhoneNumber);
 
     var $inputPhoneNumber = $("#client-phone");
@@ -33,12 +33,12 @@ function bindEventsFirstStartSettingCity() {
         selectCity(this);
     };
 
-    $cityItems.unbind("click", clickCityItem);
+    $cityItems.unbind("click");
     $cityItems.bind("click", clickCityItem);
 
     var $button = $parent.find("button");
 
-    $button.unbind("click", setSelectCity);
+    $button.unbind("click");
     $button.bind("click", setSelectCity);
 }
 
@@ -46,7 +46,7 @@ function bindCheckout() {
     var $parent = $(Pages.Basket);
     var $button = $parent.find(".basket-finished button");
 
-    $button.unbind("click", goCheckoutPage);
+    $button.unbind("click");
     $button.bind("click", goCheckoutPage);
 }
 
@@ -57,7 +57,7 @@ function bindCheckoutCashBackSwith() {
         swithCheckoutCashBack(this);
     }
 
-    $switch.unbind("click", func);
+    $switch.unbind("click");
     $switch.bind("click", func);
 }
 
@@ -83,13 +83,17 @@ function bindCheckoutDeliveryType() {
 
 function bindCheckoutFinished() {
     var func = function () {
+        var loader = new Loader($(Pages.Checkout));
+        loader.start();
         if (checkoutValid()) {
             var data = getDataOrderCheckout();
-            sendOrder(data);
+            sendOrder(data, loader);
+        } else {
+            loader.stop();
         }
     };
 
-    $(".order-collect-finished button").unbind("click", func);
+    $(".order-collect-finished button").unbind("click");
     $(".order-collect-finished button").bind("click", func);
 }
 
@@ -101,7 +105,7 @@ function binCheckoutResultOk() {
         changePage(Pages.Catalog);
     }
 
-    $button.unbind("click", func);
+    $button.unbind("click");
     $button.bind("click", func);
 }
 
@@ -112,6 +116,17 @@ function bindCatalotChangeCityAndPhone() {
         changePage(Pages.FirstStartSettingPhone);
     }
 
-    $header.unbind("click", func);
+    $header.unbind("click");
     $header.bind("click", func);
+}
+
+function bindToggleOrderHistoryInfo(e) {
+    var $e = $(e);
+    var func = function () {
+        $e.find(".history-order-content").toggle("slow");
+    }
+
+    $e.find(".history-order-header").unbind("click");
+    $e.find(".history-order-header").bind("click", func);
+    
 }

@@ -1,20 +1,23 @@
-﻿//var ServiceURL = "http://localhost:53888";
-var ServiceURL = "https://easystart.conveyor.cloud";
+﻿var ServiceURL = "http://localhost:53888";
+//var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
     GetCategories: ServiceURL + "/api/adminapp/getcategories",
     GetProducts: ServiceURL + "/api/adminapp/getproducts",
+    GetAllProducts: ServiceURL + "/api/adminapp/getallproducts",
     GetDeliverySetting: ServiceURL + "/api/adminapp/getdeliverysetting",
     GetSetting: ServiceURL + "/api/adminapp/getsetting",
-    SendOrder: ServiceURL + "/api/adminapp/sendorder"
+    SendOrder: ServiceURL + "/api/adminapp/sendorder",
+    GetHistoryOrder: ServiceURL + "/api/adminapp/gethistoryorder"
 };
 
 var Data = {
     AllowedCity: null,
     SelectCity: null,
     Categories: null,
-    Products: {}
+    Products: {},
+    HistoryOrder: []
 };
 
 var DeliverySetting = {};
@@ -115,6 +118,21 @@ function getCategoriesPromise() {
     });
 }
 
+function getAllProductPromise() {
+    return new Promise(function (resolve, reject) {
+        var successFunc = function successFunc(data) {
+            for (var categoryId in data) {
+                var products = data[categoryId];
+                Data.Products[categoryId] = processingImagePath(products);
+            }
+
+            resolve();
+        };
+
+        getAPI(API.GetAllProducts, null, successFunc, reject);
+    });
+}
+
 function getDeliverySetting(cityId) {
     return new Promise(function (resolve, reject) {
         var successFunc = function successFunc(data) {
@@ -127,7 +145,7 @@ function getDeliverySetting(cityId) {
     });
 }
 
-function getProducts(categoryId) {
+function getProducts(categoryId, loader) {
     var successFunc = function successFunc(data) {
         Data.Products[categoryId] = processingImagePath(data);
 
@@ -136,6 +154,7 @@ function getProducts(categoryId) {
 
     var renderPageProduct = function renderPageProduct() {
         render(Pages.Product);
+        loader.stop();
         changePage(Pages.Product);
     };
 
@@ -158,11 +177,36 @@ function getSetting(cityId) {
     });
 }
 
-function sendOrder(data) {
-    var successFunc = function successFunc(data) {
+function sendOrder(order, loader) {
+    var successFunc = function successFunc(resultData) {
+        var data = {
+            Order: order,
+            ResultData: resultData
+        }
         render(Pages.CheckoutResult, data);
+        loader.stop();
         changePage(Pages.CheckoutResult);
     };
 
-    postAPI(API.SendOrder, data, successFunc);
+    postAPI(API.SendOrder, order, successFunc);
+}
+
+function GetHistoryOrder(renderSuccessHistoryOrder, renderErrorHistoryOrder) {
+    var successFunc = function successFunc(resultData) {
+        Data.HistoryOrder = resultData;
+
+        if (renderSuccessHistoryOrder) {
+            renderSuccessHistoryOrder();
+        }
+        
+    };
+
+    if (Data.HistoryOrder &&
+        Data.HistoryOrder.length != 0) {
+        renderSuccessHistoryOrder();
+
+        return;
+    }
+
+    getAPI(API.GetHistoryOrder, { phoneNumber: ClientSetting.PhoneNumber }, successFunc, renderErrorHistoryOrder);
 }

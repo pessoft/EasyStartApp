@@ -3,6 +3,12 @@
     loadData();
 });
 
+$(document).bind('pagechange', function () {
+    if ($.mobile.activePage.is(Pages.History)) {
+        render(Pages.History);
+    }
+});
+
 function onDeviceReady() {
     document.addEventListener("backbutton", onBackKeyDown, false);
 };
@@ -17,7 +23,8 @@ function loadData() {
     setClientSettingData();
     Promise.all([
         getAllowedCityPromise(),
-        getCategoriesPromise()
+        getCategoriesPromise(),
+        getAllProductPromise()
     ]).then(function (results) {
         loadDataReady();
     });
@@ -91,9 +98,12 @@ function selectCategory(e) {
     var $e = $(e);
 
     var categoryId = $e.attr("category-id");
+    var loader = new Loader($("[category-id=" + categoryId+"]"));
+    loader.start();
+
     ClientSetting.CurrentCategory = categoryId;
 
-    getProducts(categoryId);
+    getProducts(categoryId, loader);
 }
 
 function getDataCategoryById(categoryId) {
@@ -238,9 +248,9 @@ function toggleCountProductsInBasket() {
     if (countItems == 0) {
         $basketCountInfo.addClass("hide");
         $basketCountInfo.empty();
-        $(".empty-basket").removeClass("hide");
+        $(Pages.Basket + " .empty-content").removeClass("hide");
     } else {
-        $(".empty-basket").addClass("hide");
+        $(Pages.Basket + " .empty-content").addClass("hide");
         var countItemsStr = countItems + " шт";
 
         $basketCountInfo.removeClass("hide");
@@ -376,8 +386,18 @@ function getWorkTime() {
         workDaysStr.push(str);
     }
 
-    var freeDays = freeDays.join() + ": " + "выходной";
-    var resultStr = workDaysStr.join("<br>") +
+    var freeDays = "";
+    var workDaysResult = "";
+
+    if (freeDays.length != 0) {
+        freeDays = freeDays.join() + ": " + "выходной";
+    }
+
+    if (workDaysStr.length != 0) {
+        workDaysResult = workDaysStr.join("<br>");
+    }
+
+    var resultStr = workDaysResult +
         (freeDays ? "<br>" + freeDays : "");
 
     return resultStr;
@@ -556,18 +576,6 @@ function checkoutValid() {
     }
 }
 
-function isInteger(num) {
-    return (num ^ 0) === num;
-}
-
-function getPriceValid(num) {
-    if (!isInteger(num)) {
-        num = num.toFixed(2);
-    }
-
-    return num;
-}
-
 function getDataOrderCheckout() {
     var name = $("#collect-item-name").val();
     var phoneNumber = $("#collect-item-phone-number").val();
@@ -607,7 +615,10 @@ function getDataOrderCheckout() {
         CashBack: cashBack,
         NeedCashBack: needCashBack,
         BranchId: SettingBranch.BranchId,
-        CityId: ClientSetting.CityId
+        CityId: ClientSetting.CityId,
+        Date: new Date(),
+        AmountPay: getAmountPay(),
+        AmountPayDiscountDelivery: getAmountPayWithDiscountDelivery()
     }
 }
 
@@ -619,4 +630,43 @@ function emptyOrderDetails() {
 
     toggleCountProductsInBasket();
     clearBasketCountValue();
+}
+
+/**
+ * Цена без учета скидки и доставка
+ */
+function getAmountPay() {
+    var amountPay = getPriceValid(Basket.OrderPrice);
+
+    return amountPay;
+}
+
+
+/**
+ * Цена с учетом скидки
+ */
+function getAmountPayWithDiscount() {
+    var orderPrice = (Basket.OrderPrice - (Basket.OrderPrice * Basket.Discount / 100));
+    var amountPay = getPriceValid(orderPrice);
+
+    return amountPay;
+}
+
+/**
+ * Цена с учетом доставки
+ */
+function getAmountPayWithDelivery() {
+    var amountPay = getPriceValid(Basket.OrderPrice + Basket.DeliveryPrice);
+
+    return amountPay;
+}
+
+/**
+ * Цена с учетом скидки и доставки
+ */
+function getAmountPayWithDiscountDelivery() {
+    var orderPrice = (Basket.OrderPrice - (Basket.OrderPrice * Basket.Discount / 100));
+    var amountPay = getPriceValid(orderPrice + Basket.DeliveryPrice);
+
+    return amountPay;
 }

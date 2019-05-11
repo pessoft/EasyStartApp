@@ -21,6 +21,7 @@
     <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" data-transition="none" href="css/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" type="text/css" data-transition="none" href="css/index.css">
+    <link rel="stylesheet" type="text/css" data-transition="none" href="css/loader.css">
 
     <div data-role="page" class="page-color page-background-color" id="logo-load">
         <img src="images/test-logo.jpg" alt="Alternate Text" />
@@ -133,7 +134,7 @@
             Корзина
         </div>
         <div class="content">
-            <div class="empty-basket color-dark page-background-color">
+            <div class="empty-content color-dark page-background-color">
                 <i class="fal fa-shopping-basket"></i>
                 Ваша корзина пуста
             </div>
@@ -334,7 +335,15 @@
         <div class="header header-color">
             История заказов
         </div>
-        <div class="content"></div>
+        <div class="content">
+            <div class="empty-content color-dark page-background-color">
+                <i class="fal fa-history"></i>
+                Нет оформленных заказов
+            </div>
+            <div class="history-list">
+                
+            </div>
+        </div>
         <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
@@ -390,7 +399,7 @@
                     <div class="collect-item-conten">
                         <div class="collect-item-radio" id="collect-take-yourself">
                             <input type="radio" name="delivery-type" delivery-type="TakeYourSelf" id="take-yourself-radio" checked>
-                            <label for="take-yourself-radio"  class="color-dark">Самовывоз</label>
+                            <label for="take-yourself-radio" class="color-dark">Самовывоз</label>
                         </div>
                         <div class="collect-item-radio" id="collect-delivery">
                             <input type="radio" name="delivery-type" delivery-type="Delivery" id="collect-delivery-radio">
@@ -518,6 +527,32 @@
         </div>
     </div>
 
+    <template id="history-order-product-item">
+        <div class="order-product-item">
+            <div class="order-product-item-image">
+                <img src="" />
+            </div>
+            <div class="order-product-item-info">
+                <div class="order-product-item-name"></div>
+                <div class="order-product-price-info"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="history-order">
+        <div class="history-order">
+            <div class="history-order-header">
+                <div class="history-order-header-main-info">
+                    <span class="history-order-number-header"></span>
+                </div>
+                <div class="history-order-header-date color-light-dark">
+                </div>
+            </div>
+            <div class="history-order-content" style="display:none">
+            </div>
+        </div>
+    </template>
+
     <template id="basket-product">
         <div class="product-basket" product-id="">
             <div class="basket-product-main-info">
@@ -614,10 +649,23 @@
         </div>
     </template>
 
+    <template id="loader">
+        <div class="page-full-loader">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </template>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/maskedinput.min.js"></script>
     <script type="text/javascript" src="scripts/es6-promise.min.js"></script>
+    <script type="text/javascript" src="scripts/utils.js"></script>
+    <script type="text/javascript" src="scripts/loader.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
     <script type="text/javascript" src="scripts/bin-events.js"></script>
     <script type="text/javascript" src="scripts/logic-data.js"></script>

@@ -239,7 +239,95 @@ function renderPageInfo(data) {
     $("#info-facebook .info-item-content").html(data.Facebook);
 }
 
-function renderPageHistory() { }
+function renderHistoryOrderItem(order) {
+    var $template = $($("#history-order").html());
+    var getStrDataOrder = function () {
+        var orderNumber = "№ " + order.Id;
+        var productCount = Object.keys(order.ProductCount).length;
+        var wordDeclension = num2str(productCount, ["блюдо", "блюда", "блюд"]);
+        productCount = productCount + " " + wordDeclension;
+        var price = getPriceValid(order.AmountPay) + " руб."
+        var date = getDateFormatted(order.Date);
+        var products = [];
+
+        for (var productId in order.ProductCount) {
+            var count = order.ProductCount[productId];
+            var product = getDataProductyById(productId);
+            var priceItemProduct = count + " х " + getPriceValid(product.Price) + " руб.";
+            var itemProductHistory = {
+                Image: product.Image,
+                Name: product.Name,
+                Price: priceItemProduct 
+            };
+
+            products.push(itemProductHistory);
+        }
+
+        return {
+            OrderNumber: orderNumber,
+            ProductCount: productCount,
+            Price: price,
+            Date: date,
+            Products: products
+        };
+    }
+    var data = getStrDataOrder();
+    var orderInfo = data.ProductCount + ", " + data.Price;
+
+    $template.find(".history-order-number-header").html(data.OrderNumber);
+    $template.find(".history-order-header-main-info").append(orderInfo);
+    $template.find(".history-order-header-date").html(data.Date);
+
+    var productsRender = [];
+    for (var id in data.Products) {
+        var $templeteProduct = $($("#history-order-product-item").html());
+        var product = data.Products[id];
+
+        $templeteProduct.find("img").attr("src", product.Image);
+        $templeteProduct.find(".order-product-item-name").html(product.Name);
+        $templeteProduct.find(".order-product-price-info").html(product.Price);
+
+        productsRender.push($templeteProduct);
+    }
+
+    $template.find(".history-order-content").html(productsRender);
+
+    bindToggleOrderHistoryInfo($template);
+
+    return $template;
+}
+
+function renderPageHistory() {
+    var $page = $(Pages.History);
+    var loader = new Loader($page);
+
+    loader.start();
+    var funcRenderPageHistory = function () {
+        if (Data.HistoryOrder &&
+            Data.HistoryOrder.length > 0) {
+            var itemsRender = [];
+            var historyOrder = Data.HistoryOrder.reverse();
+            for (var id in historyOrder) {
+                var order = historyOrder[id];
+                itemsRender.push(renderHistoryOrderItem(order));
+            }
+
+            $page.find(".history-list").html(itemsRender);
+            $page.find(".empty-content").addClass("hide");
+        } else {
+            $page.find(".empty-content").removeClass("hide");
+        }
+
+        loader.stop();
+    }
+
+    var renderErrorHistoryOrder = function(message) {
+        loader.stop();
+        $page.find(".empty-content").removeClass("hide");
+    }
+
+    GetHistoryOrder(funcRenderPageHistory, renderErrorHistoryOrder);
+}
 
 function renderProductFullInfo(productId) {
     var product = getDataProductyById(productId);
@@ -304,22 +392,28 @@ function renderPageCheckout() {
         $delivery.removeClass("hide");
     }
 
-    var orderPrice = (Basket.OrderPrice - (Basket.OrderPrice * Basket.Discount / 100));
-    var allPrice = getPriceValid(orderPrice + Basket.DeliveryPrice);
-
-    $("#collect-item-result-sum-price .result-price-item-value").html(allPrice + " руб.");
+    $("#collect-item-result-sum-price .result-price-item-value").html(getAmountPayWithDiscountDelivery() + " руб.");
 }
 
 function renderPageCheckoutResult(data) {
     var msg = "";
 
-    if (data.Success) {
-        msg = "Заказ №" + data.Data + " оформлен";
+    if (data.ResultData.Success) {
+        msg = "Заказ №" + data.ResultData.Data + " оформлен";
 
         $(".checkout-result-failure").addClass("hide");
         $(".checkout-result-success").removeClass("hide");
 
         $(".checkout-result-success").find("span").html(msg);
+
+        if (Data.HistoryOrder &&
+            Data.HistoryOrder.length != 0) {
+            data.Order["Id"] = data.ResultData.Data;
+            data.Order["ProductCount"] = JSON.parse(data.Order["ProductCountJSON"]);
+            
+            Data.HistoryOrder.push(data.Order);
+        }
+        
     } else {
         msg = "В ходе оформления заказа что то пошло не так";
 
