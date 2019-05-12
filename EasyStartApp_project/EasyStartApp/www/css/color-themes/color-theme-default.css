@@ -1,0 +1,127 @@
+﻿.page-color {
+    color: #ffffff;
+}
+
+.header,
+.content,
+.active-city-item,
+.basket-finished,
+.product-content,
+.basket-product-content,
+.basket-product-price,
+.product-full-info-description,
+.info-item-container,
+.order-collect-item,
+.collect-item-result-price,
+.history-order {
+    border-color: #272727;
+}
+
+.first-page-header,
+.first-page-content {
+    border-color: #1f1e1e;
+}
+
+.page-background-color {
+    background-color: #000000;
+}
+
+.color-dark,
+#checkout .color-dark {
+    color: #777777;
+}
+
+.color-light-dark {
+    color: #a9a9a9;
+}
+
+.header-color {
+    color: #ffffff;
+}
+
+#firstStartSettingCity .background-color-button,
+#firstStartSettingPhone .background-color-button,
+#product .background-color-button,
+#basket .background-color-button,
+#checkout .background-color-button,
+#checkout-result .background-color-button {
+    background-color: limegreen;
+}
+
+#basket .background-color-remove-product-button {
+    background-color: #000000;
+}
+
+#firstStartSettingCity button,
+#firstStartSettingPhone button,
+#product button,
+#basket button,
+#checkout button,
+#checkout-result button {
+    border-color: limegreen;
+}
+
+#firstStartSettingCity .color-button,
+#firstStartSettingPhone .color-button,
+#product .color-button,
+#basket .color-button,
+#checkout .color-button,
+#checkout-result .color-button {
+    color: #ffffff;
+}
+
+.active { /*activ footer item menu*/
+    color: #ffffff;
+}
+
+.footer a {
+    color: #777777;
+}
+
+#firstStartSettingPhone input[type=text],
+#checkout input[type=text],
+#checkout input[type=number] {
+    color: #ffffff;
+    border-color: #777777;
+}
+
+.product-full-info {
+    background-color: rgba(93, 88, 88, 0.77);
+}
+
+.full-info-close {
+    color: #9e9e9e;
+}
+
+.add-basket-counter {
+    background-color: #2d394a;
+    color: #ffffff;
+}
+
+.basket-counter-button {
+    background-color: #405169;
+}
+
+.basket-count-info {
+    background-color: #777777;
+    color: #ffffff;
+}
+
+.delivery-cash-back-switch div:first-child,
+.delivery-cash-back-switch div:last-child {
+    border-color: #272727;
+}
+
+#checkout .delivery-cash-back-switch-active {
+    background-color: #272727;
+    color: #ffffff;
+}
+
+#error-messages {
+    background-color: red;
+    color: #ffffff;
+}
+
+.lds-ellipsis div {
+    background: #fff;
+}

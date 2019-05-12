@@ -83,7 +83,7 @@ function bindCheckoutDeliveryType() {
 
 function bindCheckoutFinished() {
     var func = function () {
-        var loader = new Loader($(Pages.Checkout));
+        var loader = new Loader($(Pages.Checkout + " .content"));
         loader.start();
         if (checkoutValid()) {
             var data = getDataOrderCheckout();

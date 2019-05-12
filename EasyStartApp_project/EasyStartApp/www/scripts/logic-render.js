@@ -1,4 +1,5 @@
 ﻿var Pages = {
+    Logo: "#logo-load",
     FirstStartSettingPhone: "#firstStartSettingPhone",
     FirstStartSettingCity: "#firstStartSettingCity",
     Catalog: "#catalog",
@@ -233,10 +234,20 @@ function renderPageInfo(data) {
     $("#info-work-time .info-item-content").html(data.WorkTime);
     $("#info-price-delivery .info-item-content").html(data.PriceDelivery);
     $("#info-buy .info-item-content").html(data.TypesBuy);
-    $("#info-email .info-item-content").html(data.Email);
-    $("#info-vk .info-item-content").html(data.Vkontakte);
-    $("#info-instagram .info-item-content").html(data.Instagram);
-    $("#info-facebook .info-item-content").html(data.Facebook);
+
+    var additionalInfo = function (id, content) {
+        if (content) {
+            $("#" + id + " .info-item-content").html(content);
+            $("#" + id).removeClass("hide");
+        } else {
+            $("#" + id).addClass("hide");
+        }
+    }
+
+    additionalInfo("info-email", data.Email);
+    additionalInfo("info-vk", data.Vkontakte);
+    additionalInfo("info-instagram", data.Instagram);
+    additionalInfo("info-facebook", data.Facebook);
 }
 
 function renderHistoryOrderItem(order) {
@@ -257,7 +268,7 @@ function renderHistoryOrderItem(order) {
             var itemProductHistory = {
                 Image: product.Image,
                 Name: product.Name,
-                Price: priceItemProduct 
+                Price: priceItemProduct
             };
 
             products.push(itemProductHistory);
@@ -298,7 +309,7 @@ function renderHistoryOrderItem(order) {
 }
 
 function renderPageHistory() {
-    var $page = $(Pages.History);
+    var $page = $(Pages.History + " .content");
     var loader = new Loader($page);
 
     loader.start();
@@ -306,9 +317,8 @@ function renderPageHistory() {
         if (Data.HistoryOrder &&
             Data.HistoryOrder.length > 0) {
             var itemsRender = [];
-            var historyOrder = Data.HistoryOrder.reverse();
-            for (var id in historyOrder) {
-                var order = historyOrder[id];
+            for (var i = Data.HistoryOrder.length - 1; i >= 0; --i) {
+                var order = Data.HistoryOrder[i];
                 itemsRender.push(renderHistoryOrderItem(order));
             }
 
@@ -321,7 +331,7 @@ function renderPageHistory() {
         loader.stop();
     }
 
-    var renderErrorHistoryOrder = function(message) {
+    var renderErrorHistoryOrder = function (message) {
         loader.stop();
         $page.find(".empty-content").removeClass("hide");
     }
@@ -410,10 +420,10 @@ function renderPageCheckoutResult(data) {
             Data.HistoryOrder.length != 0) {
             data.Order["Id"] = data.ResultData.Data;
             data.Order["ProductCount"] = JSON.parse(data.Order["ProductCountJSON"]);
-            
+
             Data.HistoryOrder.push(data.Order);
         }
-        
+
     } else {
         msg = "В ходе оформления заказа что то пошло не так";
 

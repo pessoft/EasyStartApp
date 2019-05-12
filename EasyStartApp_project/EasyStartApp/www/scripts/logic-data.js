@@ -188,7 +188,19 @@ function sendOrder(order, loader) {
         changePage(Pages.CheckoutResult);
     };
 
-    postAPI(API.SendOrder, order, successFunc);
+    var errFunc = function () {
+        var data = {
+            ResultData: {
+                Success: false
+            }
+        };
+
+        render(Pages.CheckoutResult, data);
+        loader.stop();
+        changePage(Pages.CheckoutResult);
+    }
+
+    postAPI(API.SendOrder, order, successFunc, errFunc);
 }
 
 function GetHistoryOrder(renderSuccessHistoryOrder, renderErrorHistoryOrder) {

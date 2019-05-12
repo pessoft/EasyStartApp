@@ -19,19 +19,31 @@ function onBackKeyDown() {
     }
 }
 
+$('.link').live('tap', function () {
+    url = $(this).attr("rel");
+    loadURL(url);
+});
+
+function loadURL(url) {
+    navigator.app.loadUrl(url, { openExternal: true });
+    return false;
+} 
+
 function loadData() {
     setClientSettingData();
+
     Promise.all([
         getAllowedCityPromise(),
         getCategoriesPromise(),
         getAllProductPromise()
     ]).then(function (results) {
         loadDataReady();
+        if (!isFirstStart()) {
+            loadSettings();
+        }
+    }).catch(function (er) {
+        changePage(Pages.Logo);
     });
-
-    if (!isFirstStart()) {
-        loadSettings();
-    }
 }
 
 function loadDataReady() {
@@ -98,9 +110,8 @@ function selectCategory(e) {
     var $e = $(e);
 
     var categoryId = $e.attr("category-id");
-    var loader = new Loader($("[category-id=" + categoryId+"]"));
+    var loader = new Loader($(Pages.Catalog + " .content"));
     loader.start();
-
     ClientSetting.CurrentCategory = categoryId;
 
     getProducts(categoryId, loader);
@@ -456,13 +467,27 @@ function getDataInfo() {
         WorkTime: getWorkTime(),
         PriceDelivery: getPriceDeliveryStr(),
         TypesBuy: getTypesBuy(),
-        Vkontakte: SettingBranch.Vkontakte,
-        Instagram: SettingBranch.Instagram,
-        Facebook: SettingBranch.Facebook,
+        Vkontakte: getLinkSocilaNetwork(SettingBranch.Vkontakte, "vk.com"),
+        Instagram: getLinkSocilaNetwork(SettingBranch.Instagram, "instagram.com"),
+        Facebook: getLinkSocilaNetwork(SettingBranch.Facebook, "facebook.com"),
         Email: SettingBranch.Email
     };
 
     return info;
+}
+
+function getLinkSocilaNetwork(link, socialDomain) {
+    if (!link) {
+        return null;
+    }
+
+    if (link.indexOf("http") == -1) {
+        link = "https://" + link.trim();
+    }
+
+    var template = "<span class='link' rel='" + link + "'>" + socialDomain + "</span>"
+
+    return template;
 }
 
 function goCheckoutPage() {
