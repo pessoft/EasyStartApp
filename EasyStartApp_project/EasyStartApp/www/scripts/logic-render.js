@@ -343,6 +343,7 @@ function renderProductFullInfo(productId) {
     var product = getDataProductyById(productId);
     var $template = $($("#product-full-info").html());
 
+    $template.attr("product-id", product.Id);
     $template.find(".product-full-info-header").html(product.Name);
     $template.find(".product-full-info-adition ").html(product.AdditionInfo);
     $template.find(".product-full-info-price ").html(product.Price + " руб.");
@@ -351,8 +352,21 @@ function renderProductFullInfo(productId) {
     $template.find(".product-full-info-image").css("background-image", "url(" + product.Image + ")");
     $template.find(".full-info-close").bind("click", closeProductFullInfo);
 
+
+
     var currentPage = $.mobile.activePage.attr("id");
     $("#" + currentPage).append($template);
+
+    $("#rating").raty({
+        score: 2,
+        showHalf: true,
+        path: "images/rating",
+        targetKeep: true,
+        precision: true,
+        click: function () {
+            $("#rating").raty("score",)
+        }
+    });
 }
 
 function clearPgeCheckout() {
