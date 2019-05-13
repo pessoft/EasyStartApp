@@ -17,6 +17,10 @@ body {
     font-weight: 100;
 }
 
+.ui-loader {
+    display: none !important;
+}
+
 .ui-overlay-a,
 .ui-page-theme-a,
 .ui-page-theme-a
@@ -1013,6 +1017,9 @@ div.sum-all {
 .order-product-item-image {
     width: 12vw;
     height: 12vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
     .order-product-item-image img {
