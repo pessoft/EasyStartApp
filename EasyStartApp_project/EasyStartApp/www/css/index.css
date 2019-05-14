@@ -563,7 +563,7 @@ div.sum-all {
 }
 
 .product-full-info-price {
-    margin: 3% 5% 0% 3%;
+    margin: 10% 5% 0% 3%;
     display: flex;
     justify-content: flex-end;
 }
@@ -1047,4 +1047,32 @@ div.sum-all {
 
 .order-product-price-info {
     text-align: right;
+}
+
+.product-full-info-item {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:row;
+    width:100%;
+}
+
+.product-full-info-item-block {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 67%;
+    padding: 0% 3% 0% 3%;
+}
+
+.product-full-info-item .product-full-info-item-block:last-child {
+    align-items: flex-end;
+    width: 30%;
+    padding: 0 3% 0 0;
+}
+
+#rating-text {
+    font-size: 0.8em;
+    margin: 3% 0% 0% 0%;
 }

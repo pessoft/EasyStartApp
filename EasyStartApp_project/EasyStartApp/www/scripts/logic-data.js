@@ -9,7 +9,8 @@ var API = {
     GetDeliverySetting: ServiceURL + "/api/adminapp/getdeliverysetting",
     GetSetting: ServiceURL + "/api/adminapp/getsetting",
     SendOrder: ServiceURL + "/api/adminapp/sendorder",
-    GetHistoryOrder: ServiceURL + "/api/adminapp/gethistoryorder"
+    GetHistoryOrder: ServiceURL + "/api/adminapp/gethistoryorder",
+    UpdateProducRating: ServiceURL + "/api/adminapp/updateproducrating",
 };
 
 var Data = {
@@ -210,7 +211,7 @@ function GetHistoryOrder(renderSuccessHistoryOrder, renderErrorHistoryOrder) {
         if (renderSuccessHistoryOrder) {
             renderSuccessHistoryOrder();
         }
-        
+
     };
 
     if (Data.HistoryOrder &&
@@ -221,4 +222,8 @@ function GetHistoryOrder(renderSuccessHistoryOrder, renderErrorHistoryOrder) {
     }
 
     getAPI(API.GetHistoryOrder, { phoneNumber: ClientSetting.PhoneNumber }, successFunc, renderErrorHistoryOrder);
+}
+
+function updateProducRating(productId, score) {
+    postAPI(API.UpdateProducRating, { ProductId: productId, Score: score }, null, null);
 }

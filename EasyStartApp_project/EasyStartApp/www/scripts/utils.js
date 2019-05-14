@@ -26,3 +26,28 @@ function getDateFormatted(date) {
     var date = new Date(date);
     return (date.getMonth() + 1) + '.' + date.getDate() + '.' + date.getFullYear();
 }
+
+function isReadOnlyRating(productId) {
+    var idCollection = "rating" + productId;
+    var productRating = window.localStorage.getItem(idCollection);
+    var isReadOnly = productRating == "true";
+
+    return isReadOnly;
+}
+
+function setReadOnlyRating(productId) {
+    var idCollection = "rating" + productId;
+
+    window.localStorage.setItem(idCollection, "true");
+}
+
+function calcRating(votesSum, score, currentVotesCount) {
+    currentVotesCount += 1;
+    score = score > 0 ? score : 0;
+    var rating = (votesSum + score) / currentVotesCount;
+
+    return {
+        Rating: rating,
+        VotesCount: currentVotesCount
+    }
+}

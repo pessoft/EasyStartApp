@@ -352,21 +352,44 @@ function renderProductFullInfo(productId) {
     $template.find(".product-full-info-image").css("background-image", "url(" + product.Image + ")");
     $template.find(".full-info-close").bind("click", closeProductFullInfo);
 
+    var isReadOnly = isReadOnlyRating(product.Id);
 
-
-    var currentPage = $.mobile.activePage.attr("id");
-    $("#" + currentPage).append($template);
-
-    $("#rating").raty({
-        score: 2,
+    $template.find("#rating").raty({
+        score: product.Rating,
         showHalf: true,
         path: "images/rating",
         targetKeep: true,
         precision: true,
-        click: function () {
-            $("#rating").raty("score",)
+        readOnly: isReadOnly,
+        click: function (score) {
+            score = parseInt(score);
+            setReadOnlyRating(product.Id);
+            var newRating = calcRating(product.VotesSum, score, product.VotesCount);
+            product.Rating = newRating.Rating;
+            product.VotesCount = newRating.VotesCount;
+            updateProducRating(product.Id, score);
+
+            var $rating = $("#rating");
+            $rating.raty('score', product.Rating);
+            $rating.raty('readOnly', true);
+
+            var ratingText = renderRatingText(product.Rating, product.VotesCount);
+            $("#rating-text").html(ratingText);
         }
     });
+    var ratingText = renderRatingText(product.Rating, product.VotesCount);
+    $template.find("#rating-text").html(ratingText);
+    var currentPage = $.mobile.activePage.attr("id");
+    $("#" + currentPage).append($template);
+
+
+}
+
+function renderRatingText(rating, votesCount) {
+    var votesCountStr = num2str(votesCount, ["голос", "голоса", "голосов"]);
+    var result = "Рейтинг: " + rating.toFixed(1) + " - " + votesCount + " " + votesCountStr
+
+    return result;
 }
 
 function clearPgeCheckout() {
