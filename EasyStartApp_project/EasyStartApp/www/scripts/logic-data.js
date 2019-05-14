@@ -1,5 +1,5 @@
-﻿var ServiceURL = "http://localhost:53888";
-//var ServiceURL = "https://easystart.conveyor.cloud";
+﻿//var ServiceURL = "http://localhost:53888";
+var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",

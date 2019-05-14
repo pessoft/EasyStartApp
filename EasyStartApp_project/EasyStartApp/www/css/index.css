@@ -282,12 +282,12 @@ div[data-role=page] {
 }
 
 #basket .products {
-    height: 71%;
+    height: 67%;
 }
 
 .basket-finished {
     width: 100%;
-    height: 26%;
+    height: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -546,7 +546,7 @@ div.sum-all {
 
 .product-full-info-header {
     min-height: 20%;
-    margin: 3% 3% 0% 3%;
+    margin: 3% 3% 3% 3%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -734,6 +734,10 @@ div.sum-all {
     margin-top: 3%;
 }
 
+.order-collect-item-price-info {
+    height: 35%;
+}
+
 .collect-item-header {
     width: 95%;
     padding-left: 5%;
@@ -854,7 +858,7 @@ div.sum-all {
 
 .collect-item-result-price {
     width: 100%;
-    height: 80%;
+    height: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -867,6 +871,7 @@ div.sum-all {
 
 .order-collect-finished {
     width: 100%;
+    height: 35%;
     display: flex;
     justify-content: center;
     align-items: center;

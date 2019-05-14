@@ -125,3 +125,7 @@
 .lds-ellipsis div {
     background: #fff;
 }
+
+svg {
+    fill: #fff;
+}

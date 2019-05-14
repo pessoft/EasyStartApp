@@ -123,7 +123,13 @@ function bindCatalotChangeCityAndPhone() {
 function bindToggleOrderHistoryInfo(e) {
     var $e = $(e);
     var func = function () {
-        $e.find(".history-order-content").toggle("slow");
+        var $orderContent = $e.find(".history-order-content");
+
+        if ($orderContent.is(":visible")) {
+            $orderContent.hide();
+        } else {
+            $orderContent.show();
+        }
     }
 
     $e.find(".history-order-header").unbind("click");

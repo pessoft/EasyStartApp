@@ -405,6 +405,7 @@ function clearPgeCheckout() {
     $page.find("[is-cash-back=true]").removeClass("delivery-cash-back-switch-active");
     $page.find("[is-cash-back=false]").addClass("delivery-cash-back-switch-active");
     $page.find("#delivery-cash-back").addClass("hide");
+    $page.find("#address-order-delivery").addClass("hide");
 }
 
 function renderPageCheckout() {
