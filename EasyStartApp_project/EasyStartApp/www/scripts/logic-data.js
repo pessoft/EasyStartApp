@@ -1,5 +1,5 @@
-﻿//var ServiceURL = "http://localhost:53888";
-var ServiceURL = "https://easystart.conveyor.cloud";
+﻿var ServiceURL = "http://localhost:53888";
+//var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
@@ -11,6 +11,8 @@ var API = {
     SendOrder: ServiceURL + "/api/adminapp/sendorder",
     GetHistoryOrder: ServiceURL + "/api/adminapp/gethistoryorder",
     UpdateProducRating: ServiceURL + "/api/adminapp/updateproducrating",
+    SetProductReviews: ServiceURL + "/api/adminapp/setproductreviews",
+    GetProductReviews: ServiceURL + "/api/adminapp/getproductreviews"
 };
 
 var Data = {
@@ -23,6 +25,7 @@ var Data = {
 
 var DeliverySetting = {};
 var SettingBranch = {};
+var ProductReview = {};
 
 var ClientSetting = {
     PhoneNumber: null,
@@ -226,4 +229,20 @@ function GetHistoryOrder(renderSuccessHistoryOrder, renderErrorHistoryOrder) {
 
 function updateProducRating(productId, score) {
     postAPI(API.UpdateProducRating, { ProductId: productId, Score: score }, null, null);
+}
+
+function setProductReview(review) {
+    postAPI(API.SetProductReviews, review, null, null);
+}
+
+function getProductReviews(producId, callback) {
+    var successFunc = function (data) {
+        ProductReview[producId] = data;
+
+        if (callback) {
+            callback();
+        }
+    }
+
+    getAPI(API.GetProductReviews, { productId: producId }, successFunc, null);
 }

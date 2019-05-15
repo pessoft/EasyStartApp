@@ -651,8 +651,35 @@
                         <div class="product-full-info-description color-dark">
                         </div>
                     </div>
+                    <div class="product-full-info-review">
+                        <div class="product-full-info-set-review">
+                            <textarea class="ui-input-text color-dark" id="product-review" placeholder="Оставте ваш отзыв"></textarea>
+                            <button class="color-button background-color-button " id="send-product-review">Отправить отзыв</button>
+                        </div>
+                        <div class="product-full-info-reviews">
+                            <div class="product-full-info-reviews-header">
+                                Отзывы
+                            </div>
+                            <div class="product-full-info-review-list">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </template>
+
+    <template id="review-item-empty">
+        <div class="review-item review-item-empty">
+            <i class="fal fa-comment-smile"></i>
+            Оставте ваш отзыв
+        </div>
+    </template>
+
+    <template id="review-item">
+        <div class="review-item">
+            <div class="review-item-username"></div>
+            <div class="review-item-text color-light-dark"></div>
         </div>
     </template>
 

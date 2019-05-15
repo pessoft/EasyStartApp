@@ -13,7 +13,10 @@
 .info-item-container,
 .order-collect-item,
 .collect-item-result-price,
-.history-order {
+.history-order,
+#product .product-full-info-set-review textarea,
+#basket .product-full-info-set-review textarea,
+.review-item {
     border-color: #272727;
 }
 
@@ -27,7 +30,8 @@
 }
 
 .color-dark,
-#checkout .color-dark {
+#checkout .color-dark,
+.review-item-empty {
     color: #777777;
 }
 
@@ -129,3 +133,4 @@
 svg {
     fill: #fff;
 }
+

@@ -341,8 +341,10 @@ function renderPageHistory() {
 
 function renderProductFullInfo(productId) {
     var product = getDataProductyById(productId);
+    var uniqId = generateUniqId();
     var $template = $($("#product-full-info").html());
 
+    $template.attr("id", uniqId);
     $template.attr("product-id", product.Id);
     $template.find(".product-full-info-header").html(product.Name);
     $template.find(".product-full-info-adition ").html(product.AdditionInfo);
@@ -351,6 +353,12 @@ function renderProductFullInfo(productId) {
 
     $template.find(".product-full-info-image").css("background-image", "url(" + product.Image + ")");
     $template.find(".full-info-close").bind("click", closeProductFullInfo);
+
+    var sendProductReviewFunc = function () {
+        sendProductReview(uniqId, product.Id);
+    }
+
+    $template.find("#send-product-review").bind("click", sendProductReviewFunc);
 
     var isReadOnly = isReadOnlyRating(product.Id);
 
@@ -379,15 +387,76 @@ function renderProductFullInfo(productId) {
     });
     var ratingText = renderRatingText(product.Rating, product.VotesCount);
     $template.find("#rating-text").html(ratingText);
+
+    var $reviewContainer = $template.find(".product-full-info-review-list");
+    var loader = new Loader($reviewContainer);
+
+    loader.start();
+
+    var callback = function () {
+        loader.stop();
+
+        renderReviews($reviewContainer, product.Id);
+
+        var currentPage = $.mobile.activePage.attr("id");
+        $("#" + currentPage).append($template);
+    }
+
+    if (ProductReview[product.Id] &&
+        ProductReview[product.Id].length > 0) {
+        renderReviews($reviewContainer, product.Id);
+    } else {
+        getProductReviews(product.Id, callback);
+    }
+
     var currentPage = $.mobile.activePage.attr("id");
     $("#" + currentPage).append($template);
+}
 
+function renderNewReview(containerId, data) {
+    var $container = $("#" + containerId).find(".product-full-info-review-list");
+    var $template = renderReviewItem(data);
 
+    if ($container.find("i").length == 0) {
+        $container.prepend($template);
+    } else {
+        $container.html($template);
+    }
+}
+
+function renderReviewItem (data) {
+    var $template = $($("#review-item").html());
+    var userName = "Клиент: " + data.PhoneNumber;
+
+    $template.find(".review-item-username").html(userName);
+    $template.find(".review-item-text").html(data.ReviewText);
+
+    return $template;
+}
+
+function renderReviews(container, productId) {
+    var $container = $(container);
+    var reviews = ProductReview[productId];
+    var templateReviewImtes = [];
+
+    if (reviews &&
+        reviews.length != 0) {
+        for (id in reviews) {
+            var review = reviews[id];
+
+            templateReviewImtes.push(renderReviewItem(review));
+        }
+
+        $container.html(templateReviewImtes);
+    } else {
+        var $emptyReview = $($("#review-item-empty").html());
+        $container.html($emptyReview);
+    }
 }
 
 function renderRatingText(rating, votesCount) {
     var votesCountStr = num2str(votesCount, ["голос", "голоса", "голосов"]);
-    var result = "Рейтинг: " + rating.toFixed(1) + " - " + votesCount + " " + votesCountStr
+    var result = "Оценка: " + rating.toFixed(1) + " - " + votesCount + " " + votesCountStr
 
     return result;
 }

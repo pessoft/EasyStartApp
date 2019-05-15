@@ -134,5 +134,5 @@ function bindToggleOrderHistoryInfo(e) {
 
     $e.find(".history-order-header").unbind("click");
     $e.find(".history-order-header").bind("click", func);
-    
+
 }

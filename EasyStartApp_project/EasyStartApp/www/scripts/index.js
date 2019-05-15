@@ -27,7 +27,7 @@ $('.link').live('tap', function () {
 function loadURL(url) {
     navigator.app.loadUrl(url, { openExternal: true });
     return false;
-} 
+}
 
 function loadData() {
     setClientSettingData();
@@ -694,4 +694,51 @@ function getAmountPayWithDiscountDelivery() {
     var amountPay = getPriceValid(orderPrice + Basket.DeliveryPrice);
 
     return amountPay;
+}
+
+function sendProductReview(containerId, productId) {
+    var $container = $("#" + containerId);
+    var $textarea = $container.find("textarea");
+    var textReview = $textarea.val();
+
+    if (!textReview.trim()) {
+        $textarea.val("");
+        return;
+    }
+
+    $textarea.val("");
+
+    var review = {
+        PorudctId: productId,
+        PhoneNumber: ClientSetting.PhoneNumber,
+        ReviewText: textReview
+    }
+
+    var reviewClone = Object.assign({}, review);
+
+    var productReviews = ProductReview[productId];
+    if (productReviews &&
+        productReviews.length > 0) {
+
+        var userName = ""
+        for (var i = 0; i < review.PhoneNumber.length; ++i)
+        {
+            var chr = review.PhoneNumber[i];
+
+            if (i == 11 ||
+                i == 12) {
+                chr = "*";
+            }
+
+            userName += chr;
+        }
+
+        reviewClone.PhoneNumber = userName;
+
+        productReviews.unshift(reviewClone);
+    }
+
+    renderNewReview(containerId, reviewClone);
+
+    setProductReview(review);
 }

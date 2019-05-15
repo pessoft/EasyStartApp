@@ -196,7 +196,9 @@ div[data-role=page] {
 
 
 #firstStartSettingPhone .ui-input-text,
-#checkout .ui-input-text {
+#checkout .ui-input-text,
+#product .ui-input-text,
+#basket .ui-input-text {
     width: 65%;
     background: none;
     border: none;
@@ -544,7 +546,8 @@ div.sum-all {
     font-size: 1em;
 }
 
-.product-full-info-header {
+.product-full-info-header,
+.product-full-info-reviews-header {
     min-height: 20%;
     margin: 3% 3% 3% 3%;
     display: flex;
@@ -583,6 +586,7 @@ div.sum-all {
     top: 9%;
     right: 9%;
     font-size: 2em;
+    z-index: 999;
 }
 
 .hide {
@@ -856,18 +860,32 @@ div.sum-all {
     text-shadow: none;
 }
 
-.collect-item-result-price {
-    width: 100%;
-    height: 65%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+#product .product-full-info-set-review textarea,
+#basket .product-full-info-set-review textarea {
+    overflow-y: auto;
+    width: 97%;
+    height: 15vh !important;
+    resize: none;
+    text-shadow: none;
+    font-size: 0.9em;
+    border-top: 1px solid;
     border-bottom: 1px solid;
-    font-size: 0.8em;
-    padding-bottom: 3%;
-    margin-bottom: 1%;
+    display: flex;
+    align-self: center;
 }
+
+    .collect-item-result-price {
+        width: 100%;
+        height: 65%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-bottom: 1px solid;
+        font-size: 0.8em;
+        padding-bottom: 3%;
+        margin-bottom: 1%;
+    }
 
 .order-collect-finished {
     width: 100%;
@@ -1067,17 +1085,90 @@ div.sum-all {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    width: 67%;
+    width: 55%;
     padding: 0% 3% 0% 3%;
 }
 
 .product-full-info-item .product-full-info-item-block:last-child {
     align-items: flex-end;
-    width: 30%;
+    width: 40%;
     padding: 0 3% 0 0;
 }
 
 #rating-text {
     font-size: 0.8em;
     margin: 3% 0% 0% 0%;
+}
+
+.product-full-info-review {
+    width: 98%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    font-size: 1em;
+    padding: 3% 1% 2% 1%;
+}
+
+.product-full-info-set-review {
+    width: 98%;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    flex-direction:column;
+}
+
+#product .product-full-info-review button,
+#basket .product-full-info-review button {
+    width: 35%;
+    height: 30px;
+    font-size: 0.77em;
+    margin-right: 1%;
+}
+
+.product-full-info-reviews {
+    width: 98%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    font-size: 1em;
+    padding: 3% 1% 2% 1%;
+}
+
+.product-full-info-review-list {
+    width: 94%;
+    min-height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin: 0% 3% 2% 3%;
+    position:relative;
+}
+
+.review-item {
+    width: 99%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+    margin-bottom: 10px;
+}
+
+    .review-item-username {
+        display: flex;
+        align-self: flex-start;
+        margin-bottom: 3px;
+        font-size:0.85em;
+    }
+
+.review-item-text {
+    width: 95%;
+    word-break: break-word;
+    font-size: 0.77em;
+}
+
+.review-item i {
+    font-size: 3em;
 }
