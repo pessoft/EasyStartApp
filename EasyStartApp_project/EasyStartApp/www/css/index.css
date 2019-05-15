@@ -176,9 +176,9 @@ div[data-role=page] {
     box-shadow: none;
 }
 
-#basket button.border-none {
-    border: none;
-}
+    #basket button.border-none {
+        border: none;
+    }
 
     #firstStartSettingCity button:focus,
     #firstStartSettingPhone button:focus,
@@ -458,13 +458,22 @@ div.sum-all {
 
 .product-addition-info,
 .basket-product-addition-info {
+    height: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 0.8em;
+}
+
+.product-addition-info-container,
+.basket-product-addition-info-container {
     width: 100%;
     min-height: 20px;
     padding-top: 10px;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    font-size: 0.8em;
+    align-items: flex-end;
+    flex-direction: row
 }
 
 .product-price {
@@ -634,7 +643,7 @@ div.sum-all {
 }
 
 .basket-product-price {
-    border-bottom: 1px solid ;
+    border-bottom: 1px solid;
     padding-bottom: 1%;
 }
 
@@ -874,18 +883,18 @@ div.sum-all {
     align-self: center;
 }
 
-    .collect-item-result-price {
-        width: 100%;
-        height: 65%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        border-bottom: 1px solid;
-        font-size: 0.8em;
-        padding-bottom: 3%;
-        margin-bottom: 1%;
-    }
+.collect-item-result-price {
+    width: 100%;
+    height: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid;
+    font-size: 0.8em;
+    padding-bottom: 3%;
+    margin-bottom: 1%;
+}
 
 .order-collect-finished {
     width: 100%;
@@ -1073,11 +1082,11 @@ div.sum-all {
 }
 
 .product-full-info-item {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:row;
-    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
 }
 
 .product-full-info-item-block {
@@ -1111,18 +1120,19 @@ div.sum-all {
 
 .product-full-info-set-review {
     width: 98%;
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    flex-direction:column;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
 }
 
 #product .product-full-info-review button,
 #basket .product-full-info-review button {
-    width: 35%;
-    height: 30px;
     font-size: 0.77em;
     margin-right: 1%;
+    width: auto;
+    padding: 0 10px;
+    height: 35px;
 }
 
 .product-full-info-reviews {
@@ -1142,7 +1152,7 @@ div.sum-all {
     align-items: center;
     flex-direction: column;
     margin: 0% 3% 2% 3%;
-    position:relative;
+    position: relative;
 }
 
 .review-item {
@@ -1156,12 +1166,12 @@ div.sum-all {
     margin-bottom: 10px;
 }
 
-    .review-item-username {
-        display: flex;
-        align-self: flex-start;
-        margin-bottom: 3px;
-        font-size:0.85em;
-    }
+.review-item-username {
+    display: flex;
+    align-self: flex-start;
+    margin-bottom: 3px;
+    font-size: 0.85em;
+}
 
 .review-item-text {
     width: 95%;
@@ -1171,4 +1181,17 @@ div.sum-all {
 
 .review-item i {
     font-size: 3em;
+}
+
+.product-type-new,
+.product-type-hit {
+    height: 20px;
+    margin-left: 5%;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
 }

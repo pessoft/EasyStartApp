@@ -559,7 +559,9 @@
                 </div>
                 <div class="basket-product-content">
                     <div class="basket-product-header"></div>
-                    <div class="basket-product-addition-info color-dark"></div>
+                    <div class="basket-product-addition-info-container">
+                        <div class="basket-product-addition-info color-dark"></div>
+                    </div>
                 </div>
             </div>
             <div class="basket-product-price">
@@ -596,7 +598,9 @@
             </div>
             <div class="product-content">
                 <div class="product-header"></div>
-                <div class="product-addition-info color-dark"></div>
+                <div class="product-addition-info-container">
+                    <div class="product-addition-info color-dark"></div>
+                </div>
                 <div class="product-buy">
                     <div class="product-price">
                     </div>
@@ -686,7 +690,7 @@
     <template id="loader">
         <div class="page-full-loader page-background-color">
             <svg width="57" height="57" viewBox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
-                <g  fill-rule="evenodd">
+                <g fill-rule="evenodd">
                     <g transform="translate(1 1)" stroke-width="0">
                         <circle cx="5" cy="50" r="5">
                             <animate attributeName="cy"
@@ -731,6 +735,14 @@
                 </g>
             </svg>
         </div>
+    </template>
+
+    <template id="product-type-new">
+        <div class="product-type-new">NEW</div>
+    </template>
+
+    <template id="product-type-hit">
+        <div class="product-type-hit">HIT</div>
     </template>
 
     <script type="text/javascript" src="cordova.js"></script>

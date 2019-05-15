@@ -134,3 +134,10 @@ svg {
     fill: #fff;
 }
 
+.product-type-new {
+    color: #5d5dea;
+}
+
+.product-type-hit {
+    color: #d4c715;
+}

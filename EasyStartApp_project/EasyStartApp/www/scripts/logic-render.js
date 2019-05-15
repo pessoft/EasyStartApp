@@ -117,6 +117,12 @@ function renderPageProduct() {
     var getTemplateProduct = function getTemplateProduct(data) {
         var $templateProduct = $($("#item-product").html());
 
+        if (data.ProductType != 0) {
+            var $productType = $($("#" + ProductType[data.ProductType]).html());
+
+            $templateProduct.find(".product-addition-info-container").append($productType);
+        }
+
         $templateProduct.attr("product-id", data.Id);
         $templateProduct.find("img").attr("src", data.Image);
         $templateProduct.find(".product-header").html(data.Name);
@@ -167,6 +173,11 @@ function renderPageBasket() {
 
     var getTemplateProduct = function getTemplateProduct(data) {
         var $templateBasketProduct = $($("#basket-product").html());
+
+        if (data.ProductType != 0) {
+            var $productType = $($("#" + ProductType[data.ProductType]));
+            $templateBasketProduct.find(".basket-product-addition-info-container").html($productType);
+        }
 
         $templateBasketProduct.attr("product-id", data.Id);
         $templateBasketProduct.find("img").attr("src", data.Image);

@@ -714,7 +714,11 @@ function sendProductReview(containerId, productId) {
         ReviewText: textReview
     }
 
-    var reviewClone = Object.assign({}, review);
+    var reviewClone = {
+        PorudctId: productId,
+        PhoneNumber: ClientSetting.PhoneNumber,
+        ReviewText: textReview
+    }
 
     var productReviews = ProductReview[productId];
     if (productReviews &&

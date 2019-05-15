@@ -1,5 +1,5 @@
-﻿var ServiceURL = "http://localhost:53888";
-//var ServiceURL = "https://easystart.conveyor.cloud";
+﻿//var ServiceURL = "http://localhost:53888";
+var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
@@ -39,6 +39,12 @@ var Basket = {
     Discount: 10,
     Products: {} //productId:count
 };
+
+var ProductType = {
+    0: "",
+    1: "product-type-new",
+    2: "product-type-hit"
+}
 
 var DaysShort = {
     1: "Пн",
