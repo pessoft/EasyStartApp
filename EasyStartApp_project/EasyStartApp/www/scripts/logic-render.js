@@ -514,13 +514,17 @@ function renderPageCheckout() {
     var $delivery = $("#collect-item-delivery-price");
     $delivery.find(".result-price-item-value").html(getPriceValid(Basket.DeliveryPrice) + " руб.");
 
-    if (Basket.DeliveryPrice == 0) {
+    var takeYourselfDelivery = $("#take-yourself-radio").is(":checked");
+
+    if (Basket.DeliveryPrice == 0 || takeYourselfDelivery) {
         $delivery.addClass("hide");
     } else {
         $delivery.removeClass("hide");
     }
 
-    $("#collect-item-result-sum-price .result-price-item-value").html(getAmountPayWithDiscountDelivery() + " руб.");
+    var amount = takeYourselfDelivery ? getAmountPayWithDiscount() : getAmountPayWithDiscountDelivery();
+
+    $("#collect-item-result-sum-price .result-price-item-value").html(amount + " руб.");
 }
 
 function renderPageCheckoutResult(data) {

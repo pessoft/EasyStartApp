@@ -523,12 +523,21 @@ function changeCheckoutBuyType(e) {
 
 function changeCheckoutDeliveryType(e) {
     var $e = $(e);
+    var amount = 0;
+
     if ($e.attr("id") == "collect-delivery-radio" &&
         $e.is(":checked")) {
         $("#address-order-delivery").removeClass("hide");
+        $("#collect-item-delivery-price").removeClass("hide");
+        amount = getAmountPayWithDiscountDelivery();
+
     } else {
         $("#address-order-delivery").addClass("hide");
+        $("#collect-item-delivery-price").addClass("hide");
+        amount = getAmountPayWithDiscount();
     }
+
+    $("#collect-item-result-sum-price .result-price-item-value").html(amount + " руб.");
 }
 
 function showErrorMessage(messages) {
@@ -623,6 +632,9 @@ function getDataOrderCheckout() {
     var cashBack = $("#delivery-cash-back").val();
     var needCashBack = $(".delivery-cash-back-switch .delivery-cash-back-switch-active").attr("is-cash-back") == "true";
 
+    var takeYourselfDelivery = $("#take-yourself-radio").is(":checked");
+    var amountPayDiscountDelivery = takeYourselfDelivery ? getAmountPayWithDiscount() : getAmountPayWithDiscountDelivery();
+
     return {
         Name: name,
         PhoneNumber: phoneNumber,
@@ -643,7 +655,7 @@ function getDataOrderCheckout() {
         CityId: ClientSetting.CityId,
         Date: new Date(),
         AmountPay: getAmountPay(),
-        AmountPayDiscountDelivery: getAmountPayWithDiscountDelivery()
+        AmountPayDiscountDelivery: amountPayDiscountDelivery
     }
 }
 
