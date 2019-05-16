@@ -548,7 +548,7 @@ div.sum-all {
 
 .product-full-info-text {
     width: 100%;
-    height: 40%;
+    min-height: 40%;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
