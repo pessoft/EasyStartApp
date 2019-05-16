@@ -43,7 +43,9 @@ var Basket = {
 var ProductType = {
     0: "",
     1: "product-type-new",
-    2: "product-type-hit"
+    2: "product-type-hit",
+    3: "product-type-stock",
+    4: "product-type-hot"
 }
 
 var DaysShort = {

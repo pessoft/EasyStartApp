@@ -141,3 +141,19 @@ svg {
 .product-type-hit {
     color: #d4c715;
 }
+
+.product-type-new {
+    color: #5da1ea;
+}
+
+.product-type-hit {
+    color: #c1b346;
+}
+
+.product-type-stock {
+    color: #FF5722;
+}
+
+.product-type-hot {
+    color: red;
+}

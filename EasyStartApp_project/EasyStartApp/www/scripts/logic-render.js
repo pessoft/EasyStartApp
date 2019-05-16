@@ -4,6 +4,7 @@
     FirstStartSettingCity: "#firstStartSettingCity",
     Catalog: "#catalog",
     Product: "#product",
+    Stock: "#stock",
     Basket: "#basket",
     Info: "#info",
     History: "#history",

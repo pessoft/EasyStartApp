@@ -67,8 +67,14 @@
         <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item active">
-                    <i class="fal fa-store"></i>
-                    Каталог
+                    <i class="fal fa-soup"></i>
+                    Меню
+                </div>
+            </a>
+            <a data-transition="none" href="#stock">
+                <div class="footer-item">
+                    <i class="fal fa-badge-percent"></i>
+                    Акции
                 </div>
             </a>
             <a data-transition="none" href="#basket">
@@ -104,8 +110,61 @@
         <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item active">
-                    <i class="fal fa-store"></i>
-                    Каталог
+                    <i class="fal fa-soup"></i>
+                    Меню
+                </div>
+            </a>
+            <a data-transition="none" href="#stock">
+                <div class="footer-item">
+                    <i class="fal fa-badge-percent"></i>
+                    Акции
+                </div>
+            </a>
+            <a data-transition="none" href="#basket">
+                <div class="footer-item">
+                    <i class="fal fa-shopping-basket"></i>
+                    <div class="basket-count-info hide"></div>
+                    Корзина
+                </div>
+            </a>
+            <a data-transition="none" href="#info">
+                <div class="footer-item">
+                    <i class="fal fa-info"></i>
+                    Инфо
+                </div>
+            </a>
+            <a data-transition="none" href="#history">
+                <div class="footer-item">
+                    <i class="fal fa-history"></i>
+                    История
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div data-role="page" class="page-color page-background-color " id="stock">
+        <div class="header header-color">
+            Акции
+        </div>
+        <div class="content">
+            <div class="empty-content color-dark page-background-color">
+                <i class="fal fa-smile-wink"></i>
+                Скоро появятся новые акции
+            </div>
+            <div class="stocks">
+            </div>
+        </div>
+        <div class="footer color-dark">
+            <a data-transition="none" href="#catalog">
+                <div class="footer-item">
+                    <i class="fal fa-soup"></i>
+                    Меню
+                </div>
+            </a>
+            <a data-transition="none" href="#stock">
+                <div class="footer-item active">
+                    <i class="fal fa-badge-percent"></i>
+                    Акции
                 </div>
             </a>
             <a data-transition="none" href="#basket">
@@ -156,8 +215,14 @@
         <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
-                    <i class="fal fa-store"></i>
-                    Каталог
+                    <i class="fal fa-soup"></i>
+                    Меню
+                </div>
+            </a>
+            <a data-transition="none" href="#stock">
+                <div class="footer-item">
+                    <i class="fal fa-badge-percent"></i>
+                    Акции
                 </div>
             </a>
             <a data-transition="none" href="#basket">
@@ -303,8 +368,14 @@
         <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
-                    <i class="fal fa-store"></i>
-                    Каталог
+                    <i class="fal fa-soup"></i>
+                    Меню
+                </div>
+            </a>
+            <a data-transition="none" href="#stock">
+                <div class="footer-item">
+                    <i class="fal fa-badge-percent"></i>
+                    Акции
                 </div>
             </a>
             <a data-transition="none" href="#basket">
@@ -345,8 +416,14 @@
         <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
-                    <i class="fal fa-store"></i>
-                    Каталог
+                    <i class="fal fa-soup"></i>
+                    Меню
+                </div>
+            </a>
+            <a data-transition="none" href="#stock">
+                <div class="footer-item">
+                    <i class="fal fa-badge-percent"></i>
+                    Акции
                 </div>
             </a>
             <a data-transition="none" href="#basket">
@@ -483,8 +560,14 @@
         <div class="footer color-dark">
             <a data-transition="none" href="#catalog">
                 <div class="footer-item">
-                    <i class="fal fa-store"></i>
-                    Каталог
+                    <i class="fal fa-soup"></i>
+                    Меню
+                </div>
+            </a>
+            <a data-transition="none" href="#stock">
+                <div class="footer-item">
+                    <i class="fal fa-badge-percent"></i>
+                    Акции
                 </div>
             </a>
             <a data-transition="none" href="#basket">
@@ -743,6 +826,14 @@
 
     <template id="product-type-hit">
         <div class="product-type-hit">HIT</div>
+    </template>
+
+    <template id="product-type-stock">
+        <div class="product-type-stock"><i class="fal fa-percentage"></i></div>
+    </template>
+
+    <template id="product-type-hot">
+        <div class="product-type-hot"><i class="fas fa-pepper-hot"></i></div>
     </template>
 
     <script type="text/javascript" src="cordova.js"></script>
