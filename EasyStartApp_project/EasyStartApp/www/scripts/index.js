@@ -6,6 +6,8 @@
 $(document).bind('pagechange', function () {
     if ($.mobile.activePage.is(Pages.History)) {
         render(Pages.History);
+    } else if ($.mobile.activePage.is(Pages.Stock)) {
+        render(Pages.Stock);
     }
 });
 
@@ -35,7 +37,8 @@ function loadData() {
     Promise.all([
         getAllowedCityPromise(),
         getCategoriesPromise(),
-        getAllProductPromise()
+        getAllProductPromise(),
+        getStockPromise()
     ]).then(function (results) {
         loadDataReady();
         if (!isFirstStart()) {

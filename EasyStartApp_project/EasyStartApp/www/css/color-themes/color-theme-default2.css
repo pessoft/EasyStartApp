@@ -89,11 +89,13 @@
     border-color: #777777;
 }
 
-.product-full-info {
+.product-full-info,
+.stock-item-description-wrapper {
     background-color: rgba(93, 88, 88, 0.77);
 }
 
-.full-info-close {
+.full-info-close,
+stock-description-close {
     color: #484848;
 }
 
@@ -156,4 +158,9 @@ svg {
 
 .product-type-hot {
     color: red;
+}
+
+.stock-item {
+    background-color: #484848;
+    color: #f3f3f3;
 }

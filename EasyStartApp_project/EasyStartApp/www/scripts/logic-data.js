@@ -1,5 +1,5 @@
-﻿var ServiceURL = "http://localhost:53888";
-//var ServiceURL = "https://easystart.conveyor.cloud";
+﻿//var ServiceURL = "http://localhost:53888";
+var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
@@ -12,7 +12,8 @@ var API = {
     GetHistoryOrder: ServiceURL + "/api/adminapp/gethistoryorder",
     UpdateProducRating: ServiceURL + "/api/adminapp/updateproducrating",
     SetProductReviews: ServiceURL + "/api/adminapp/setproductreviews",
-    GetProductReviews: ServiceURL + "/api/adminapp/getproductreviews"
+    GetProductReviews: ServiceURL + "/api/adminapp/getproductreviews",
+    GetStock: ServiceURL + "/api/adminapp/getstocks"
 };
 
 var Data = {
@@ -20,7 +21,8 @@ var Data = {
     SelectCity: null,
     Categories: null,
     Products: {},
-    HistoryOrder: []
+    HistoryOrder: [],
+    Stock: []
 };
 
 var DeliverySetting = {};
@@ -103,6 +105,18 @@ function postAPI(urlAPI, args, successFunc, errorFunc) {
                 errorFunc(err);
             }
         }
+    });
+}
+
+function getStockPromise() {
+    return new Promise(function (resolve, reject) {
+        var successFunc = function successFunc(data) {
+            Data.Stock = processingImagePath(data);
+
+            resolve();
+        };
+
+        getAPI(API.GetStock, null, successFunc, reject);
     });
 }
 

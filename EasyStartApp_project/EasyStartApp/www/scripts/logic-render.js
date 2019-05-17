@@ -51,6 +51,9 @@ function render(pageId, data) {
         case Pages.CheckoutResult:
             renderPageCheckoutResult(data);
             break;
+        case Pages.Stock:
+            renderPageStock();
+            break;
     }
 }
 
@@ -557,4 +560,52 @@ function renderPageCheckoutResult(data) {
     }
 
     binCheckoutResultOk();
+}
+
+function renderPageStock() {
+    if (!Data.Stock ||
+        Data.Stock.length == 0) {
+        $(Pages.Stock + " .empty-content").removeClass("hide");
+
+        return;
+    }
+
+    var $page = $(Pages.Stock);
+    $page.find(".stocks").empty();
+
+    $page.find(".empty-content").addClass("hide");
+    var templats = [];
+    var renderItemFunc = function (data) {
+        var $template = $($("#stock-item-template").html());
+
+        $template.find("img").attr("src", data.Image);
+        $template.find(".stock-item-name").html(data.Name);
+
+        $template.bind("click", function () {
+            renderDescriptionFunc(data);
+        });
+        templats.push($template);
+    }
+
+    var renderDescriptionFunc = function (data) {
+        var $template = $($("#stock-item-description-template").html());
+        var id = generateUniqId();
+
+        $template.attr("id", id);
+        $template.find(".stock-item-description-text").html(data.Description);
+        $template.find(".stock-description-close").bind("click", function () {
+            $("#" + id).remove();
+        });
+
+        $page.append($template);
+
+    }
+
+    for (var id in Data.Stock) {
+        var stock = Data.Stock[id];
+
+        renderItemFunc(stock);
+    }
+
+    $page.find(".stocks").append(templats)
 }
