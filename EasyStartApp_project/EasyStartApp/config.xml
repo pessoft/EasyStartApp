@@ -6,7 +6,7 @@
   <vs:template-name>BlankJS</vs:template-name>
   <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
   <engine name="android" spec="5.2.1" />
-  <engine name="ios" spec="4.2.0" />
+  <engine name="ios" spec="~4.3.0" />
   <engine name="windows" spec="4.4.2" />
   <content src="index.html" />
   <preference name="SplashScreen" value="screen" />
@@ -86,6 +86,7 @@
     <splash src="res/screens/android/screen-xhdpi-portrait.png" density="port-xhdpi" />
   </platform>
   <platform name="ios">
+  <hook type="before_compile" src="scripts/hooks/xcode8.js" />
     <splash src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
     <splash src="res/screens/ios/screen-iphone-portrait-2x.png" width="640" height="960" />
     <splash src="res/screens/ios/screen-ipad-portrait.png" width="768" height="1024" />

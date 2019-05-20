@@ -1,11 +1,21 @@
 {
-     "android": {
-      "release": {
-        "keystore": "E:\\Dev\\keystore\\jd-release-key.keystore",
-        "storePassword": "pess1932",
-        "alias": "android-key",
-        "password": "pess1932",
-        "keystoreType": ""
-      }
-     }
- }
+  "android": {
+    "release": {
+      "keystore": "E:\\Dev\\keystore\\jd-release-key.keystore",
+      "storePassword": "pess1932",
+      "alias": "android-key",
+      "password": "pess1932",
+      "keystoreType": ""
+    }
+  },
+  "ios": {
+    "debug": {
+      "developmentTeam": "88U2P95F6C"
+
+    },
+    "release": {
+      "developmentTeam": "88U2P95F6C",
+      "codeSignIdentity": "iPhone Developer"
+    }
+  }
+}
