@@ -74,6 +74,7 @@ function bindCheckoutBuyType() {
 function bindCheckoutDeliveryType() {
 
     var func = function () {
+        changeCheckoutDiscountType(this);
         changeCheckoutDeliveryType(this);
     }
 

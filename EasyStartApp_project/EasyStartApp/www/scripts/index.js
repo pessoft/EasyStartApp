@@ -9,6 +9,8 @@ $(document).bind('pagechange', function () {
     } else if ($.mobile.activePage.is(Pages.Stock)) {
         render(Pages.Stock);
     }
+
+    Basket.Discount = 0;
 });
 
 function onDeviceReady() {
@@ -273,14 +275,14 @@ function toggleCountProductsInBasket() {
         stringsPrice = getStringsPrice();
         $(".sum-order").html(stringsPrice.SumOrder);
         $(".sum-delivery").html(stringsPrice.SumDelivery);
-        $(".sum-discount").html(stringsPrice.Discount);
+        //$(".sum-discount").html(stringsPrice.Discount);
         $(".sum-all").html(stringsPrice.AllSum);
 
-        if (Basket.Discount == 0) {
-            $(".sum-discount").addClass("hide");
-        } else {
-            $(".sum-discount").removeClass("hide");
-        }
+        //if (Basket.Discount == 0) {
+        //    $(".sum-discount").addClass("hide");
+        //} else {
+        //    $(".sum-discount").removeClass("hide");
+        //}
     }
 }
 
@@ -524,6 +526,23 @@ function changeCheckoutBuyType(e) {
     }
 }
 
+function changeCheckoutDiscountType(e) {
+    var $e = $(e);
+    var isFirstOrder = window.localStorage.getItem("isFirstOrder") == "true";
+
+    Basket.Discount = 0;
+
+    if ($e.attr("id") == "collect-delivery-radio" &&
+        $e.is(":checked") &&
+        !isFirstOrder) {
+        Basket.Discount = Discount.FirstOrderDiscount;
+
+    } else if ($e.attr("id") == "take-yourself-radio" &&
+        $e.is(":checked")) {
+        Basket.Discount = Discount.TakeYorselfDiscount;
+    }
+}
+
 function changeCheckoutDeliveryType(e) {
     var $e = $(e);
     var amount = 0;
@@ -541,6 +560,19 @@ function changeCheckoutDeliveryType(e) {
     }
 
     $("#collect-item-result-sum-price .result-price-item-value").html(amount + " руб.");
+    changeCheckoutDiscountInfo();
+}
+
+function changeCheckoutDiscountInfo() {
+    if (Basket.Discount == 0) {
+        $("#collect-item-discount-price").addClass("hide");
+
+        return;
+    }
+
+    var $discount = $("#collect-item-discount-price");
+    $discount.removeClass("hide");
+    $discount.find(".result-price-item-value").html(Basket.Discount + "%");
 }
 
 function showErrorMessage(messages) {
@@ -740,8 +772,7 @@ function sendProductReview(containerId, productId) {
         productReviews.length > 0) {
 
         var userName = ""
-        for (var i = 0; i < review.PhoneNumber.length; ++i)
-        {
+        for (var i = 0; i < review.PhoneNumber.length; ++i) {
             var chr = review.PhoneNumber[i];
 
             if (i == 11 ||
@@ -760,4 +791,16 @@ function sendProductReview(containerId, productId) {
     renderNewReview(containerId, reviewClone);
 
     setProductReview(review);
+}
+
+function getStockByType(type) {
+    if (Data.Stock) {
+        for (var id in Data.Stock) {
+            if (Data.Stock[id].StockType == type) {
+                return Data.Stock[id];
+            }
+        }
+    }
+
+    return null;
 }

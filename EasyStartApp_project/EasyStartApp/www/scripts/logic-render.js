@@ -506,24 +506,24 @@ function renderPageCheckout() {
 
     $("#collect-item-sum-price .result-price-item-value").html(getPriceValid(Basket.OrderPrice) + " руб.");
 
-    var $disount = $("#collect-item-discount-price");
-    $disount.find(".result-price-item-value").html(Basket.Discount + "%");
-
-    if (Basket.Discount == 0) {
-        $disount.addClass("hide");
-    } else {
-        $disount.removeClass("hide");
-    }
-
     var $delivery = $("#collect-item-delivery-price");
     $delivery.find(".result-price-item-value").html(getPriceValid(Basket.DeliveryPrice) + " руб.");
 
     var takeYourselfDelivery = $("#take-yourself-radio").is(":checked");
-
+    changeCheckoutDiscountType($("#take-yourself-radio"));
     if (Basket.DeliveryPrice == 0 || takeYourselfDelivery) {
         $delivery.addClass("hide");
     } else {
         $delivery.removeClass("hide");
+    }
+
+    var discount = $("#collect-item-discount-price");
+    discount.find(".result-price-item-value").html(Basket.Discount + "%");
+
+    if (Basket.Discount == 0) {
+        discount.addClass("hide");
+    } else {
+        discount.removeClass("hide");
     }
 
     var amount = takeYourselfDelivery ? getAmountPayWithDiscount() : getAmountPayWithDiscountDelivery();

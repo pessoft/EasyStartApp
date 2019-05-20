@@ -1,5 +1,5 @@
-﻿//var ServiceURL = "http://localhost:53888";
-var ServiceURL = "https://easystart.conveyor.cloud";
+﻿var ServiceURL = "http://localhost:53888";
+//var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
@@ -35,12 +35,23 @@ var ClientSetting = {
     CurrentCategory: null
 };
 
+var Discount = {
+    FirstOrderDiscount: 0,
+    TakeYorselfDiscount: 0
+}
+
 var Basket = {
     OrderPrice: 0,
     DeliveryPrice: 0,
-    Discount: 10,
+    Discount: 0,
     Products: {} //productId:count
 };
+
+var StockType = {
+    Custom: 0,
+    FirstOrder: 1,
+    OrderTakeYourself: 2
+}
 
 var ProductType = {
     0: "",
@@ -112,6 +123,18 @@ function getStockPromise() {
     return new Promise(function (resolve, reject) {
         var successFunc = function successFunc(data) {
             Data.Stock = processingImagePath(data);
+
+            var isFirstOrder = window.localStorage.getItem("isFirstOrder") == "true";
+            var firstOrderDiscount = getStockByType(StockType.FirstOrder);
+            var takeYourselfDiscount = getStockByType(StockType.OrderTakeYourself);
+
+            if (firstOrderDiscount && !isFirstOrder) {
+                Discount.FirstOrderDiscount = firstOrderDiscount.Discount;
+            }
+
+            if (takeYourselfDiscount) {
+                Discount.TakeYorselfDiscount = takeYourselfDiscount.Discount;
+            }
 
             resolve();
         };
@@ -209,6 +232,8 @@ function sendOrder(order, loader) {
             Order: order,
             ResultData: resultData
         }
+
+        window.localStorage.setItem("isFirstOrder", true);
         render(Pages.CheckoutResult, data);
         loader.stop();
         changePage(Pages.CheckoutResult);
