@@ -1,5 +1,5 @@
-﻿//var ServiceURL = "http://localhost:53888";
-var ServiceURL = "https://easystart.conveyor.cloud";
+﻿var ServiceURL = "http://localhost:53888";
+//var ServiceURL = "https://easystart.conveyor.cloud";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
@@ -13,7 +13,8 @@ var API = {
     UpdateProducRating: ServiceURL + "/api/adminapp/updateproducrating",
     SetProductReviews: ServiceURL + "/api/adminapp/setproductreviews",
     GetProductReviews: ServiceURL + "/api/adminapp/getproductreviews",
-    GetStock: ServiceURL + "/api/adminapp/getstocks"
+    GetStock: ServiceURL + "/api/adminapp/getstocks",
+    AddOrUpdateClient: ServiceURL + "/api/adminapp/addorupdateclient"
 };
 
 var Data = {
@@ -122,7 +123,7 @@ function postAPI(urlAPI, args, successFunc, errorFunc) {
 function getStockPromise() {
     return new Promise(function (resolve, reject) {
         var successFunc = function successFunc(data) {
-            Data.Stock = processingImagePath(data);
+            Data.Stock = processingImagePathAndDescription(data);
 
             var isFirstOrder = window.localStorage.getItem("isFirstOrder") == "true";
             var firstOrderDiscount = getStockByType(StockType.FirstOrder);
@@ -172,7 +173,7 @@ function getAllProductPromise() {
         var successFunc = function successFunc(data) {
             for (var categoryId in data) {
                 var products = data[categoryId];
-                Data.Products[categoryId] = processingImagePath(products);
+                Data.Products[categoryId] = processingImagePathAndDescription(products);
             }
 
             resolve();
@@ -271,7 +272,7 @@ function GetHistoryOrder(renderSuccessHistoryOrder, renderErrorHistoryOrder) {
         return;
     }
 
-    getAPI(API.GetHistoryOrder, { phoneNumber: ClientSetting.PhoneNumber }, successFunc, renderErrorHistoryOrder);
+    getAPI(API.GetHistoryOrder, { clientId: ClientSetting.ClientId }, successFunc, renderErrorHistoryOrder);
 }
 
 function updateProducRating(productId, score) {
@@ -292,4 +293,16 @@ function getProductReviews(producId, callback) {
     }
 
     getAPI(API.GetProductReviews, { productId: producId }, successFunc, null);
+}
+
+function addOrUpdateClient(phoneNumber) {
+    var successFun = function (data) {
+        window.localStorage.setItem("clientId", data.Id);
+        ClientSetting.ClientId = data.Id;
+    }
+    var clientId = window.localStorage.getItem("clientId");
+    if (!clientId) {
+        clientId = 0;
+    }
+    postAPI(API.AddOrUpdateClient, { PhoneNumber: phoneNumber, Id: clientId }, successFun, null);
 }

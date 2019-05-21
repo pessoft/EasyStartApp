@@ -58,6 +58,7 @@ function loadDataReady() {
 function setClientSettingData() {
     ClientSetting.PhoneNumber = window.localStorage.getItem("phoneNumber");
     ClientSetting.CityId = window.localStorage.getItem("cityId");
+    ClientSetting.ClientId = window.localStorage.getItem("clientId");
 }
 
 function setPhoneNumber() {
@@ -65,6 +66,8 @@ function setPhoneNumber() {
 
     window.localStorage.setItem("phoneNumber", phoneNumber);
     ClientSetting.PhoneNumber = phoneNumber;
+
+    addOrUpdateClient(phoneNumber);
 
     render(Pages.FirstStartSettingCity);
     changePage(Pages.FirstStartSettingCity);
@@ -103,9 +106,22 @@ function inputEnterPhoneNumber() {
     }
 }
 
+function replaceImagePathPath(path) {
+    return path.replace("..", ServiceURL);
+}
+
 function processingImagePath(data) {
     for (var i = 0; i < data.length; ++i) {
-        data[i].Image = data[i].Image.replace("..", ServiceURL);
+        data[i].Image = replaceImagePathPath(data[i].Image);
+    }
+
+    return data;
+}
+
+function processingImagePathAndDescription(data) {
+    for (var i = 0; i < data.length; ++i) {
+        data[i].Image = replaceImagePathPath(data[i].Image);
+        data[i].Description = data[i].Description.replace(/\n/g,"<br>")
     }
 
     return data;
@@ -673,6 +689,7 @@ function getDataOrderCheckout() {
     return {
         Name: name,
         PhoneNumber: phoneNumber,
+        ClientId: ClientSetting.ClientId,
         DeliveryType: deliverType,
         Street: street,
         HomeNumber: home,
