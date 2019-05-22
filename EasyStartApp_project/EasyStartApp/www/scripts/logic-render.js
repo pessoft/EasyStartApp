@@ -110,10 +110,14 @@ function renderPageCatalog() {
         tempateHtmlCategories[category.OrderNumber - 1] = $template;
     }
 
+    var newArr = [];
+    for (var id in tempateHtmlCategories) {
+        newArr.push(tempateHtmlCategories[id]);
+    }
     $categories = $page.find(".categories");
 
     $categories.empty();
-    $categories.append(tempateHtmlCategories)
+    $categories.append(newArr)
     bindCatalotChangeCityAndPhone();
 }
 
@@ -163,10 +167,16 @@ function renderPageProduct() {
         tempateHtmlProducts[product.OrderNumber - 1] = $productItem;
     }
 
+    var newArr = [];
+
+    for (var id in tempateHtmlProducts) {
+        newArr.push(tempateHtmlProducts[id]);
+    }
+
     var $products = $page.find(".products");
 
     $products.empty();
-    $products.append(tempateHtmlProducts);
+    $products.append(newArr);
 
     if (!jQuery.isEmptyObject(Basket.Products)) {
         for (var id in Basket.Products) {
