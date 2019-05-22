@@ -97,18 +97,23 @@ function renderPageCatalog() {
     var getTemplateCategory = function getTemplateCategory(data) {
         return "\n            <div class='category' category-id='" + data.Id + "'>\n                <div class='category-image'>\n                    <img src='" + data.Image + "' />\n                </div>\n                <div class='category-content'>\n                    <div class='category-header'>" + data.Name + "</div>\n                </div>\n            </div>\n        ";
     };
-    var tempateHtmlCategories = "";
 
+    var tempateHtmlCategories = [];
     for (var i = 0; i < Data.Categories.length; ++i) {
-        tempateHtmlCategories += getTemplateCategory(Data.Categories[i]);
+        var category = Data.Categories[i];
+        var $template = $(getTemplateCategory(category));
+
+        $template.bind("click", function () {
+            selectCategory(this);
+        });
+
+        tempateHtmlCategories[category.OrderNumber - 1] = $template;
     }
 
-    var $tempateHtmlCategories = $(tempateHtmlCategories);
-    $tempateHtmlCategories.bind("click", function () {
-        selectCategory(this);
-    });
+    $categories = $page.find(".categories");
 
-    $page.find(".categories").html($tempateHtmlCategories);
+    $categories.empty();
+    $categories.append(tempateHtmlCategories)
     bindCatalotChangeCityAndPhone();
 }
 
@@ -139,22 +144,23 @@ function renderPageProduct() {
     var tempateHtmlProducts = [];
     var products = Data.Products[ClientSetting.CurrentCategory];
     for (var i = 0; i < products.length; ++i) {
-        var productItem = getTemplateProduct(products[i]);
+        var product = products[i];
+        var $productItem = getTemplateProduct(product);
 
-        productItem.bind("click", function () {
+        $productItem.bind("click", function () {
             showProductFullInfo(this);
         });
-        productItem.find(".product-add-basket-btn button").bind("click", function () {
+        $productItem.find(".product-add-basket-btn button").bind("click", function () {
             showCounterAddToBasket(event, this);
         });
-        productItem.find(".basket-minus").bind("click", function () {
+        $productItem.find(".basket-minus").bind("click", function () {
             minusProductFromBasket(event, this);
         });
-        productItem.find(".basket-plus").bind("click", function () {
+        $productItem.find(".basket-plus").bind("click", function () {
             plusProductFromBasket(event, this);
         });
 
-        tempateHtmlProducts.push(productItem);
+        tempateHtmlProducts[product.OrderNumber - 1] = $productItem;
     }
 
     var $products = $page.find(".products");
