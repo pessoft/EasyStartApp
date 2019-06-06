@@ -773,13 +773,14 @@ function sendProductReview(containerId, productId) {
     $textarea.val("");
 
     var review = {
-        PorudctId: productId,
+        ProductId: productId,
         PhoneNumber: ClientSetting.PhoneNumber,
+        CityId: ClientSetting.CityId,
         ReviewText: textReview
     }
 
     var reviewClone = {
-        PorudctId: productId,
+        ProductId: productId,
         PhoneNumber: ClientSetting.PhoneNumber,
         ReviewText: textReview
     }
