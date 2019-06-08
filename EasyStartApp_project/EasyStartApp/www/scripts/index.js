@@ -690,6 +690,7 @@ function getDataOrderCheckout() {
         Name: name,
         PhoneNumber: phoneNumber,
         ClientId: ClientSetting.ClientId,
+        DeliveryPrice: Basket.DeliveryPrice,
         DeliveryType: deliverType,
         Street: street,
         HomeNumber: home,
@@ -714,7 +715,7 @@ function getDataOrderCheckout() {
 function emptyOrderDetails() {
     Basket.OrderPrice = 0;
     Basket.DeliveryPrice = 0;
-    Basket.Discount = 10;
+    Basket.Discount = 0;
     Basket.Products = {};
 
     toggleCountProductsInBasket();

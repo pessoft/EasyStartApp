@@ -57,8 +57,16 @@ function render(pageId, data) {
     }
 }
 
+function changedPage(pageId) {
+    switch (pageId) {
+        case Pages.Checkout:
+            scrollTop($(pageId + " .order-collect-info"));
+    }
+}
+
 function changePage(pageId) {
     $.mobile.changePage(pageId, { transition: "none" });
+    changedPage(pageId);
 }
 
 function renderPageFirstStartSettingPhone() {
@@ -492,10 +500,14 @@ function renderRatingText(rating, votesCount) {
     return result;
 }
 
-function clearPgeCheckout() {
+function scrollTop(e) {
+    $(e).scrollTop(0);
+}
+
+function clearPageCheckout() {
     var $page = $(Pages.Checkout);
 
-    $page.find(".order-collect-info").scrollTop(0);
+    $page.find("#delivery-cash-back").val("");
     $page.find("input[type=text]").val("");
     $page.find("textarea").val("");
     $page.find("#take-yourself-radio").attr("checked", "checked");
@@ -509,7 +521,7 @@ function clearPgeCheckout() {
 }
 
 function renderPageCheckout() {
-    clearPgeCheckout();
+    clearPageCheckout();
 
     bindCheckoutCashBackSwith();
     bindCheckoutBuyType();
