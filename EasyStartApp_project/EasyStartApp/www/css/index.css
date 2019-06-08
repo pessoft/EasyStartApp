@@ -465,6 +465,10 @@ div.sum-all {
     font-size: 0.8em;
 }
 
+.basket-product-addition-info {
+    height: auto;
+}
+
 .product-addition-info-container,
 .basket-product-addition-info-container {
     width: 100%;
@@ -603,6 +607,7 @@ div.sum-all {
     padding-top: 5%;
     padding-bottom: 5px;
     font-size: 0.95em;
+    text-align:justify;
 }
 
 .full-info-close {
@@ -1209,7 +1214,8 @@ div.sum-all {
 .product-type-new,
 .product-type-hit,
 .product-type-stock,
-.product-type-hot {
+.product-type-hot,
+.product-type-veg {
     height: 20px;
     margin-left: 5%;
     font-weight: bold;
@@ -1222,6 +1228,7 @@ div.sum-all {
 }
 
     .product-type-hot i,
+    .product-type-veg i,
     .product-type-stock i {
         display: flex;
         align-self: center;
@@ -1276,4 +1283,5 @@ div.sum-all {
     width: 90%;
     height: 90%;
     min-height: 130px;
+    text-align:justify;
 }

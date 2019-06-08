@@ -202,11 +202,6 @@ function renderPageBasket() {
     var getTemplateProduct = function getTemplateProduct(data) {
         var $templateBasketProduct = $($("#basket-product").html());
 
-        if (data.ProductType != 0) {
-            var $productType = $($("#" + ProductType[data.ProductType]));
-            $templateBasketProduct.find(".basket-product-addition-info-container").html($productType);
-        }
-
         $templateBasketProduct.attr("product-id", data.Id);
         $templateBasketProduct.find("img").attr("src", data.Image);
         $templateBasketProduct.find(".basket-product-header").html(data.Name);

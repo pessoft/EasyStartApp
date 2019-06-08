@@ -137,14 +137,6 @@ svg {
 }
 
 .product-type-new {
-    color: #5d5dea;
-}
-
-.product-type-hit {
-    color: #d4c715;
-}
-
-.product-type-new {
     color: #5da1ea;
 }
 
@@ -158,6 +150,10 @@ svg {
 
 .product-type-hot {
     color: red;
+}
+
+.product-type-veg {
+    color: green;
 }
 
 .stock-item {

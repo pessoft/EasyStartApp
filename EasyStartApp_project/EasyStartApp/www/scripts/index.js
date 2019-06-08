@@ -418,11 +418,11 @@ function getWorkTime() {
         workDaysStr.push(str);
     }
 
-    var freeDays = "";
+    var freeDaysResult = "";
     var workDaysResult = "";
 
     if (freeDays.length != 0) {
-        freeDays = freeDays.join() + ": " + "выходной";
+        freeDaysResult = freeDays.join() + ": " + "выходной";
     }
 
     if (workDaysStr.length != 0) {
@@ -430,7 +430,7 @@ function getWorkTime() {
     }
 
     var resultStr = workDaysResult +
-        (freeDays ? "<br>" + freeDays : "");
+        (freeDaysResult ? "<br>" + freeDaysResult : "");
 
     return resultStr;
 }
@@ -690,7 +690,7 @@ function getDataOrderCheckout() {
         Name: name,
         PhoneNumber: phoneNumber,
         ClientId: ClientSetting.ClientId,
-        DeliveryPrice: Basket.DeliveryPrice,
+        DeliveryPrice: deliverType == DeliveryType.Delivery ? Basket.DeliveryPrice : 0,
         DeliveryType: deliverType,
         Street: street,
         HomeNumber: home,

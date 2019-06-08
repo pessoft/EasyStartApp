@@ -152,6 +152,10 @@ svg {
     color: red;
 }
 
+.product-type-veg {
+    color: green;
+}
+
 .stock-item {
     background-color: #ffffff;
     color: #405169;

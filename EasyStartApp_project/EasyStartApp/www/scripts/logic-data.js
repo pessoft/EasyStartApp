@@ -59,7 +59,8 @@ var ProductType = {
     1: "product-type-new",
     2: "product-type-hit",
     3: "product-type-stock",
-    4: "product-type-hot"
+    4: "product-type-hot",
+    5: "product-type-veg"
 }
 
 var DaysShort = {
