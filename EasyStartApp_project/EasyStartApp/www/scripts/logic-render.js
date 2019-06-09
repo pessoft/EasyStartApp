@@ -61,6 +61,10 @@ function changedPage(pageId) {
     switch (pageId) {
         case Pages.Checkout:
             scrollTop($(pageId + " .order-collect-info"));
+            break;
+        case Pages.Product:
+            scrollTop($(pageId + " .products"));
+            break;
     }
 }
 
