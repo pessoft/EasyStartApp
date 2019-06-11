@@ -507,6 +507,7 @@ function clearPageCheckout() {
     var $page = $(Pages.Checkout);
 
     $page.find("#delivery-cash-back").val("");
+    $page.find(".delivery-cash-back").removeClass("hide");
     $page.find("input[type=text]").val("");
     $page.find("textarea").val("");
     $page.find("#take-yourself-radio").attr("checked", "checked");
