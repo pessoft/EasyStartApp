@@ -10,7 +10,10 @@ $(document).bind('pagechange', function () {
         render(Pages.Stock);
     }
 
-    Basket.Discount = 0;
+    if (!$.mobile.activePage.is(Pages.Checkout)) {
+        Basket.Discount = 0;
+    }
+
 });
 
 function onDeviceReady() {
@@ -645,10 +648,16 @@ function checkoutValid() {
 
     if ($("#collect-buy-cash-radio").is(":checked") &&
         $("[is-cash-back=true]").hasClass("delivery-cash-back-switch-active")) {
-        var cashBackValid = $("#delivery-cash-back").val().length != 0;
+        var cashBack = $("#delivery-cash-back").val();
+        var cashBackValid = cashBack.length != 0;
+        var takeYourselfDelivery = $("#take-yourself-radio").is(":checked");
+        var amountPayDiscountDelivery = takeYourselfDelivery ? getAmountPayWithDiscount() : getAmountPayWithDiscountDelivery();
 
+        cashBack = 0 + cashBack;
         if (!cashBackValid) {
             messages.push("Укажите с какой суммы нужна сдача");
+        } else if (cashBack <= amountPayDiscountDelivery) {
+            messages.push("Размер суммы для сдачи должен быть больше " + amountPayDiscountDelivery + " руб.");
         }
     }
 
