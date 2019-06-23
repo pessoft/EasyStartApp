@@ -941,7 +941,7 @@ div.sum-all {
     padding: 1% 0;
 }
 
-#error-messages {
+.error-messages {
     width: 94%;
     min-height: 7%;
     padding: 3%;
@@ -955,7 +955,7 @@ div.sum-all {
     z-index: 99;
 }
 
-    #error-messages i {
+    .error-messages i {
         margin-right: 5%;
         font-size: 2.5em;
     }

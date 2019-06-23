@@ -514,10 +514,32 @@ function getLinkSocilaNetwork(link, socialDomain) {
     return template;
 }
 
+function isWorkTime() {
+    var currentDate = new Date();
+    var hours = currentDate.getHours();
+    var day = currentDate.getDay();
+    day = day == 0 ? 7 : day;
+
+    var workDayTime = DeliverySetting.TimeDelivery[day];
+    var workTime = getWorkTime();
+    workTime = "Режим работы:<br>" + workTime;
+
+    if (workDayTime != null &&
+        hours >= workDayTime[0] &&
+        hours < workDayTime[1]) {
+        return true;
+    } else {
+        showErrorMessage([workTime]);
+        return false;
+    }
+}
+
 function goCheckoutPage() {
-    calcOrderPrice();
-    render(Pages.Checkout);
-    changePage(Pages.Checkout);
+    if (isWorkTime()) {
+        calcOrderPrice();
+        render(Pages.Checkout);
+        changePage(Pages.Checkout);
+    }
 }
 
 function swithCheckoutCashBack(e) {
@@ -596,16 +618,18 @@ function changeCheckoutDiscountInfo() {
 
 function showErrorMessage(messages) {
     var msgStr = "";
+    var activePageId = "#" + $.mobile.activePage.attr("id");
+
     for (var id in messages) {
         msgStr += "<span>" + messages[id] + "</span>";
     }
 
-    $("#error-messages .messages-list").html(msgStr);
+    $(activePageId + " .error-messages .messages-list").html(msgStr);
 
-    $("#error-messages").show("slow");
+    $(activePageId + " .error-messages").show("slow");
     setTimeout(function () {
-        $("#error-messages").hide("slow");
-        $("#error-messages .messages-list").empty()
+        $(activePageId + " .error-messages").hide("slow");
+        $(activePageId + " .error-messages .messages-list").empty()
     }, 5000);
 }
 
