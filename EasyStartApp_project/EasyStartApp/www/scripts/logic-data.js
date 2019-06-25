@@ -124,6 +124,10 @@ function postAPI(urlAPI, args, successFunc, errorFunc) {
 function getStockPromise() {
     return new Promise(function (resolve, reject) {
         var successFunc = function successFunc(data) {
+            Basket.Discount = 0;
+            Discount.FirstOrderDiscount = 0;
+            Discount.TakeYorselfDiscount = 0;
+            Data.Stock = [];
             Data.Stock = processingImagePathAndDescription(data);
 
             var isFirstOrder = window.localStorage.getItem("isFirstOrder") == "true";
@@ -141,7 +145,7 @@ function getStockPromise() {
             resolve();
         };
 
-        getAPI(API.GetStock, null, successFunc, reject);
+        getAPI(API.GetStock, { cityId: ClientSetting.CityId }, successFunc, reject);
     });
 }
 

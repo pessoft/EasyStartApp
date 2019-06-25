@@ -92,10 +92,14 @@ function setSelectCity() {
     window.localStorage.setItem("cityId", cityId);
     ClientSetting.CityId = cityId;
 
-    loadSettings();
+    var startApp = function () {
+        loadSettings();
 
-    render(Pages.Catalog);
-    changePage(Pages.Catalog);
+        render(Pages.Catalog);
+        changePage(Pages.Catalog);
+    }
+
+    getStockPromise().then(function (result) { startApp() });
 }
 
 function inputEnterPhoneNumber() {
