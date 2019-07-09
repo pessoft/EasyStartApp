@@ -86,7 +86,7 @@
     <splash src="res/screens/android/screen-xhdpi-portrait.png" density="port-xhdpi" />
   </platform>
   <platform name="ios">
-  <hook type="before_compile" src="scripts/hooks/xcode8.js" />
+    <hook type="before_compile" src="scripts/hooks/xcode8.js" />
     <splash src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
     <splash src="res/screens/ios/screen-iphone-portrait-2x.png" width="640" height="960" />
     <splash src="res/screens/ios/screen-ipad-portrait.png" width="768" height="1024" />
@@ -109,4 +109,5 @@
   <preference name="android-minSdkVersion" value="15" />
   <preference name="android-targetSdkVersion" value="19" />
   <access origin="https://easystart.conveyor.cloud" />
+  <access origin="http://easy-start-test.site" />
 </widget>
