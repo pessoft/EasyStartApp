@@ -1,6 +1,6 @@
-﻿var ServiceURL = "http://localhost:53888";
+﻿//var ServiceURL = "http://localhost:53888";
 //var ServiceURL = "https://easystart.conveyor.cloud";
-//var ServiceURL = "http://easy-start-test.site";
+var ServiceURL = "http://easy-start-test.site";
 
 var API = {
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
@@ -147,7 +147,11 @@ function getStockPromise() {
             resolve();
         };
 
-        getAPI(API.GetStock, { cityId: ClientSetting.CityId }, successFunc, reject);
+        if (!ClientSetting.CityId) {
+            resolve();
+        } else {
+            getAPI(API.GetStock, { cityId: ClientSetting.CityId }, successFunc, reject);
+        }
     });
 }
 
@@ -317,24 +321,18 @@ function addOrUpdateClient(phoneNumber) {
 function checkActualUserDataPromise() {
     return new Promise(function (resolve, reject) {
         var successFunc = function successFunc(data) {
-            if (!data.Data === true) {
+            if (data.Data !== true) {
                 clearClientSettingData();
             }
 
             resolve();
         };
 
-        var userDataExist = ClientSetting.PhoneNumber && ClientSetting.CityId && ClientSetting.ClientId;
-
-        if (!userDataExist) {
-            resolve();
-        } else {
-            postAPI(API.CheckActualUserData, {
-                phoneNumber: ClientSetting.PhoneNumber,
-                cityId: ClientSetting.CityId,
-                clientId: ClientSetting.ClientId
-            },
-                successFunc, reject);
-        }
+        postAPI(API.CheckActualUserData, {
+            phoneNumber: ClientSetting.PhoneNumber,
+            cityId: ClientSetting.CityId,
+            clientId: ClientSetting.ClientId
+        },
+            successFunc, reject);
     });
 }
