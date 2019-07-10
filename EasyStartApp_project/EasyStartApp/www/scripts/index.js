@@ -703,7 +703,7 @@ function checkoutValid() {
         var takeYourselfDelivery = $("#take-yourself-radio").is(":checked");
         var amountPayDiscountDelivery = takeYourselfDelivery ? getAmountPayWithDiscount() : getAmountPayWithDiscountDelivery();
 
-        cashBack = 0 + cashBack;
+        cashBack = cashBack - 0;
         if (!cashBackValid) {
             messages.push("Укажите с какой суммы нужна сдача");
         } else if (cashBack <= amountPayDiscountDelivery) {
