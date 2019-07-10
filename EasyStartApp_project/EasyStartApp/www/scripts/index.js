@@ -43,7 +43,8 @@ function loadData() {
         getAllowedCityPromise(),
         getCategoriesPromise(),
         getAllProductPromise(),
-        getStockPromise()
+        getStockPromise(),
+        checkActualUserDataPromise()
     ]).then(function (results) {
         loadDataReady();
         if (!isFirstStart()) {
@@ -62,6 +63,27 @@ function setClientSettingData() {
     ClientSetting.PhoneNumber = window.localStorage.getItem("phoneNumber");
     ClientSetting.CityId = window.localStorage.getItem("cityId");
     ClientSetting.ClientId = window.localStorage.getItem("clientId");
+}
+
+function clearClientSettingData() {
+    window.localStorage.removeItem("phoneNumber");
+    window.localStorage.removeItem("cityId");
+    window.localStorage.removeItem("clientId");
+    window.localStorage.removeItem("isFirstOrder");
+
+    clearClientRating();
+}
+
+function clearClientRating() {
+    var keys = Object.keys(window.localStorage);
+
+    for (var index in keys) {
+        var key = keys[index];
+
+        if (key.indexOf("rating") != -1) {
+            window.localStorage.removeItem(key);
+        }
+    }
 }
 
 function setPhoneNumber() {

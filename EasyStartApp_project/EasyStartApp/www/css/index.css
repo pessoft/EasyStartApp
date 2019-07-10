@@ -418,7 +418,7 @@ div.sum-all {
     .product-image img,
     .basket-product-image img {
         width: 100%;
-        border-radius: 2px;
+        border-radius: 4px;
     }
 
 .product-buy {
