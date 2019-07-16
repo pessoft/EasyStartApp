@@ -112,4 +112,5 @@
   <access origin="http://easy-start-test.site" />
   <preference name="target-device" value="handset" />
   <preference name="AndroidLaunchMode" value="standard" />
+  <plugin name="cordova-plugin-crosswalk-webview" spec="~2.1.0" />
 </widget>
