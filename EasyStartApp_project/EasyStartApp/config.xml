@@ -105,12 +105,15 @@
   </platform>
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="False" />
-  <preference name="android-maxSdkVersion" value="26" />
-  <preference name="android-minSdkVersion" value="15" />
+  <preference name="android-maxSdkVersion" value="20" />
+  <preference name="android-minSdkVersion" value="16" />
   <preference name="android-targetSdkVersion" value="19" />
   <access origin="https://easystart.conveyor.cloud" />
   <access origin="http://easy-start-test.site" />
   <preference name="target-device" value="handset" />
   <preference name="AndroidLaunchMode" value="standard" />
   <plugin name="cordova-plugin-crosswalk-webview" spec="~2.1.0" />
+  <plugin name="cordova-build-architecture" spec="~1.0.4" src="https://github.com/MBuchalik/cordova-build-architecture.git" />
+  <preference  name="xwalk64bit"  value="true" />
+  <preference  name="buildArchitecture" value="x86_64" />
 </widget>

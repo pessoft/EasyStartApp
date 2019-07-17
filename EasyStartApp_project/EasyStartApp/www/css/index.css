@@ -61,8 +61,7 @@ div[data-role=page] {
 
 .header {
     width: 100%;
-    height: 5%;
-    padding-top: 20px;
+    height: 9%;
     border-bottom: 1px solid;
     display: flex;
     justify-content: center;
@@ -80,7 +79,7 @@ div[data-role=page] {
 
 .content {
     width: 100%;
-    height: 81%;
+    height: 79%;
     border-bottom: 1px solid;
     position: relative;
 }
@@ -93,6 +92,7 @@ div[data-role=page] {
     flex-direction: row;
     font-size: 0.9em;
     padding-top: 1%;
+    align-self:flex-end;
 }
 
     .footer a {
@@ -131,7 +131,7 @@ div[data-role=page] {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    font-size: 1.9em;
+    font-size: 1.3em;
 }
 
     .first-page-header i {
@@ -141,7 +141,7 @@ div[data-role=page] {
 
 .first-page-content {
     width: 100%;
-    height: 74%;
+    height: 79%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -150,7 +150,7 @@ div[data-role=page] {
 
 .first-page-footer {
     width: 100%;
-    height: 15%;
+    height: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,7 +159,9 @@ div[data-role=page] {
 
     .first-page-footer button {
         width: 85%;
-        height: 56%
+        height: 52%;
+        min-height: 50px;
+        margin-bottom: 10px;
     }
 
 #firstStartSettingCity button,
@@ -175,6 +177,11 @@ div[data-role=page] {
     /*border: none;*/
     border: 1px solid;
     box-shadow: none;
+}
+
+#firstStartSettingCity button,
+#firstStartSettingPhone button {
+    font-size: 1.1em;
 }
 
     #basket button.border-none {

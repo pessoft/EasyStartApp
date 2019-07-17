@@ -14,5 +14,14 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-build-architecture": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MBuchalik/cordova-build-architecture.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

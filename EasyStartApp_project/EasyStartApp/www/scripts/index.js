@@ -109,6 +109,8 @@ function selectCity(e) {
 }
 
 function setSelectCity() {
+    var loader = new Loader(Pages.FirstStartSettingCity);
+    loader.start();
     var cityId = $(Pages.FirstStartSettingCity + " .active-city-item").attr("city-id");
 
     window.localStorage.setItem("cityId", cityId);
@@ -119,6 +121,8 @@ function setSelectCity() {
 
         render(Pages.Catalog);
         changePage(Pages.Catalog);
+
+        loader.stop();
     }
 
     getStockPromise().then(function (result) { startApp() });
