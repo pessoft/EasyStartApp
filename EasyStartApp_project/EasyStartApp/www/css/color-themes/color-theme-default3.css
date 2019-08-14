@@ -1,0 +1,175 @@
+﻿.page-color {
+    color: #26435a;
+}
+
+.page-background-color {
+    background-color: #fff;
+}
+
+.header,
+.content,
+.active-city-item,
+.basket-finished,
+.product-content,
+.basket-product-content,
+.basket-product-price,
+.product-full-info-description,
+.info-item-container,
+.order-collect-item,
+.collect-item-result-price,
+.history-order,
+#product .product-full-info-set-review textarea,
+#basket .product-full-info-set-review textarea,
+.review-item {
+    border-color: #ffdcb2;
+}
+
+.first-page-header,
+.first-page-content {
+    border-color: #1f1e1e;
+}
+
+.color-dark,
+#checkout .color-dark,
+.review-item-empty {
+    color: #cacaca;
+}
+
+.color-light-dark {
+    color: #484848;
+}
+
+.header-color {
+    background-color: #2196F3;
+    color: #fff;
+}
+
+#firstStartSettingCity .background-color-button,
+#firstStartSettingPhone .background-color-button,
+#product .background-color-button,
+#basket .background-color-button,
+#checkout .background-color-button,
+#checkout-result .background-color-button {
+    background-color: #F7941D;
+}
+
+#basket .background-color-remove-product-button {
+    background-color: #ababab;
+}
+
+#firstStartSettingCity .color-button,
+#firstStartSettingPhone .color-button,
+#product .color-button,
+#basket .color-button,
+#checkout .color-button,
+#checkout-result .color-button {
+    color: #ffffff;
+}
+
+#firstStartSettingCity button,
+#firstStartSettingPhone button,
+#product button,
+#basket button,
+#checkout button,
+#checkout-result button {
+    border-color: #F7941D;
+}
+
+.active { /*activ footer item menu*/
+    color: #F7941D;
+}
+
+.footer a {
+    color: #777777;
+}
+
+#firstStartSettingPhone input[type=text],
+#checkout input[type=text],
+#checkout input[type=number] {
+    color: #171717;
+    border-color: #777777;
+}
+
+.product-full-info,
+.stock-item-description-wrapper {
+    background-color: rgba(93, 88, 88, 0.77);
+}
+
+.full-info-close,
+stock-description-close {
+    color: #484848;
+}
+
+.add-basket-counter {
+    background-color: #2196F3;
+    color: #ffffff;
+}
+
+.basket-counter-button {
+    background-color: #227dc5;
+}
+
+.basket-count-info {
+    background-color: #F7941D;
+    color: #ffffff;
+}
+
+.delivery-cash-back-switch div:first-child,
+.delivery-cash-back-switch div:last-child {
+    border-color: #2196F3;
+}
+
+#checkout .delivery-cash-back-switch-active {
+    background-color: #F7941D;
+    color: #ffffff;
+}
+
+.error-messages {
+    background-color: red;
+    color: #ffffff;
+}
+
+.lds-ellipsis div {
+    background: #484848;
+}
+
+svg {
+    fill: #484848;
+}
+
+.product-type-new {
+    color: #5da1ea;
+}
+
+.product-type-hit {
+    color: #c1b346;
+}
+
+.product-type-stock {
+    color: #FF5722;
+}
+
+.product-type-hot {
+    color: red;
+}
+
+.product-type-veg {
+    color: green;
+}
+
+.stock-item {
+    background-color: #2196F3;
+    color: #ffffff;
+}
+
+.footer-background-color {
+    background-color: #2196F3;
+}
+
+.checkout-result-success {
+    color: #2196F3;
+}
+
+.checkout-result-failure {
+    color: #c74e45;
+}
