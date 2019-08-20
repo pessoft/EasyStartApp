@@ -20,7 +20,8 @@
 .history-order,
 #product .product-full-info-set-review textarea,
 #basket .product-full-info-set-review textarea,
-.review-item {
+.review-item,
+.area-delivery-item {
     border-color: #232222;
 }
 
@@ -85,7 +86,8 @@
 
 #firstStartSettingPhone input[type=text],
 #checkout input[type=text],
-#checkout input[type=number] {
+#checkout input[type=number],
+.area-delivery {
     color: #6b6b6b;
     border-color: #777777;
 }
@@ -106,7 +108,7 @@ stock-description-close {
 }
 
 .basket-counter-button {
-    background-color: #131313;
+    background-color: #525252;
 }
 
 .basket-count-info {
@@ -172,4 +174,12 @@ svg {
 
 .checkout-result-failure {
     color: #808080;
+}
+
+.backdoor {
+    background-color: rgba(93, 88, 88, 0.77);
+}
+
+.addition-background {
+    background-color: #131313;
 }

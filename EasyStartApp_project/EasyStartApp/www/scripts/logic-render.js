@@ -506,6 +506,8 @@ function scrollTop(e) {
 function clearPageCheckout() {
     var $page = $(Pages.Checkout);
 
+    $page.find("#area-delivery").html("Район доставки *");
+    $page.find("#area-delivery").removeAttr("selected");
     $page.find("#delivery-cash-back").val("");
     $page.find(".delivery-cash-back").removeClass("hide");
     $page.find("input[type=text]").val("");

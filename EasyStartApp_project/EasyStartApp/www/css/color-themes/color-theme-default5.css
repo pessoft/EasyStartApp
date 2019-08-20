@@ -20,7 +20,8 @@
 .history-order,
 #product .product-full-info-set-review textarea,
 #basket .product-full-info-set-review textarea,
-.review-item {
+.review-item,
+.area-delivery-item {
     border-color: #d6d6d6;
 }
 
@@ -85,7 +86,8 @@
 
 #firstStartSettingPhone input[type=text],
 #checkout input[type=text],
-#checkout input[type=number] {
+#checkout input[type=number],
+.area-delivery {
     color: #171717;
     border-color: #777777;
 }
@@ -172,4 +174,11 @@ svg {
 
 .checkout-result-failure {
     color: #c74e45;
+}
+
+.backdoor {
+    background-color: rgba(93, 88, 88, 0.77);
+}
+
+.addition-background {
 }

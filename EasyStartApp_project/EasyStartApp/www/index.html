@@ -463,7 +463,7 @@
         </div>
         <div class="content">
             <div class="order-collect-info">
-                <div class="order-collect-item">
+                <div class="order-collect-item addition-background">
                     <div class="collect-item-header">
                         Контактные данные
                     </div>
@@ -472,7 +472,7 @@
                         <input type="text" id="collect-item-phone-number" value="" placeholder="Номер телефона" />
                     </div>
                 </div>
-                <div class="order-collect-item">
+                <div class="order-collect-item addition-background">
                     <div class="collect-item-header">
                         Способ получения
                     </div>
@@ -487,11 +487,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="order-collect-item hide" id="address-order-delivery">
+                <div class="order-collect-item hide addition-background" id="address-order-delivery">
                     <div class="collect-item-header">
                         Адрес доставки
                     </div>
                     <div class="collect-item-conten">
+                        <div class="area-delivery" id="area-delivery">Район доставки *</div>
                         <input type="text" value="" id="collect-item-street" placeholder="Улица *" />
                         <div class="collect-item-address-row">
                             <input type="text" value="" id="collect-item-home-number" placeholder="Дом, корпус *" />
@@ -504,7 +505,7 @@
                         <input type="text" value="" id="collect-item-intercom-code" placeholder="Код домофона" />
                     </div>
                 </div>
-                <div class="order-collect-item">
+                <div class="order-collect-item addition-background">
                     <div class="collect-item-header">
                         Способ оплаты
                     </div>
@@ -526,7 +527,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="order-collect-item">
+                <div class="order-collect-item addition-background">
                     <div class="collect-item-header">
                         Коментарий к заказу
                     </div>
@@ -535,7 +536,7 @@
                     </div>
                 </div>
 
-                <div class="order-collect-item order-collect-item-price-info">
+                <div class="order-collect-item order-collect-item-price-info addition-background">
                     <div class="collect-item-result-price color-dark">
                         <div class="result-price-item" id="collect-item-sum-price">
                             <div class="result-price-item-name">Сумму заказа</div>
@@ -862,6 +863,25 @@
                 <div class="stock-item-description-text">
                 </div>
             </div>
+        </div>
+    </template>
+
+    <template id="dialog-template">
+        <div class="backdoor">
+            <div class="dialog-body page-background-color page-color">
+                <div class="dialog-header"></div>
+                <div class="dialog-close">
+                    <i class="fal fa-times-circle"></i>
+                </div>
+                <div class="dialog-content"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="area-delivery-item-template">
+        <div class="area-delivery-item">
+            <div class="area-name"></div>
+            <div class="area-price"></div>
         </div>
     </template>
 

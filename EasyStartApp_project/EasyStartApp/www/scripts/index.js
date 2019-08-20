@@ -1,7 +1,16 @@
 ﻿$(document).ready(function () {
     document.addEventListener("deviceready", onDeviceReady, false);
     loadData();
+    bindAreaDelivery()
 });
+
+function bindAreaDelivery() {
+    var actionClick = function () {
+        showAreaDelivery(Pages.Checkout);
+    };
+
+    $("#area-delivery").bind("click", actionClick);
+}
 
 $(document).bind('pagechange', function () {
     if ($.mobile.activePage.is(Pages.History)) {
@@ -344,9 +353,9 @@ function getStringsPrice() {
         sumOrder += product.Price * Basket.Products[id];
     }
 
-    var sumDelivery = sumOrder >= DeliverySetting.FreePriceDelivery ? 0 : DeliverySetting.PriceDelivery;
+    var minPriceDelivery = getMinAreaDelivery();
+    var sumDelivery = sumOrder >= minPriceDelivery ? 0 : DeliverySetting.PriceDelivery;
     var orderPrice = (sumOrder - (sumOrder * Basket.Discount / 100));
-    var allPrice = getPriceValid(orderPrice + Basket.DeliveryPrice);
     var stringsPrice = {
         Discount: "Скидка: " + Basket.Discount + "%",
         SumOrder: "Заказ: " + getPriceValid(sumOrder) + " руб.",
@@ -357,6 +366,8 @@ function getStringsPrice() {
     return stringsPrice;
 }
 
+
+
 function calcOrderPrice() {
     var sumOrder = 0;
 
@@ -365,7 +376,7 @@ function calcOrderPrice() {
         sumOrder += product.Price * Basket.Products[id];
     }
 
-    var sumDelivery = sumOrder >= DeliverySetting.FreePriceDelivery ? 0 : DeliverySetting.PriceDelivery;
+    var sumDelivery = sumOrder >= getMaxAreaDelivery() ? 0 : DeliverySetting.PriceDelivery;
 
     Basket.OrderPrice = sumOrder;
     Basket.DeliveryPrice = sumDelivery;
@@ -500,9 +511,34 @@ function getPhonesStr() {
     return str;
 }
 
+function getMinAreaDelivery() {
+    var minPrice = 999999;
+
+    for (var i = 0; i < DeliverySetting.AreaDeliveries.length; ++i) {
+        if (minPrice > DeliverySetting.AreaDeliveries[i].MinPrice) {
+            minPrice = DeliverySetting.AreaDeliveries[i].MinPrice;
+        }
+    }
+
+    return minPrice;
+}
+
+function getMaxAreaDelivery() {
+    var maxPrice = 0;
+
+    for (var i = 0; i < DeliverySetting.AreaDeliveries.length; ++i) {
+        if (maxPrice < DeliverySetting.AreaDeliveries[i].MinPrice) {
+            maxPrice = DeliverySetting.AreaDeliveries[i].MinPrice;
+        }
+    }
+
+    return maxPrice;
+}
+
 function getPriceDeliveryStr() {
-    var str = "Бесплатная доставка при заказе от " +
-        DeliverySetting.FreePriceDelivery + " руб.<br>" +
+    var minPriceDelivery = getMinAreaDelivery();
+    var str = "Бесплатная доставка при заказе на сумму от " +
+        getPriceValid(minPriceDelivery) + " руб.<br>" +
         "Стоимость доставки: " + DeliverySetting.PriceDelivery + " руб."
 
     return str;
@@ -630,6 +666,14 @@ function changeCheckoutDeliveryType(e) {
         amount = getAmountPayWithDiscount();
     }
 
+    amountCheckoutRecalc(amount);
+}
+
+function changeDeliveryPrice() {
+    $("#collect-item-delivery-price .result-price-item-value").html(getPriceValid(Basket.DeliveryPrice) + " руб.");
+}
+
+function amountCheckoutRecalc(amount) {
     $("#collect-item-result-sum-price .result-price-item-value").html(amount + " руб.");
     changeCheckoutDiscountInfo();
 }
@@ -681,11 +725,15 @@ function checkoutValid() {
     }
 
     if ($("#collect-delivery-radio").is(":checked")) {
+        var areaSelected = $("#area-delivery").attr("selected") == "selected";
         var streetValid = $("#collect-item-street").val().length != 0;
         var homeNumberValid = $("#collect-item-home-number").val().length != 0;
         var entranceNumberValid = $("#collect-item-entrance-number").val().length != 0;
         var apartamentNumberValid = $("#collect-item-apartament").val().length != 0;
 
+        if (!areaSelected) {
+            messages.push("Укажите район доставки");
+        }
         if (!streetValid) {
             messages.push("Укажите улицу");
         }
@@ -885,4 +933,66 @@ function getStockByType(type) {
     }
 
     return null;
+}
+
+function showAreaDelivery(pageId) {
+    var $dialog = $($("#dialog-template").html());
+    var items = [];
+
+    $dialog.find(".dialog-header").html("Район доставки");
+
+    for (var id in DeliverySetting.AreaDeliveries) {
+        var $item = $($("#area-delivery-item-template").html());
+        var area = DeliverySetting.AreaDeliveries[id];
+        var templateText = "Бесплатная доставка при заказе от " + getPriceValid(area.MinPrice) + " руб."
+
+        $item.attr("id", area.UniqId);
+        $item.find(".area-name").html(area.NameArea);
+        $item.find(".area-price").html(templateText);
+
+        $item.bind("click", function () { selectArea(this) });
+
+        items.push($item);
+    }
+
+    $dialog.find(".dialog-content").append(items);
+    bindCloseDialog($dialog);
+    $(pageId).append($dialog);
+}
+
+function bindCloseDialog($dialog) {
+    $dialog.find(".dialog-close").bind("click", function () { dialogClose($dialog) });
+}
+
+function dialogClose($dialog) {
+    $dialog.remove()
+}
+
+function selectArea(e) {
+    var $e = $(e);
+    var uniqId = $e.attr("id");
+    var area = getAreaDeliveryByUniqId(uniqId);
+    var $area = $("#area-delivery");
+
+    $area.html(area.NameArea);
+    $area.attr("selected", true)
+
+    if (area.MinPrice < Basket.OrderPrice) {
+        Basket.DeliveryPrice = 0;
+    } else {
+        Basket.DeliveryPrice = DeliverySetting.PriceDelivery
+    }
+
+    changeDeliveryPrice();
+    amountCheckoutRecalc(getAmountPayWithDiscountDelivery());
+
+    dialogClose($e.parents(".backdoor"));
+}
+
+function getAreaDeliveryByUniqId(uniqId) {
+    for (var id in DeliverySetting.AreaDeliveries) {
+        if (DeliverySetting.AreaDeliveries[id].UniqId == uniqId) {
+            return DeliverySetting.AreaDeliveries[id];
+        }
+    }
 }
