@@ -13,13 +13,8 @@
 };
 
 function renderLoadRedy() {
-    if (isFirstStart()) {
-        render(Pages.FirstStartSettingPhone);
-        changePage(Pages.FirstStartSettingPhone);
-    } else {
-        render(Pages.Catalog);
-        changePage(Pages.Catalog);
-    }
+    render(Pages.Catalog);
+    changePage(Pages.Catalog);
 }
 
 function render(pageId, data) {

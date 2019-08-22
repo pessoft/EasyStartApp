@@ -3,6 +3,7 @@
 //var ServiceURL = "http://easy-start-test.site";
 
 var API = {
+    GetCityBranches: ServiceURL + "/api/adminapp/getcitybranches",
     GetAllowedCity: ServiceURL + "/api/adminapp/getallowedcity",
     GetCategories: ServiceURL + "/api/adminapp/getcategories",
     GetProducts: ServiceURL + "/api/adminapp/getproducts",
@@ -21,6 +22,7 @@ var API = {
 
 var Data = {
     AllowedCity: null,
+    CityBranches: null,
     SelectCity: null,
     Categories: null,
     Products: {},
@@ -35,7 +37,8 @@ var ProductReview = {};
 var ClientSetting = {
     PhoneNumber: null,
     CityId: null,
-    CurrentCategory: null
+    CurrentCategory: null,
+    BranchId: null
 };
 
 var Discount = {
@@ -167,6 +170,18 @@ function getAllowedCityPromise() {
     });
 }
 
+function getGetCityBranchesPromise() {
+    return new Promise(function (resolve, reject) {
+        var successFunc = function successFunc(data) {
+            Data.CityBranches = data;
+
+            resolve();
+        };
+
+        getAPI(API.GetCityBranches, null, successFunc, reject);
+    });
+}
+
 function getCategoriesPromise() {
     return new Promise(function (resolve, reject) {
         var successFunc = function successFunc(data) {
@@ -175,7 +190,11 @@ function getCategoriesPromise() {
             resolve();
         };
 
-        getAPI(API.GetCategories, null, successFunc, reject);
+        if (ClientSetting.BranchId < 1) {
+            reject();
+        } else {
+            getAPI(API.GetCategories, { branchId: ClientSetting.BranchId }, successFunc, reject);
+        }
     });
 }
 
@@ -190,7 +209,11 @@ function getAllProductPromise() {
             resolve();
         };
 
-        getAPI(API.GetAllProducts, null, successFunc, reject);
+        if (ClientSetting.BranchId < 1) {
+            reject();
+        } else {
+            getAPI(API.GetAllProducts, { branchId: ClientSetting.BranchId }, successFunc, reject);
+        }
     });
 }
 

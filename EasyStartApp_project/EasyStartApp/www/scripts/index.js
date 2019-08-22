@@ -1,7 +1,16 @@
 ﻿$(document).ready(function () {
     document.addEventListener("deviceready", onDeviceReady, false);
-    loadData();
-    bindAreaDelivery()
+
+    changePage(Pages.Logo);
+    setClientSettingData();
+    checkActualUserDataPromise().
+        then(function () {
+            startApp();
+            bindAreaDelivery();
+        }).
+        catch(function (er) {
+            changePage(Pages.Logo);
+        });
 });
 
 function bindAreaDelivery() {
@@ -45,20 +54,60 @@ function loadURL(url) {
     return false;
 }
 
-function loadData() {
+function startApp() {
+    if (isFirstStart()) {
+        Promise.all([
+            getAllowedCityPromise(),
+            getGetCityBranchesPromise()
+        ]).then(function (results) {
+            render(Pages.FirstStartSettingPhone);
+            changePage(Pages.FirstStartSettingPhone);
+        }).catch(function (er) {
+            changePage(Pages.Logo);
+        });
+    } else {
+        loadData();
+    }
+}
+
+function loadAfterRegisterData(loader) {
     setClientSettingData();
 
+    Promise.all([
+        getCategoriesPromise(),
+        getAllProductPromise(),
+        getStockPromise(),
+        getDeliverySetting(ClientSetting.CityId),
+        getSetting(ClientSetting.CityId),
+    ]).then(function (results) {
+        if (loader) {
+            loader.stop();
+        }
+
+        loadDataReady();
+        setSettings();
+    }).catch(function (er) {
+        changePage(Pages.Logo);
+    });
+}
+
+function setSettings() {
+    var dataInfo = getDataInfo();
+    render(Pages.Info, dataInfo);
+}
+
+function loadData() {
     Promise.all([
         getAllowedCityPromise(),
         getCategoriesPromise(),
         getAllProductPromise(),
         getStockPromise(),
-        checkActualUserDataPromise()
+        getGetCityBranchesPromise(),
+        getDeliverySetting(ClientSetting.CityId),
+        getSetting(ClientSetting.CityId),
     ]).then(function (results) {
         loadDataReady();
-        if (!isFirstStart()) {
-            loadSettings();
-        }
+        setSettings();
     }).catch(function (er) {
         changePage(Pages.Logo);
     });
@@ -72,6 +121,7 @@ function setClientSettingData() {
     ClientSetting.PhoneNumber = window.localStorage.getItem("phoneNumber");
     ClientSetting.CityId = window.localStorage.getItem("cityId");
     ClientSetting.ClientId = window.localStorage.getItem("clientId");
+    ClientSetting.BranchId = window.localStorage.getItem("branchId");
 }
 
 function clearClientSettingData() {
@@ -79,6 +129,7 @@ function clearClientSettingData() {
     window.localStorage.removeItem("cityId");
     window.localStorage.removeItem("clientId");
     window.localStorage.removeItem("isFirstOrder");
+    window.localStorage.removeItem("branchId");
 
     clearClientRating();
 }
@@ -123,18 +174,11 @@ function setSelectCity() {
     var cityId = $(Pages.FirstStartSettingCity + " .active-city-item").attr("city-id");
 
     window.localStorage.setItem("cityId", cityId);
+    window.localStorage.setItem("branchId", Data.CityBranches[cityId]);
     ClientSetting.CityId = cityId;
+    ClientSetting.BranchId = Data.CityBranches[cityId];
 
-    var startApp = function () {
-        loadSettings();
-
-        render(Pages.Catalog);
-        changePage(Pages.Catalog);
-
-        loader.stop();
-    }
-
-    getStockPromise().then(function (result) { startApp() });
+    loadAfterRegisterData(loader);
 }
 
 function inputEnterPhoneNumber() {
@@ -163,7 +207,7 @@ function processingImagePath(data) {
 function processingImagePathAndDescription(data) {
     for (var i = 0; i < data.length; ++i) {
         data[i].Image = replaceImagePathPath(data[i].Image);
-        data[i].Description = data[i].Description.replace(/\n/g,"<br>")
+        data[i].Description = data[i].Description.replace(/\n/g, "<br>")
     }
 
     return data;
@@ -423,16 +467,6 @@ function removeProductFromBasket(event, e) {
 //        getDeliverySetting(ClientSetting.CityId);
 //    }
 //}
-
-function loadSettings() {
-    Promise.all([
-        getDeliverySetting(ClientSetting.CityId),
-        getSetting(ClientSetting.CityId),
-    ]).then(function (results) {
-        var dataInfo = getDataInfo();
-        render(Pages.Info, dataInfo);
-    });
-}
 
 function getWorkTime() {
     var workDays = {};
