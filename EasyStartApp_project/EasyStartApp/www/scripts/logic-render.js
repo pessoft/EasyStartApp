@@ -297,6 +297,11 @@ function renderHistoryOrderItem(order) {
         for (var productId in order.ProductCount) {
             var count = order.ProductCount[productId];
             var product = getDataProductyById(productId);
+
+            if (!product) {
+                continue
+            }
+
             var priceItemProduct = count + " х " + getPriceValid(product.Price) + " руб.";
             var itemProductHistory = {
                 Image: product.Image,

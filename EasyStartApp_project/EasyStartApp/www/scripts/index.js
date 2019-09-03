@@ -83,7 +83,7 @@ function loadAfterRegisterData(loader) {
         if (loader) {
             loader.stop();
         }
-
+        Data.HistoryOrder = []
         loadDataReady();
         setSettings();
     }).catch(function (er) {

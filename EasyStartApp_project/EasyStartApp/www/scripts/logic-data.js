@@ -306,7 +306,7 @@ function GetHistoryOrder(renderSuccessHistoryOrder, renderErrorHistoryOrder) {
         return;
     }
 
-    getAPI(API.GetHistoryOrder, { clientId: ClientSetting.ClientId }, successFunc, renderErrorHistoryOrder);
+    postAPI(API.GetHistoryOrder, { clientId: ClientSetting.ClientId, branchId: ClientSetting.BranchId }, successFunc, renderErrorHistoryOrder);
 }
 
 function updateProducRating(productId, score) {
